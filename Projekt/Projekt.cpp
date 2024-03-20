@@ -3,7 +3,8 @@ using namespace std;
 
 int main()
 {
-    //dk 
+    //dk
+    // Jest zajebiscie ogarnalem 
     cout << "Hello World!\n";
 
     return 0;
