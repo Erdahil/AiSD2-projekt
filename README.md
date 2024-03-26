@@ -4,3 +4,4 @@ członkowie grupy:
 - Paweł Charysz (Erdahil)
 - Dominik Dylewski (Dylesiuu)
 - Natalia Rutkowska (ruteczeq)
+- Urszula Wróblewska (uwroblewska)
