@@ -11,8 +11,9 @@ private:
 
 public:
 	void generateGraph();
-	void probaOutputu();
+	void probaOutputu();//testowa
 	void setn(int n);//do testow na razie tylko - idk czy bedzie potrzebne
 	void outputGraph();
+	void inputGraph();
 };
 

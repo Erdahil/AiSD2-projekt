@@ -62,6 +62,13 @@ void Graph::generateGraph()
 
 }
 
+void Graph::inputGraph()
+{
+	std::cout << "Podaj ilosc wierzcholkow:\n";
+	std::cin >> n;
+
+}
+
 void Graph::probaOutputu()
 {
 	std::cout << n << '\n';

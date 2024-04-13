@@ -32,7 +32,7 @@ int main()
     }
     else if (c == 'r')
     {
-
+        g1.inputGraph();
     }
 
     return 0;
