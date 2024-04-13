@@ -20,7 +20,15 @@ int main()
     if (c == 'g')
     {
         g1.generateGraph();
+        g1.outputGraph();
+
+        
+        //g1.generateGraph();
+        //g1.probaOutputu();
+        /* testy
+        g1.setn(10);
         g1.probaOutputu();
+        */
     }
     else if (c == 'r')
     {
