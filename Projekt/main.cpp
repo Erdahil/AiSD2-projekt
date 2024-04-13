@@ -33,6 +33,7 @@ int main()
     else if (c == 'r')
     {
         g1.inputGraph();
+        g1.outputGraph();
     }
 
     return 0;

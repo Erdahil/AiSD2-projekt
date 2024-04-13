@@ -85,14 +85,16 @@ void Graph::inputGraph()
 		std::cout << "Podaj do ilu wierzcholkow mozna dojsc z wierzcholka o id: " << i << '\n';
 		std::cin >> numberOfEdges;
 		v[i].getEdges()->resize(numberOfEdges);
+		std::cout << "Podaj id i maksymalny przeplyw krawedzi do tych wierzcholkow: \n";
+
 		for (int j = 0; j < numberOfEdges; j++)
 		{
-			std::cout << "Podaj id wierzcholka i maksymalny przeplyw krawedzi do niego: \n";
 			std::cin >> (*v[i].getEdges())[j].first >> (*v[i].getEdges())[j].second;
 		}
-		std::cout << "Podaj id wierzcholka w ktorym jest fabryka: \n";
-		std::cin >> factory;
+		
 	}
+	std::cout << "Podaj id wierzcholka w ktorym jest fabryka: \n";
+	std::cin >> factory;
 }
 
 void Graph::probaOutputu()
@@ -109,12 +111,13 @@ void Graph::outputGraph() //wyswietla graf
 {
 	std::cout << "ilosc wierzcholkow: " << n << '\n';
 	std::cout << "id wierzcholka w ktorym jest fabryka: " << factory << '\n';
+	std::cout << "-----------------\n";
 
 	for (int i = 0; i < n; i++)
 	{
-		std::cout << "id wierzholka:" << i << '\n';
+		std::cout << "id wierzholka: " << i << '\n';
 		std::cout << "x: " << v[i].getx() << " y: " << v[i].gety() << '\n';
-		std::cout << "mozna do niego dojsc do: ";
+		std::cout << "mozna do niego dojsc do: |id(max przeplyw)| ";
 		if (v[i].getEdges()->empty())
 		{
 			std::cout << "zadnego";
