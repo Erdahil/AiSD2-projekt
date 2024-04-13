@@ -8,6 +8,7 @@ class Graph
 private:
 	int n; // liczba wierzcholkow
 	std::vector<Vertex> v;
+	int factory;
 
 public:
 	void generateGraph();
