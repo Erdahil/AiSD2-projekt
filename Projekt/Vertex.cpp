@@ -11,6 +11,11 @@ void Vertex::setid(int id)
 	this->id = id;
 }
 
+void Vertex::setGroupid(int groupid)
+{
+	this->groupid = groupid;
+}
+
 float Vertex::getx()
 {
 	return x;
@@ -26,3 +31,7 @@ int Vertex::getid()
 	return id;
 }
 
+int Vertex::getGroupid()
+{
+	return groupid;
+}

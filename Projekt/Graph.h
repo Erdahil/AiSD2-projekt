@@ -12,6 +12,8 @@ private:
 
 public:
 	void generateGraph();
+	void fixGeneratedGraph();
+	void dfsForFix(int id, int groupid);
 	void probaOutputu();//testowa
 	void setn(int n);//do testow na razie tylko - idk czy bedzie potrzebne
 	void outputGraph();

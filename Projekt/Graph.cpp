@@ -14,10 +14,11 @@ void Graph::generateGraph()
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//generacja wszystkich wierzcholkow
 	{
-		int x = rand() % 20000 - 10000; //moga byc ujemne
-		int y = rand() % 20000 - 10000;
+		float x = (rand() % 20000 - 10000) / 100.0; //moga byc ujemne
+		float y = (rand() % 20000 - 10000) / 100.0;
 		v[i].setCoords(x, y);
 		v[i].setid(i);
+		v[i].setGroupid(0);
 	}
 
 	factory = rand() % n; // generacja polozenia fabryki;
@@ -64,6 +65,25 @@ void Graph::generateGraph()
 
 }
 
+void Graph::dfsForFix(int id, int groupid)
+{
+	v[id].setGroupid(groupid);
+	for (int i = 0; i < v[id].getEdges()->size(); i++)
+	{
+		if (v[(*v[id].getEdges())[i].first].getGroupid() == 0)
+		{
+			dfsForFix((*v[id].getEdges())[i].first, groupid);
+		}
+	}
+}
+
+void Graph::fixGeneratedGraph()
+{
+	int groupid = 1;
+	dfsForFix(factory, groupid);
+
+}
+
 void Graph::inputGraph()
 {
 	std::cout << "Podaj ilosc wierzcholkow:\n";
@@ -77,6 +97,7 @@ void Graph::inputGraph()
 		std::cin >> x >> y;
 		v[i].setCoords(x, y);
 		v[i].setid(i);
+		v[i].setGroupid(0);
 	}
 
 	for (int i = 0; i < v.size(); i++)//wpisanie krawedzi wychodzacych z wierzcholkow
@@ -116,6 +137,7 @@ void Graph::outputGraph() //wyswietla graf
 	for (int i = 0; i < n; i++)
 	{
 		std::cout << "id wierzholka: " << i << '\n';
+		std::cout << "groupid wierzholka: " << v[i].getGroupid() << '\n';
 		std::cout << "x: " << v[i].getx() << " y: " << v[i].gety() << '\n';
 		std::cout << "mozna do niego dojsc do: |id(max przeplyw)| ";
 		if (v[i].getEdges()->empty())

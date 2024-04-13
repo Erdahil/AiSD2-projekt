@@ -20,8 +20,8 @@ int main()
     if (c == 'g')
     {
         g1.generateGraph();
+        g1.fixGeneratedGraph();
         g1.outputGraph();
-
         
         //g1.generateGraph();
         //g1.probaOutputu();

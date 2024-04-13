@@ -6,6 +6,7 @@ class Vertex
 {
 private:
 	int id;
+	int groupid;
 	float x;
 	float y;
 	std::vector<std::pair<int, float>> edges; //id wierzcholkow do ktorych mozna dojsc z tego
@@ -19,7 +20,8 @@ public:
 	float getx();
 	float gety();
 	int getid();
+	int getGroupid();
 	void setid(int id);
-	
+	void setGroupid(int groupid);
 };
 
