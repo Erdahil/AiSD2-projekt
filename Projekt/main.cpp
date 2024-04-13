@@ -8,7 +8,7 @@ int main()
     //dk
     //ogarnalem 2
     //meow
-    cout << "Hello World!\n";
+    cout << "Hello World!\n"; //niech ktos to usunie pls
     cout << "Meow\n";
 
     char c;
@@ -20,7 +20,7 @@ int main()
     if (c == 'g')
     {
         g1.generateGraph();
-        g1.fixGeneratedGraph();
+        g1.fixGeneratedGraph();//sprawia ze graf staje sie drzewem o korzeniu w fabryce jesli nim nie byl
         g1.outputGraph();
         
         //g1.generateGraph();

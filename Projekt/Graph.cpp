@@ -19,6 +19,7 @@ void Graph::generateGraph()
 		v[i].setCoords(x, y);
 		v[i].setid(i);
 		v[i].setGroupid(0);
+		v[i].setIsLeader(false);
 	}
 
 	factory = rand() % n; // generacja polozenia fabryki;
@@ -77,11 +78,40 @@ void Graph::dfsForFix(int id, int groupid)
 	}
 }
 
+int Graph::ifConnected()
+{
+	for (int i = 0; i < v.size(); i++)
+	{
+		if (v[i].getGroupid() == 0)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 void Graph::fixGeneratedGraph()
 {
 	int groupid = 1;
 	dfsForFix(factory, groupid);
+	while (ifConnected() != -1)
+	{
+		int newid = ifConnected();
+		groupid++;
+		v[newid].setIsLeader(true);
+		dfsForFix(newid, groupid);
+	}
 
+	if (groupid > 1) //jesli powyzsza petla wykonala sie chociaz raz
+	{
+		for (int i = 0; i < v.size(); i++)
+		{
+			if (v[i].getIsLeader() == true)
+			{
+				v[factory].getEdges()->push_back(std::make_pair(i, rand() % 10000 / 100.0)); // tworzenie nowej krawedzi od fabryki do wczesniej nieosiagalnej czesci grafu i losowanie przeplywu
+			}
+		}
+	}
 }
 
 void Graph::inputGraph()
@@ -98,6 +128,7 @@ void Graph::inputGraph()
 		v[i].setCoords(x, y);
 		v[i].setid(i);
 		v[i].setGroupid(0);
+		v[i].setIsLeader(false);
 	}
 
 	for (int i = 0; i < v.size(); i++)//wpisanie krawedzi wychodzacych z wierzcholkow
@@ -106,7 +137,10 @@ void Graph::inputGraph()
 		std::cout << "Podaj do ilu wierzcholkow mozna dojsc z wierzcholka o id: " << i << '\n';
 		std::cin >> numberOfEdges;
 		v[i].getEdges()->resize(numberOfEdges);
-		std::cout << "Podaj id i maksymalny przeplyw krawedzi do tych wierzcholkow: \n";
+		if (numberOfEdges != 0)
+		{
+			std::cout << "Podaj id i maksymalny przeplyw krawedzi do tych wierzcholkow: \n";
+		}
 
 		for (int j = 0; j < numberOfEdges; j++)
 		{
@@ -137,7 +171,7 @@ void Graph::outputGraph() //wyswietla graf
 	for (int i = 0; i < n; i++)
 	{
 		std::cout << "id wierzholka: " << i << '\n';
-		std::cout << "groupid wierzholka: " << v[i].getGroupid() << '\n';
+		//std::cout << "groupid wierzholka: " << v[i].getGroupid() << '\n'; //----- do sprawdzenia dzialania fixGeneratedGraph()
 		std::cout << "x: " << v[i].getx() << " y: " << v[i].gety() << '\n';
 		std::cout << "mozna do niego dojsc do: |id(max przeplyw)| ";
 		if (v[i].getEdges()->empty())

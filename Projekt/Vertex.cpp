@@ -16,6 +16,11 @@ void Vertex::setGroupid(int groupid)
 	this->groupid = groupid;
 }
 
+void Vertex::setIsLeader(bool isLeader)
+{
+	this->isLeader = isLeader;
+}
+
 float Vertex::getx()
 {
 	return x;
@@ -34,4 +39,9 @@ int Vertex::getid()
 int Vertex::getGroupid()
 {
 	return groupid;
+}
+
+bool Vertex::getIsLeader()
+{
+	return isLeader;
 }

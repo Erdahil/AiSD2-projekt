@@ -13,7 +13,8 @@ private:
 public:
 	void generateGraph();
 	void fixGeneratedGraph();
-	void dfsForFix(int id, int groupid);
+	void dfsForFix(int id, int groupid); // funkcja uzywana przez fixGeneratedGraph();
+	int ifConnected(); // funkcja uzywana przez fixGeneratedGraph();
 	void probaOutputu();//testowa
 	void setn(int n);//do testow na razie tylko - idk czy bedzie potrzebne
 	void outputGraph();
