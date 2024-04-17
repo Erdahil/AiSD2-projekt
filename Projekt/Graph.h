@@ -11,7 +11,7 @@ private:
 	int factory;
 
 public:
-	void generateGraph();
+	void generateGraph();//generuje graf
 	void fixGeneratedGraph();
 	void dfsForFix(int id, int groupid); // funkcja uzywana przez fixGeneratedGraph();
 	int ifConnected(); // funkcja uzywana przez fixGeneratedGraph();

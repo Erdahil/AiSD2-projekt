@@ -1,19 +1,19 @@
 #include <iostream>
 #include <vector>
 #include "Graph.h"
-using namespace std;
+//using namespace std;
 
 int main()
 {
     //dk
     //ogarnalem 2
     //meow
-    cout << "Hello World!\n"; //niech ktos to usunie pls
-    cout << "Meow\n";
+    std::cout << "Hello World!\n"; //niech ktos to usunie pls
+    std::cout << "Meow\n";
 
     char c;
-    cout << "Wybierz czy chcesz wygenerowac graf [g], czy wprowadzic recznie [r]:\n";
-    cin >> c;
+    std::cout << "Wybierz czy chcesz wygenerowac graf [g], czy wprowadzic recznie [r]:\n";
+    std::cin >> c;
 
     Graph g1;
 
