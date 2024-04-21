@@ -15,6 +15,11 @@ int main()
     char c;
     std::cout << "Wybierz czy chcesz wygenerowac graf [g], czy wprowadzic recznie [r]:\n";
     std::cin >> c;
+    while (!(c == 'g' || c == 'r'))
+    {
+        std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+        std::cin >> c;
+    }
 
     Graph g1;
 
@@ -37,9 +42,14 @@ int main()
         g1.outputGraph();
     }
 
-    std::cout << "\n\n-----------------\n";
+    std::cout << "\n-----------------\n";
     std::cout << "Wybierz czy chcesz wygenerowac pary tragarzy [g], czy wprowadzic recznie [r]:\n";
     std::cin >> c;
+    while (!(c == 'g' || c == 'r'))
+    {
+        std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+        std::cin >> c;
+    }
 
     Pairs p1;
 
@@ -50,6 +60,8 @@ int main()
     }
     else if (c == 'r')
     {
+        p1.inputPairs();
+        p1.outputPairs();
     }
 
     return 0;

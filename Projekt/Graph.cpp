@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "Graph.h"
 
 
@@ -118,6 +119,11 @@ void Graph::inputGraph()
 {
 	std::cout << "Podaj ilosc wierzcholkow:\n";
 	std::cin >> n;
+	while (n < 0)
+	{
+		std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
+		std::cin >> n;
+	}
 
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//wpisanie wszystkich wierzcholkow
@@ -136,20 +142,62 @@ void Graph::inputGraph()
 		int numberOfEdges;
 		std::cout << "Podaj do ilu wierzcholkow mozna dojsc z wierzcholka o id: " << i << '\n';
 		std::cin >> numberOfEdges;
+		while (numberOfEdges > 0 && numberOfEdges < n)
+		{
+			std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
+			std::cin >> numberOfEdges;
+		}
+
 		v[i].getEdges()->resize(numberOfEdges);
 		if (numberOfEdges != 0)
 		{
-			std::cout << "Podaj id i maksymalny przeplyw krawedzi do tych wierzcholkow: \n";
+			std::cout << "Podaj te wierzcholki: \n";
 		}
+		std::vector <int> contains; //do sprawdzenia czy ten juz byl podany
 
 		for (int j = 0; j < numberOfEdges; j++)
 		{
-			std::cin >> (*v[i].getEdges())[j].first >> (*v[i].getEdges())[j].second;
+			int tempID;
+			float tempFlow;
+			std::cout << "Podaj id wierzcholka z ktorym ten jest polaczony:\n";
+			std::cin >> tempID;
+
+			while (tempID < 0 || tempID == i || tempID >= n)
+			{
+				std::cout << "Bledne id; podaj jeszcze raz:\n";
+				std::cin >> tempID;
+			}
+
+			while (std::find(contains.begin(), contains.end(), tempID) != contains.end())
+			{
+				std::cout << "To id bylo juz podane; podaj jeszcze raz:\n";
+				std::cin >> tempID;
+			}
+			
+			contains.push_back(tempID);
+			
+			(*v[i].getEdges())[j].first = tempID;
+
+			std::cout << "Podaj maksymalny przeplyw krawedzi laczacej te wierzcholki:\n";
+			std::cin >> tempFlow;
+			while (tempFlow < 0)
+			{
+				std::cout << "Niepoprawna wartosc; podaj jeszcze raz:\n";
+				std::cin >> tempFlow;
+			}
+			(*v[i].getEdges())[j].second = tempFlow;
+
+			//std::cin >> (*v[i].getEdges())[j].first >> (*v[i].getEdges())[j].second; // ze starej wersji bez sprawdzania poprawnosci inputu
 		}
 		
 	}
 	std::cout << "Podaj id wierzcholka w ktorym jest fabryka: \n";
 	std::cin >> factory;
+	while (factory < 0 || factory >= n)
+	{
+		std::cout << "Bledne id; podaj jeszcze raz:\n";
+		std::cin >> factory;
+	}
 }
 
 void Graph::probaOutputu()
