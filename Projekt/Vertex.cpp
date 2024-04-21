@@ -1,5 +1,11 @@
 #include "Vertex.h"
 
+std::vector<std::pair<int, float>>* Vertex::getEdges()
+{
+	//std::vector<std::pair<int, float>>* e = edges;
+	return &edges;
+}
+
 void Vertex::setCoords(float x, float y)
 {
 	this->x = x;

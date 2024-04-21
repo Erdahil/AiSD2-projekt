@@ -13,11 +13,7 @@ private:
 	std::vector<std::pair<int, float>> edges; //id wierzcholkow do ktorych mozna dojsc z tego
 public:
 	void setCoords(float x, float y);
-	std::vector<std::pair<int, float>>* getEdges()
-	{
-		//std::vector<std::pair<int, float>>* e = edges;
-		return &edges;
-	}
+	std::vector<std::pair<int, float>>* getEdges();
 	float getx();
 	float gety();
 	int getid();
