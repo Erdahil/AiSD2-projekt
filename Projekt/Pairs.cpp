@@ -14,7 +14,7 @@ void Pairs::generatePairs()
 		if (i < r) // losujemy ile wychodzi tylko dla tych z jednej strony
 		{
 			int randLikes = rand() % l;
-			std::vector<int>* likes = carriers[i].getLikes();
+			std::vector<std::pair<int, float>>* likes = carriers[i].getLikes();
 			carriers[i].setNumberOfLikes(randLikes);
 			carriers[i].getLikes()->resize(randLikes);
 			std::vector<int> alreadyIn;
@@ -40,7 +40,8 @@ void Pairs::generatePairs()
 				}
 				alreadyIn[addingCarrierID] = 1;
 
-				(*likes)[j] = addingCarrierID;
+				(*likes)[j].first = addingCarrierID;
+				(*likes)[j].second = 1.0;
 			}
 		}
 	}
@@ -67,7 +68,7 @@ void Pairs::outputPairs()
 		{
 			for (int j = 0; j < carriers[i].getLikes()->size(); j++)
 			{
-				std::cout << (*carriers[i].getLikes())[j] << ' ';
+				std::cout << (*carriers[i].getLikes())[j].first << ' ';
 			}
 		}
 

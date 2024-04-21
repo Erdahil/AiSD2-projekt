@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-//#include <utility> //zawiera pair - mozliwe ze bedzie potrzebne przy szukaniu par - na razie nie robie tego
+#include <utility> //zawiera pair - mozliwe ze bedzie potrzebne przy szukaniu par - na razie nie robie tego
 
 // pojedynczy tragarz
 
@@ -9,9 +9,9 @@ class Carrier
 private:
 	int id;
 	int numberOfLikes;
-	std::vector<int> likes;
+	std::vector<std::pair<int, float>> likes;
 public:
-	std::vector<int>* getLikes();
+	std::vector<std::pair<int, float>>* getLikes();
 	void setid(int id);
 	void setNumberOfLikes(int l);
 	int getid();
