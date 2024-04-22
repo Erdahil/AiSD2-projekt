@@ -14,11 +14,12 @@ int main()
 
     char c;
     std::cout << "Wybierz czy chcesz wygenerowac graf [g], czy wprowadzic recznie [r]:\n";
-    std::cin >> c;
-    while (!(c == 'g' || c == 'r'))
+    
+    while (!(std::cin >> c) || !(c == 'g' || c == 'r'))
     {
+        std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
         std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
-        std::cin >> c;
     }
 
     Graph g1;
@@ -44,11 +45,12 @@ int main()
 
     std::cout << "\n-----------------\n";
     std::cout << "Wybierz czy chcesz wygenerowac pary tragarzy [g], czy wprowadzic recznie [r]:\n";
-    std::cin >> c;
-    while (!(c == 'g' || c == 'r'))
+ 
+    while (!(std::cin >> c) || !(c == 'g' || c == 'r'))
     {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
-        std::cin >> c;
     }
 
     Pairs p1;

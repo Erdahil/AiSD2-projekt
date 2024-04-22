@@ -51,18 +51,19 @@ void Pairs::generatePairs()
 void Pairs::inputPairs()
 {
 	std::cout << "Podaj ilosc tragarzy z rekami w prawo:\n";
-	std::cin >> r;
-	while (r < 0)
+	while (!(std::cin >> r) || r < 0)
 	{
+		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
 		std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
-		std::cin >> r;
 	}
+
 	std::cout << "Podaj ilosc tragarzy z rekami w lewo:\n";
-	std::cin >> l;
-	while (l < 0)
+	while (!(std::cin >> l) || l < 0)
 	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
-		std::cin >> l;
 	}
 
 	std::cout << "Wczytywanie danych dla tragarzy z rekami w prawo!\nDla tych z rekami w lewo zostanie uzupelnione przez program\n";
@@ -71,27 +72,27 @@ void Pairs::inputPairs()
 	{
 		int numLikes;
 		std::cout << "Podaj ilu tragarzy ktorych lubi tragarz o id " << i << ":\n";
-		std::cin >> numLikes;
 
-		while (numLikes < 0 || numLikes > l)
+		while (!(std::cin >> numLikes) || numLikes < 0 || numLikes > l)
 		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
-			std::cin >> numLikes;
 		}
 
 		carriers[i].getLikes()->resize(numLikes);
 		if (numLikes > 0)
 		{
-			std::cout << "Podaj id tych tragarzy:\n";
+			std::cout << "Podaj id tych tragarzy, ktorych lubi (musza byc z rekami skierowanymi w lewo od " << l << " do " << l + r - 1<<" wlacznie ):\n";
 			std::vector <int> contains;//do sprawdzenia czy ten juz byl podany
 			for (int j = 0; j < numLikes; j++)
 			{
 				int newLike;
-				std::cin >> newLike;
-				while (!(newLike >= r && newLike < l + r))
+				while (!(std::cin >> newLike) || !(newLike >= r && newLike < l + r))
 				{
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					std::cout << "Bledne id; podaj jeszcze raz:\n";
-					std::cin >> newLike;
 				}
 
 				while (std::find(contains.begin(), contains.end(), newLike) != contains.end())

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <limits>
 #include "Graph.h"
 
 
@@ -116,13 +117,14 @@ void Graph::fixGeneratedGraph()
 }
 
 void Graph::inputGraph()
-{
+{;
 	std::cout << "Podaj ilosc wierzcholkow:\n";
-	std::cin >> n;
-	while (n < 0)
+
+	while (!(std::cin >> n) || n < 0)
 	{
+		std::cin.clear(); //czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
 		std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
-		std::cin >> n;
 	}
 
 	v.resize(n);
@@ -130,7 +132,12 @@ void Graph::inputGraph()
 	{
 		int x, y;
 		std::cout << "Podaj koordynaty wierzcholka o id: " << i << '\n';
-		std::cin >> x >> y;
+		while (!(std::cin >> x >> y))
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Niepoprawne koordynaty wierzcholkow, podaj jeszcze raz:\n";
+		}
 		v[i].setCoords(x, y);
 		v[i].setid(i);
 		v[i].setGroupid(0);
@@ -141,11 +148,12 @@ void Graph::inputGraph()
 	{
 		int numberOfEdges;
 		std::cout << "Podaj do ilu wierzcholkow mozna dojsc z wierzcholka o id: " << i << '\n';
-		std::cin >> numberOfEdges;
-		while (numberOfEdges > 0 && numberOfEdges < n)
+		
+		while (!(std::cin >> numberOfEdges) || !(numberOfEdges > 0 && numberOfEdges < n))
 		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
-			std::cin >> numberOfEdges;
 		}
 
 		v[i].getEdges()->resize(numberOfEdges);
@@ -160,18 +168,17 @@ void Graph::inputGraph()
 			int tempID;
 			float tempFlow;
 			std::cout << "Podaj id wierzcholka z ktorym ten jest polaczony:\n";
-			std::cin >> tempID;
 
-			while (tempID < 0 || tempID == i || tempID >= n)
+			while (!(std::cin >> tempID) || tempID < 0 || tempID == i || tempID >= n)
 			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				std::cout << "Bledne id; podaj jeszcze raz:\n";
-				std::cin >> tempID;
 			}
 
 			while (std::find(contains.begin(), contains.end(), tempID) != contains.end())
 			{
 				std::cout << "To id bylo juz podane; podaj jeszcze raz:\n";
-				std::cin >> tempID;
 			}
 			
 			contains.push_back(tempID);
@@ -179,11 +186,12 @@ void Graph::inputGraph()
 			(*v[i].getEdges())[j].first = tempID;
 
 			std::cout << "Podaj maksymalny przeplyw krawedzi laczacej te wierzcholki:\n";
-			std::cin >> tempFlow;
-			while (tempFlow < 0)
+
+			while (!(std::cin >> tempFlow) || tempFlow < 0)
 			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				std::cout << "Niepoprawna wartosc; podaj jeszcze raz:\n";
-				std::cin >> tempFlow;
 			}
 			(*v[i].getEdges())[j].second = tempFlow;
 
@@ -192,11 +200,12 @@ void Graph::inputGraph()
 		
 	}
 	std::cout << "Podaj id wierzcholka w ktorym jest fabryka: \n";
-	std::cin >> factory;
-	while (factory < 0 || factory >= n)
+	
+	while (!(std::cin >> factory) || factory < 0 || factory >= n)
 	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Bledne id; podaj jeszcze raz:\n";
-		std::cin >> factory;
 	}
 }
 
