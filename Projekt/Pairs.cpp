@@ -71,7 +71,7 @@ void Pairs::inputPairs()
 	for (int i = 0; i < r; i++)
 	{
 		int numLikes;
-		std::cout << "Podaj ilu tragarzy ktorych lubi tragarz o id " << i << ":\n";
+		std::cout << "Podaj ilu tragarzy lubi tragarz o id " << i << ":\n";
 
 		while (!(std::cin >> numLikes) || numLikes < 0 || numLikes > l)
 		{
@@ -83,7 +83,8 @@ void Pairs::inputPairs()
 		carriers[i].getLikes()->resize(numLikes);
 		if (numLikes > 0)
 		{
-			std::cout << "Podaj id tych tragarzy, ktorych lubi (musza byc z rekami skierowanymi w lewo od " << l << " do " << l + r - 1<<" wlacznie ):\n";
+			/*To jest stary kod, zostal zastapiony nowym kodem znajdujacym sie nizej
+			std::cout << "Podaj id tych tragarzy, ktorych lubi (musza byc z rekami skierowanymi w lewo od " << l << " do " << l + r - 1 << " wlacznie ):\n";
 			std::vector <int> contains;//do sprawdzenia czy ten juz byl podany
 			for (int j = 0; j < numLikes; j++)
 			{
@@ -103,6 +104,30 @@ void Pairs::inputPairs()
 
 				contains.push_back(newLike);
 				
+				(*carriers[i].getLikes())[j].first = newLike;
+				(*carriers[i].getLikes())[j].second = 1.0;
+			}*/
+
+			std::cout << "Podaj id tych tragarzy, ktorych lubi (id musi byc w przedziale od 0 do " << l - 1 << " wlacznie ):\n";
+			std::vector <int> contains;//do sprawdzenia czy ten juz byl podany
+			for (int j = 0; j < numLikes; j++)
+			{
+				int newLike;
+				while (!(std::cin >> newLike) || !((newLike += r) >= r && newLike < l + r))
+				{
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Bledne id; podaj jeszcze raz:\n";
+				} 
+
+				while (std::find(contains.begin(), contains.end(), newLike) != contains.end())
+				{
+					std::cout << "To id bylo juz podane; podaj jeszcze raz:\n";
+					std::cin >> newLike;
+				}
+
+				contains.push_back(newLike);
+
 				(*carriers[i].getLikes())[j].first = newLike;
 				(*carriers[i].getLikes())[j].second = 1.0;
 			}
@@ -131,7 +156,7 @@ void Pairs::outputPairs()
 		{
 			for (int j = 0; j < carriers[i].getLikes()->size(); j++)
 			{
-				std::cout << (*carriers[i].getLikes())[j].first << ' ';
+				std::cout << (*carriers[i].getLikes())[j].first - r << ' '; //odejmowanie r daje bardziej czytelny wynik zgodny z systemem indeksowania wyswietlanym w inputPairs()
 			}
 		}
 
