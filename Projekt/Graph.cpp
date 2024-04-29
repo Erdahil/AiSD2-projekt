@@ -1,7 +1,9 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <queue>
 #include "Graph.h"
+#include "Vertex.h"
 
 
 // deklaracje metod z klasy Graph
@@ -56,12 +58,12 @@ void Graph::generateGraph()
 				addingVertID = rand() % n;
 			}
 			alreadyIn[addingVertID] = 1;
-			
+
 			(*e)[j].first = addingVertID;
 			//std::cout << (*e)[j].first << std::endl;
 			(*e)[j].second = rand() % 10000 / 100.0; //losowanie przep³ywu
 			//std::cout << (*e)[j].second << std::endl;
-			
+
 			//alreadyIn.erase(alreadyIn.begin() + addingVertID); - niepotrzebne kompletnie
 		}
 	}
@@ -117,7 +119,8 @@ void Graph::fixGeneratedGraph()
 }
 
 void Graph::inputGraph()
-{;
+{
+	;
 	std::cout << "Podaj ilosc wierzcholkow:\n";
 
 	while (!(std::cin >> n) || n < 0)
@@ -148,7 +151,7 @@ void Graph::inputGraph()
 	{
 		int numberOfEdges;
 		std::cout << "Podaj do ilu wierzcholkow mozna dojsc z wierzcholka o id: " << i << '\n';
-		
+
 		while (!(std::cin >> numberOfEdges) || !(numberOfEdges > 0 && numberOfEdges < n))
 		{
 			std::cin.clear();
@@ -180,9 +183,9 @@ void Graph::inputGraph()
 			{
 				std::cout << "To id bylo juz podane; podaj jeszcze raz:\n";
 			}
-			
+
 			contains.push_back(tempID);
-			
+
 			(*v[i].getEdges())[j].first = tempID;
 
 			std::cout << "Podaj maksymalny przeplyw krawedzi laczacej te wierzcholki:\n";
@@ -197,10 +200,10 @@ void Graph::inputGraph()
 
 			//std::cin >> (*v[i].getEdges())[j].first >> (*v[i].getEdges())[j].second; // ze starej wersji bez sprawdzania poprawnosci inputu
 		}
-		
+
 	}
 	std::cout << "Podaj id wierzcholka w ktorym jest fabryka: \n";
-	
+
 	while (!(std::cin >> factory) || factory < 0 || factory >= n)
 	{
 		std::cin.clear();
@@ -242,9 +245,57 @@ void Graph::outputGraph() //wyswietla graf
 				std::cout << (*v[i].getEdges())[j].first << "(" << (*v[i].getEdges())[j].second << ") ";
 			}
 		}
-		
+
 		std::cout << '\n';
 	}
 }
 
+
+
+std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
+{
+	std::vector<Vertex> shortestPath;
+	std::vector<int> previous(n, -1); // zbior poprzednikow
+	std::vector<bool> visited(n, false);
+	std::queue<int> line; //do bfsa - kolejka, do dfa - stos
+
+	if (v.size() == 0)
+	{
+		return shortestPath; // pusty wektor, nwm czy nie lepiej wtedy -1, burza mozgow jest potrzebna
+	}
+
+	line.push(factory);
+	visited[factory] = true; //odwiedzamy fabryke jako pierwsza
+
+	while (!line.empty())
+	{
+		int current = line.front(); //bedziemy walczyc z pierwszym elementem kolejki
+		line.pop();
+
+
+		if (current == endnode) break; //jesli dotrzemy do ostatniego to znaczy, ze nie musimy juz dalej szukac
+
+
+		for (std::pair<int, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
+		{
+			if (!visited[neighbour.first])
+			{
+				visited[neighbour.first] = true;
+				previous[neighbour.first] = current;
+				line.push(neighbour.first);
+			}
+		}
+	}
+
+	for (int i = endnode; i != factory; i = previous[i])
+	{
+		shortestPath.push_back(v[i]);
+	}
+
+	shortestPath.push_back(v[factory]);
+
+
+	return shortestPath;
+
+}
 
