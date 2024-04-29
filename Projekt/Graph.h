@@ -13,6 +13,7 @@ private:
 	std::vector< std::vector<int>> neighbours;
 
 public:
+	//std::vector<Vertex> v; // zrobilam swapa narazie bo mnie cos wezmie zaraz, jestem zbyt glupia zeby ogarnac to jakos inazcej :33
 	void generateGraph();//generuje graf
 	void fixGeneratedGraph();
 	void dfsForFix(int id, int groupid); // funkcja uzywana przez fixGeneratedGraph();

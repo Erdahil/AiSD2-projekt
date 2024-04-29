@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Carrier.cpp" />
+    <ClCompile Include="ConvexHull.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pairs.cpp" />
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Carrier.h" />
+    <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Pairs.h" />
     <ClInclude Include="Vertex.h" />

@@ -2,6 +2,7 @@
 //#include <vector>
 #include "Graph.h"
 #include "Pairs.h"
+#include "ConvexHull.h"
 //using namespace std;
 
 int main()
@@ -66,5 +67,18 @@ int main()
         p1.outputPairs();
     }
 
+    // testowanie otoczki zakomentowala, bo zeby ja testowac to w graph.h wektora przerzucilam z private na public
+    /*
+    // Obliczanie otoczki wypuk³ej dla grafu g1
+    std::vector<Vertex> convexHull = ConvexHull::calculateConvexHull(g1.v); 
+
+    // Wyœwietlenie otoczki wypuk³ej
+    std::cout << "Otoczka wypukla:\n";
+    for (int i = 0; i < convexHull.size(); i++) 
+    {
+        std::cout << "id wierzcholka: " << convexHull[i].getid() << ", x: " << convexHull[i].getx() << ", y: " << convexHull[i].gety() << std::endl;
+    }
+    std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
+    */
     return 0;
 }
