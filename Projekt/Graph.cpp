@@ -299,3 +299,8 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 
 }
 
+std::vector<Vertex> Graph::getV()
+{
+	return v;
+}
+

@@ -68,9 +68,9 @@ int main()
     }
 
     // testowanie otoczki zakomentowala, bo zeby ja testowac to w graph.h wektora przerzucilam z private na public
-    /*
+    
     // Obliczanie otoczki wypuk³ej dla grafu g1
-    std::vector<Vertex> convexHull = ConvexHull::calculateConvexHull(g1.v); 
+    std::vector<Vertex> convexHull = ConvexHull::calculateConvexHull(g1.getV()); //usunalem tu z definicji funkcji & by dzialalo
 
     // Wyœwietlenie otoczki wypuk³ej
     std::cout << "Otoczka wypukla:\n";
@@ -79,6 +79,6 @@ int main()
         std::cout << "id wierzcholka: " << convexHull[i].getid() << ", x: " << convexHull[i].getx() << ", y: " << convexHull[i].gety() << std::endl;
     }
     std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
-    */
+    
     return 0;
 }

@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-std::vector<Vertex> ConvexHull::calculateConvexHull(std::vector<Vertex>& v) 
+std::vector<Vertex> ConvexHull::calculateConvexHull(std::vector<Vertex> v) 
 {
     int n = v.size();
     //if (n < 3) return std::vector<Vertex>(); //bo otoczka potrzebuje conajmniej 3 punktow, nwm czy to potrzebne, bo na poziomie genracji grafu juz odrzuca ta mozliwosc ig  
