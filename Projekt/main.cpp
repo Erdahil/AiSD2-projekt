@@ -99,6 +99,7 @@ int main()
         Melody m1;
 
         m1.generateMelody(20);
+        //m1.setMelody("wcvglcmrxq");
         m1.outputMelody();
         m1.encryptHuffman();
     }

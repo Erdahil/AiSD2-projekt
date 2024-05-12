@@ -36,6 +36,9 @@
     <ClCompile Include="Melody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TreeNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Melody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
