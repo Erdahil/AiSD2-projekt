@@ -2,6 +2,7 @@
 #include "TreeNode.h"
 #include <iostream>
 #include <queue>
+#include <map>
 //#include <utility>
 
 /*
@@ -88,11 +89,30 @@ void Melody::encryptHuffman()
 	delete outputTN;*/
 	root = q.top();
 
+	
+
+
 	//std::cout << outputTN->getLeft()->getLeft()->getn() << " costampiszeee\n";
 	//writeTree(q.top());
 	//deleteHuffmanTree(q.top());
 	//potem dokoncze //albo nie. Trudne to. i trza jeszcze destruktor napisac do ostatniego drzewa w kolejce
 
+}
+
+void Melody::makeHuffmanMap(TreeNode* temp)
+{
+	/*
+	if (temp->getc() == '-')
+	{
+
+		makeHuffmanMap(temp->getLeft());
+	}
+	else
+	{
+		mp[temp->getc()] = mapTemp;
+		mapTemp[mapTemp.size() - 1] = '\0';
+	}
+	*/
 }
 
 void Melody::deleteHuffmanTree(TreeNode* del)
