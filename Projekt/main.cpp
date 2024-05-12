@@ -100,6 +100,7 @@ int main()
 
         m1.generateMelody(20);
         m1.outputMelody();
+        m1.encryptHuffman();
     }
 
     

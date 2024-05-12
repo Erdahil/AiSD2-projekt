@@ -10,5 +10,7 @@ public:
 	void generateMelody(int len); // przyjmuje za argument dlugosc melodii
 	void outputMelody();//proste wypisanie melodii
 	void encryptHuffman();//NIE DZIALA JESZCZE //zaszyfrowanie melodii algorytmem Huffmana
+	void setMelody(std::string s);// dla testow Huffmana
+	void deleteHuffmanTree();//trza w destruktorze potem to wywolac jak bedzie dzialalo wogle
 };
 
