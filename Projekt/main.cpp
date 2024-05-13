@@ -67,6 +67,18 @@ int main()
         p1.outputPairs();
     }
 
+    //testowanie funkcji do zwracania max przeplywu
+    std::cout << "Czy chcesz sprawdziæ max przeplyw z fabryki do wierzcholka? t/n: ";
+    std::cin >> c;
+
+    if (c)
+    {
+        int id;
+        std::cout << "Podaj id wierzcholka: ";
+        std::cin >> id;
+        std::cout << "Max przeplyw to : " << g1.maximumFlow(id) << "\n";
+    }
+
     // testowanie otoczki zakomentowala, bo zeby ja testowac to w graph.h wektora przerzucilam z private na public
     /*
     // Obliczanie otoczki wypuk³ej dla grafu g1
