@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <utility>
+#include <tuple>
 
 class Vertex
 {
@@ -10,10 +11,10 @@ private:
 	bool isLeader; // jak wyzej
 	float x;
 	float y;
-	std::vector<std::pair<int, float>> edges; //id wierzcholkow do ktorych mozna dojsc z tego
+	std::vector<std::tuple<int, float, float>> edges; //id wierzcholkow do ktorych mozna dojsc z tego (id, max przeplyw, aktualny przeplyw)
 public:
 	void setCoords(float x, float y);
-	std::vector<std::pair<int, float>>* getEdges();
+	std::vector<std::tuple<int, float, float>>* getEdges();
 	float getx();
 	float gety();
 	int getid();

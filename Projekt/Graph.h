@@ -9,7 +9,6 @@ private:
 	int n; // liczba wierzcholkow
 	std::vector<Vertex> v;
 	int factory;
-
 	std::vector< std::vector<int>> neighbours;
 
 public:
@@ -22,6 +21,7 @@ public:
 	void setn(int n);//do testow na razie tylko - idk czy bedzie potrzebne
 	void outputGraph();
 	void inputGraph();
+	std::vector<Vertex> getV();
 
 
 	//std::vector<Vertex> getVerticesBFS(int endnode);
