@@ -253,132 +253,132 @@ void Graph::outputGraph() //wyswietla graf
 
 
 
-//std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
-//{
-//	std::vector<Vertex> shortestPath;
-//	std::vector<int> previous(n, -1); // zbior poprzednikow
-//	std::vector<bool> visited(n, false);
-//	std::queue<int> line; //do bfsa - kolejka, do dfa - stos
-//
-//	if (v.size() == 0)
-//	{
-//		return shortestPath; // pusty wektor, nwm czy nie lepiej wtedy -1, burza mozgow jest potrzebna
-//	}
-//
-//	line.push(factory);
-//	visited[factory] = true; //odwiedzamy fabryke jako pierwsza
-//
-//	while (!line.empty())
-//	{
-//		int current = line.front(); //bedziemy walczyc z pierwszym elementem kolejki
-//		line.pop();
-//
-//
-//		if (current == endnode) break; //jesli dotrzemy do ostatniego to znaczy, ze nie musimy juz dalej szukac
-//
-//
-//		for (std::pair<int, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
-//		{
-//			if (!visited[neighbour.first])
-//			{
-//				visited[neighbour.first] = true;
-//				previous[neighbour.first] = current;
-//				line.push(neighbour.first);
-//			}
-//		}
-//	}
-//
-//	for (int i = endnode; i != factory; i = previous[i])
-//	{
-//		shortestPath.push_back(v[i]);
-//	}
-//
-//	shortestPath.push_back(v[factory]);
-//
-//
-//	return shortestPath;
-//
-//}
-//
-//float Graph:: maximumFlow(int endnodeId)
-//{
-//	float maxFLow = 0;
-//	float newFlow = FLT_MAX;
-//	Vertex endnode = v[endnodeId];
-//
-//	std::vector<Vertex> path;
-//
-//	while (true)
-//	{
-//		path = getShortestPathBFS(endnode.getid());
-//
-//		if (path.size() == 0) break;
-//
-//		for (int i = path.size() - 1; i > 0; i--) //szuka najmniejszej przepustowosci na sciezce
-//		{
-//			int key = path[i - 1].getid();
-//
-//			std::vector<std::pair<int, float>>::iterator it = std::find_if(
-//				path[i].getEdges()->begin(), path[i].getEdges()->end(), 
-//				[&key](std::pair<int, float>& p) { return p.first == key; }); //zwraca pare, gzdie kluczem jest nastepny wierzcholek
-//
-//			if (newFlow > it->second)
-//			{
-//				newFlow = it->second;
-//			}
-//
-//		}
-//
-//		maxFLow += newFlow;
-//
-//		if (newFlow <= 0) break;
-//
-//		for (int i = 0; i < path.size() - 1; i++)
-//		{
-//			int currentId = path[i].getid();
-//			int previousId = path[i + 1].getid();
-//
-//			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
-//				v.begin(), v.end(),
-//				[&currentId](Vertex& p) { return p.getid() == currentId; });
-//			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednik wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
-//				v.begin(), v.end(),
-//				[&previousId](Vertex& p) { return p.getid() == previousId; });
-//			
-//
-//			std::vector<std::pair<int, float>>::iterator toPreviousPath = std::find_if( //znajduje odpowiednia droge wychodzaca z wierzcholka
-//				currentVertex->getEdges()->begin(), currentVertex->getEdges()->end(),
-//				[previousId](std::pair<int, float>& p) { return p.first == previousId; });
-//
-//			if (toPreviousPath == currentVertex->getEdges()->end())
-//			{
-//				(currentVertex->getEdges())->push_back(std::make_pair(previousId, newFlow));
-//			}
-//			else
-//			{
-//				toPreviousPath->second += newFlow;
-//			}
-//
-//
-//			std::vector<std::pair<int, float>>::iterator toCurrentPath = std::find_if( //znajduje odpowiednia droge wchodzaca do wierzcholka
-//				previousVertex->getEdges()->begin(), previousVertex->getEdges()->end(),
-//				[currentId](std::pair<int, float>& p) { return p.first == currentId; });
-//
-//			if (toCurrentPath == previousVertex->getEdges()->end())
-//			{
-//				(previousVertex->getEdges())->push_back(std::make_pair(currentId, -newFlow));
-//			}
-//			else
-//			{
-//				toCurrentPath->second -= newFlow;
-//			}
-//			
-//		}
-//		
-//	}
-//
-//	return maxFLow;
-//}
+std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
+{
+	std::vector<Vertex> shortestPath;
+	std::vector<int> previous(n, -1); // zbior poprzednikow
+	std::vector<bool> visited(n, false);
+	std::queue<int> line; //do bfsa - kolejka, do dfa - stos
+
+	if (v.size() == 0)
+	{
+		return shortestPath; // pusty wektor, nwm czy nie lepiej wtedy -1, burza mozgow jest potrzebna
+	}
+
+	line.push(factory);
+	visited[factory] = true; //odwiedzamy fabryke jako pierwsza
+
+	while (!line.empty())
+	{
+		int current = line.front(); //bedziemy walczyc z pierwszym elementem kolejki
+		line.pop();
+
+
+		if (current == endnode) break; //jesli dotrzemy do ostatniego to znaczy, ze nie musimy juz dalej szukac
+
+
+		for (std::pair<int, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
+		{
+			if (!visited[neighbour.first])
+			{
+				visited[neighbour.first] = true;
+				previous[neighbour.first] = current;
+				line.push(neighbour.first);
+			}
+		}
+	}
+
+	for (int i = endnode; i != factory; i = previous[i])
+	{
+		shortestPath.push_back(v[i]);
+	}
+
+	shortestPath.push_back(v[factory]);
+
+
+	return shortestPath;
+
+}
+
+float Graph:: maximumFlow(int endnodeId)
+{
+	float maxFLow = 0;
+	float newFlow = FLT_MAX;
+	Vertex endnode = v[endnodeId];
+
+	std::vector<Vertex> path;
+
+	while (true)
+	{
+		path = getShortestPathBFS(endnode.getid());
+
+		if (path.size() == 0) break;
+
+		for (int i = path.size() - 1; i > 0; i--) //szuka najmniejszej przepustowosci na sciezce
+		{
+			int key = path[i - 1].getid();
+
+			std::vector<std::pair<int, float>>::iterator it = std::find_if(
+				path[i].getEdges()->begin(), path[i].getEdges()->end(), 
+				[&key](std::pair<int, float>& p) { return p.first == key; }); //zwraca pare, gzdie kluczem jest nastepny wierzcholek
+
+			if (newFlow > it->second)
+			{
+				newFlow = it->second;
+			}
+
+		}
+
+		maxFLow += newFlow;
+
+		if (newFlow <= 0) break;
+
+		for (int i = 0; i < path.size() - 1; i++)
+		{
+			int currentId = path[i].getid();
+			int previousId = path[i + 1].getid();
+
+			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
+				v.begin(), v.end(),
+				[&currentId](Vertex& p) { return p.getid() == currentId; });
+			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednik wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
+				v.begin(), v.end(),
+				[&previousId](Vertex& p) { return p.getid() == previousId; });
+			
+
+			std::vector<std::pair<int, float>>::iterator toPreviousPath = std::find_if( //znajduje odpowiednia droge wychodzaca z wierzcholka
+				currentVertex->getEdges()->begin(), currentVertex->getEdges()->end(),
+				[previousId](std::pair<int, float>& p) { return p.first == previousId; });
+
+			if (toPreviousPath == currentVertex->getEdges()->end())
+			{
+				(currentVertex->getEdges())->push_back(std::make_pair(previousId, newFlow));
+			}
+			else
+			{
+				toPreviousPath->second += newFlow;
+			}
+
+
+			std::vector<std::pair<int, float>>::iterator toCurrentPath = std::find_if( //znajduje odpowiednia droge wchodzaca do wierzcholka
+				previousVertex->getEdges()->begin(), previousVertex->getEdges()->end(),
+				[currentId](std::pair<int, float>& p) { return p.first == currentId; });
+
+			if (toCurrentPath == previousVertex->getEdges()->end())
+			{
+				(previousVertex->getEdges())->push_back(std::make_pair(currentId, -newFlow));
+			}
+			else
+			{
+				toCurrentPath->second -= newFlow;
+			}
+			
+		}
+		
+	}
+
+	return maxFLow;
+}
 
 std::vector<Vertex> Graph::getV()
 {
