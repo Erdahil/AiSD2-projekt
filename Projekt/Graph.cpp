@@ -253,53 +253,54 @@ void Graph::outputGraph() //wyswietla graf
 
 
 
-//std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
-//{
-//	std::vector<Vertex> shortestPath;
-//	std::vector<int> previous(n, -1); // zbior poprzednikow
-//	std::vector<bool> visited(n, false);
-//	std::queue<int> line; //do bfsa - kolejka, do dfa - stos
-//
-//	if (v.size() == 0)
-//	{
-//		return shortestPath; // pusty wektor, nwm czy nie lepiej wtedy -1, burza mozgow jest potrzebna
-//	}
-//
-//	line.push(factory);
-//	visited[factory] = true; //odwiedzamy fabryke jako pierwsza
-//
-//	while (!line.empty())
-//	{
-//		int current = line.front(); //bedziemy walczyc z pierwszym elementem kolejki
-//		line.pop();
-//
-//
-//		if (current == endnode) break; //jesli dotrzemy do ostatniego to znaczy, ze nie musimy juz dalej szukac
-//
-//
-//		for (std::pair<int, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
-//		{
-//			if (!visited[neighbour.first])
-//			{
-//				visited[neighbour.first] = true;
-//				previous[neighbour.first] = current;
-//				line.push(neighbour.first);
-//			}
-//		}
-//	}
-//
-//	for (int i = endnode; i != factory; i = previous[i])
-//	{
-//		shortestPath.push_back(v[i]);
-//	}
-//
-//	shortestPath.push_back(v[factory]);
-//
-//
-//	return shortestPath;
-//
-//}
-//
+std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
+{
+	std::vector<Vertex> shortestPath;
+	std::vector<int> previous(n, -1); // zbior poprzednikow
+	std::vector<bool> visited(n, false);
+	std::queue<int> line; //do bfsa - kolejka, do dfa - stos
+
+	if (v.size() == 0)
+	{
+		return shortestPath; // pusty wektor, nwm czy nie lepiej wtedy -1, burza mozgow jest potrzebna
+	}
+
+	line.push(factory);
+	visited[factory] = true; //odwiedzamy fabryke jako pierwsza
+
+	while (!line.empty())
+	{
+		int current = line.front(); //bedziemy walczyc z pierwszym elementem kolejki
+		line.pop();
+
+
+		if (current == endnode) break; //jesli dotrzemy do ostatniego to znaczy, ze nie musimy juz dalej szukac
+
+
+		for (std::tuple<int, float, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
+		{
+			if (!visited[std::get<0>(neighbour)])
+			{
+				visited[std::get<0>(neighbour)] = true;
+				previous[std::get<0>(neighbour)] = current;
+				line.push(std::get<0>(neighbour));
+			}
+		}
+	}
+
+	for (int i = endnode; i != factory; i = previous[i])
+	{
+		shortestPath.push_back(v[i]);
+	}
+
+	shortestPath.push_back(v[factory]);
+
+
+	return shortestPath;
+
+}
+
+
 //float Graph:: maximumFlow(int endnodeId)
 //{
 //	float maxFLow = 0;
