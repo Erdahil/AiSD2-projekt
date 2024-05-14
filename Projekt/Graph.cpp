@@ -258,6 +258,8 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 	std::vector<int> previous(n, -1); // zbior poprzednikow
 	std::vector<bool> visited(n, false);
 	std::queue<int> line; //do bfsa - kolejka, do dfa - stos
+	std::pair <std::vector<Vertex>, int> pathAndFlow;
+	int min = INT_MAX;
 
 	if (v.size() == 0)
 	{
@@ -294,6 +296,7 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 
 	shortestPath.push_back(v[factory]);
 
+	pathAndFlow.first = shortestPath;
 
 	return shortestPath;
 
