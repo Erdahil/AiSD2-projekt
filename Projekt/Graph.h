@@ -28,7 +28,7 @@ public:
 	//bool ifConnectedBFS();
 	std::vector<Vertex> getShortestPathBFS(int endnode);
 
-	float maximumFlow(int endnodeId);
+	//float maximumFlow(int endnodeId);
 
 };
 
