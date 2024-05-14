@@ -131,14 +131,18 @@
     <ClCompile Include="ConvexHull.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Melody.cpp" />
     <ClCompile Include="Pairs.cpp" />
+    <ClCompile Include="TreeNode.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Carrier.h" />
     <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="Melody.h" />
     <ClInclude Include="Pairs.h" />
+    <ClInclude Include="TreeNode.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

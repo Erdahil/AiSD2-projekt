@@ -1,28 +1,32 @@
 #include <iostream>
 #include <vector>
+#include <Graph.h>
+#include <Vertex.h>
 using namespace std;
 
 //Nie testowany
 
-int ek(int startNode, int endNode)
+int ek(Vertex startNode, Vertex endNode)
 {
     int maxFlow = 0;
-    vector<int> path(n); //lista wiezlow na sciezce zwracana z bfs, gdzie n to liczba wezlow w grafie
-
+    std::vector<Vertex> path(n); //lista wiezlow na sciezce zwracana z bfs, gdzie n to liczba wezlow w grafie
+    
     int newFlow = 0;
+       
+    bfs(startNode, endNode, path);
 
-    while (newFlow = bfs(startNode, endNode, path))
+    while (newFlow = )
     {
         maxFlow += newFlow;
 
-        int current = endNode;
+        Vertex current = endNode;
 
-        while (current != startNode)
+        while (current.getId() != startNode.getId())
         {
-            int previous = path[currrent - 1];
+            Vertex previous = path[currrent.getId() - 1];
 
-            capacity[previous][current] -= newFlow;  //pojemnosc drog w grafie, uzywana w bfs
-            capacity[current][previous] += newFlow;
+            (*current.getEdges())[previous].second -= newFlow;
+            (*previous.getEdges())[current].second += newFlow;
 
             current = previous;
         }

@@ -1,6 +1,6 @@
 #include "Vertex.h"
 
-std::vector<std::pair<int, float>>* Vertex::getEdges()
+std::vector<std::tuple<int, float, float>>* Vertex::getEdges()
 {
 	//std::vector<std::pair<int, float>>* e = edges;
 	return &edges;
