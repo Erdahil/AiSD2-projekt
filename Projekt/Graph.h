@@ -30,5 +30,8 @@ public:
 
 	float maximumFlow(int endnodeId);
 
+	void flowCleaner();
+	void showFlow();
+
 };
 

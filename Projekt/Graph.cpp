@@ -284,8 +284,10 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 
 		for (std::tuple<int, float, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
 		{
+			std::cout << "id: " << std::get<0>(neighbour) << "actual flow: " << std::get<2>(neighbour) << "Max flow: " << std::get<1>(neighbour) << std::endl;
 			if (!visited[std::get<0>(neighbour)] && std::get<2>(neighbour) < std::get<1>(neighbour))
 			{
+				std::cout << "actual flow: " << std::get<2>(neighbour) << "Max flow: " << std::get<1>(neighbour) << std::endl;
 				visited[std::get<0>(neighbour)] = true;
 				previous[std::get<0>(neighbour)] = current; // ustawia aktualnie rozpatrywany wierzcholek jako "poprzednik" wybranego sasiada
 
@@ -308,7 +310,7 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 
 float Graph::maximumFlow(int endnodeId)
 {
-	float maxFLow = 0;
+	float maxFlow = 0;
 	float newFlow = FLT_MAX;
 	Vertex endnode = v[endnodeId];
 
@@ -316,6 +318,10 @@ float Graph::maximumFlow(int endnodeId)
 	{
 		return 0;
 	}
+
+	showFlow();
+	flowCleaner();
+	showFlow();
 
 	std::vector<Vertex> path;
 
@@ -348,11 +354,15 @@ float Graph::maximumFlow(int endnodeId)
 
 		}
 
+		std::cout << "new Flow " << newFlow << "\n";
+
 		std::cout << "dupa po for do flow\n";
 
 		if (newFlow <= 0) break;
 
-		maxFLow += newFlow;
+		maxFlow += newFlow;
+
+		std::cout << "max Flow " << maxFlow << "\n";
 
 		std::cout << "dupa przed for drugi\n";
 
@@ -385,7 +395,7 @@ float Graph::maximumFlow(int endnodeId)
 			}
 			else
 			{
-				std::get<1>(*toPreviousPath) += newFlow;
+				std::get<2>(*toPreviousPath) -= newFlow;
 			}
 
 			std::cout << "dupa po dodaniu flow\n";
@@ -403,7 +413,7 @@ float Graph::maximumFlow(int endnodeId)
 			}
 			else
 			{
-				std::get<1>(*toCurrentPath) -= newFlow;
+				std::get<2>(*toCurrentPath) += newFlow;
 			}
 
 			std::cout << "dupa po odejmuje flow\n";
@@ -414,7 +424,29 @@ float Graph::maximumFlow(int endnodeId)
 
 	}
 
-	return maxFLow;
+	return maxFlow;
+}
+
+void Graph::flowCleaner()
+{
+	for (int i = 0; i < v.size() - 1; i++)
+	{
+		for (int j = 0; j < v[i].getEdges()->size(); j++)
+		{
+			std::get<2>((*v[i].getEdges())[j]) = 0;
+		}
+	}
+}
+
+void Graph::showFlow()
+{
+	for (int i = 0; i < v.size() - 1; i++)
+	{
+		for (int j = 0; j < v[i].getEdges()->size(); j++)
+		{
+			std::cout << std::get<2>((*v[i].getEdges())[j]);
+		}
+	}
 }
 
 std::vector<Vertex> Graph::getV()
