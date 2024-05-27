@@ -258,7 +258,8 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 	std::vector<Vertex> shortestPath;
 	std::vector<int> previous(n, -1); // zbior poprzednikow
 	std::vector<bool> visited(n, false);
-	std::queue<int> line; //do bfsa - kolejka, do dfa - stos
+	std::queue<int> line; // do bfsa - kolejka, do dfa - stos
+	bool changed = false; // do sprawdzenia czy wektor intow 'previous' zostala zmodyfikowana jakos
 
 	if (v.size() == 0)
 	{
@@ -266,15 +267,19 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 	}
 
 	line.push(factory);
-	visited[factory] = true; //odwiedzamy fabryke jako pierwsza
+	visited[factory] = true; // odwiedzamy fabryke jako pierwsza
 
 	while (!line.empty())
 	{
-		int current = line.front(); //bedziemy walczyc z pierwszym elementem kolejki
+		int current = line.front(); // bedziemy walczyc z pierwszym elementem kolejki
 		line.pop();
 
 
-		if (current == endnode) break; //jesli dotrzemy do ostatniego to znaczy, ze nie musimy juz dalej szukac
+		if (current == endnode)
+		{
+			changed = true;
+			break;
+		}// jesli dotrzemy do ostatniego to znaczy, ze nie musimy juz dalej szukac
 
 
 		for (std::tuple<int, float, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
@@ -282,24 +287,22 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 			if (!visited[std::get<0>(neighbour)] && std::get<2>(neighbour) < std::get<1>(neighbour))
 			{
 				visited[std::get<0>(neighbour)] = true;
-				previous[std::get<0>(neighbour)] = current; //ustawia aktualnie rozpatrywany wierzcholek jako "poprzednik" wybranego sasiada
+				previous[std::get<0>(neighbour)] = current; // ustawia aktualnie rozpatrywany wierzcholek jako "poprzednik" wybranego sasiada
+
 				line.push(std::get<0>(neighbour));
 			}
 		}
 	}
 
-	std::cout << "dupa cos\n";
-	for (int i = endnode; i != factory; i = previous[i])
+	if (changed)
 	{
-		shortestPath.push_back(v[i]);
+		for (int i = endnode; i != factory; i = previous[i])
+		{
+			shortestPath.push_back(v[i]);
+		}
+		shortestPath.push_back(v[factory]);
 	}
-	std::cout << "dupa cos2\n";
-
-	shortestPath.push_back(v[factory]);
-
-
 	return shortestPath;
-
 }
 
 
