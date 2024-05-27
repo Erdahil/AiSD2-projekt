@@ -279,10 +279,10 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 
 		for (std::tuple<int, float, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
 		{
-			if (!visited[std::get<0>(neighbour)])
+			if (!visited[std::get<0>(neighbour)] && std::get<2>(neighbour) < std::get<1>(neighbour))
 			{
 				visited[std::get<0>(neighbour)] = true;
-				previous[std::get<0>(neighbour)] = current;
+				previous[std::get<0>(neighbour)] = current; //ustawia aktualnie rozpatrywany wierzcholek jako "poprzednik" wybranego sasiada
 				line.push(std::get<0>(neighbour));
 			}
 		}
@@ -301,7 +301,7 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 }
 
 
-float Graph:: maximumFlow(int endnodeId)
+float Graph::maximumFlow(int endnodeId)
 {
 	float maxFLow = 0;
 	float newFlow = FLT_MAX;
@@ -325,7 +325,7 @@ float Graph:: maximumFlow(int endnodeId)
 			int key = path[i - 1].getid();
 
 			std::vector<std::tuple<int, float, float>>::iterator it = std::find_if(
-				path[i].getEdges()->begin(), path[i].getEdges()->end(), 
+				path[i].getEdges()->begin(), path[i].getEdges()->end(),
 				[&key](std::tuple<int, float, float>& p) { return std::get<0>(p) == key; }); //zwraca pare, gdzie kluczem jest nastepny wierzcholek
 
 			if (newFlow > (std::get<1>(*it) - std::get<2>(*it)))
@@ -351,7 +351,7 @@ float Graph:: maximumFlow(int endnodeId)
 			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednik wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
 				v.begin(), v.end(),
 				[&previousId](Vertex& p) { return p.getid() == previousId; });
-			
+
 
 			std::vector<std::tuple<int, float, float>>::iterator toPreviousPath = std::find_if( //znajduje odpowiednia droge wychodzaca z wierzcholka
 				currentVertex->getEdges()->begin(), currentVertex->getEdges()->end(),
@@ -379,9 +379,9 @@ float Graph:: maximumFlow(int endnodeId)
 			{
 				std::get<1>(*toCurrentPath) -= newFlow;
 			}
-			
+
 		}
-		
+
 	}
 
 	return maxFLow;
