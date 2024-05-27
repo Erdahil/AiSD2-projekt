@@ -29,9 +29,9 @@ public:
 	std::vector<Vertex> getShortestPathBFS(int endnode);
 
 	float maximumFlow(int endnodeId);
-
 	void flowCleaner();
-	void showFlow();
+
+	void showFlow();//do testowania
 
 };
 

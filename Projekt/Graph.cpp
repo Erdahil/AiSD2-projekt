@@ -284,10 +284,8 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 
 		for (std::tuple<int, float, float> neighbour : (*v[current].getEdges())) // przechodzimy po kolei po wszystkich elementach wektora edges danego wierzcholka
 		{
-			std::cout << "id: " << std::get<0>(neighbour) << "actual flow: " << std::get<2>(neighbour) << "Max flow: " << std::get<1>(neighbour) << std::endl;
 			if (!visited[std::get<0>(neighbour)] && std::get<2>(neighbour) < std::get<1>(neighbour))
 			{
-				std::cout << "actual flow: " << std::get<2>(neighbour) << "Max flow: " << std::get<1>(neighbour) << std::endl;
 				visited[std::get<0>(neighbour)] = true;
 				previous[std::get<0>(neighbour)] = current; // ustawia aktualnie rozpatrywany wierzcholek jako "poprzednik" wybranego sasiada
 
@@ -318,27 +316,24 @@ float Graph::maximumFlow(int endnodeId)
 	{
 		return 0;
 	}
-
-	showFlow();
 	flowCleaner();
-	showFlow();
 
 	std::vector<Vertex> path;
 
-	std::cout << "dupa przed while\n";
 
 	while (true)
 	{
+		newFlow = FLT_MAX;
 		path = getShortestPathBFS(endnode.getid());
 
-		for (Vertex p : path)
+		/*for (Vertex p : path)
 		{
-			std::cout << p.getid() << std::endl;
+			std::cout << p.getid() << " ";
 		}
-		std::cout << "dupa przed break\n";
+		std:cout << std::endl;*/
+
 		if (path.size() == 0) break;
 
-		std::cout << "dupa przed for do flow\n";
 		for (int i = path.size() - 1; i > 0; i--) //szuka najmniejszej przepustowosci na sciezce
 		{
 			int key = path[i - 1].getid();
@@ -347,6 +342,7 @@ float Graph::maximumFlow(int endnodeId)
 				path[i].getEdges()->begin(), path[i].getEdges()->end(),
 				[&key](std::tuple<int, float, float>& p) { return std::get<0>(p) == key; }); //zwraca pare, gdzie kluczem jest nastepny wierzcholek
 
+			
 			if (newFlow > (std::get<1>(*it) - std::get<2>(*it)))
 			{
 				newFlow = (std::get<1>(*it) - std::get<2>(*it));
@@ -354,24 +350,17 @@ float Graph::maximumFlow(int endnodeId)
 
 		}
 
-		std::cout << "new Flow " << newFlow << "\n";
-
-		std::cout << "dupa po for do flow\n";
 
 		if (newFlow <= 0) break;
 
 		maxFlow += newFlow;
 
-		std::cout << "max Flow " << maxFlow << "\n";
-
-		std::cout << "dupa przed for drugi\n";
 
 		for (int i = 0; i < path.size() - 1; i++)
 		{
 			int currentId = path[i].getid();
 			int previousId = path[i + 1].getid();
 
-			std::cout << "dupa przed znajduje wierzcholki\n";
 
 			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
 				v.begin(), v.end(),
@@ -380,47 +369,28 @@ float Graph::maximumFlow(int endnodeId)
 				v.begin(), v.end(),
 				[&previousId](Vertex& p) { return p.getid() == previousId; });
 
-			std::cout << "dupa po znaduje wierzcholki\n";
-
 
 			std::vector<std::tuple<int, float, float>>::iterator toPreviousPath = std::find_if( //znajduje odpowiednia droge wychodzaca z wierzcholka
 				currentVertex->getEdges()->begin(), currentVertex->getEdges()->end(),
 				[previousId](std::tuple<int, float, float>& p) { return std::get<0>(p) == previousId; });
 
-			std::cout << "dupa po znajduje droge\n";
-
-			if (toPreviousPath == currentVertex->getEdges()->end())
-			{
-				//(currentVertex->getEdges())->push_back(std::make_tuple(previousId, newFlow, 0));
-			}
-			else
+			if (toPreviousPath != currentVertex->getEdges()->end())
 			{
 				std::get<2>(*toPreviousPath) -= newFlow;
 			}
-
-			std::cout << "dupa po dodaniu flow\n";
 
 
 			std::vector<std::tuple<int, float, float>>::iterator toCurrentPath = std::find_if( //znajduje odpowiednia droge wchodzaca do wierzcholka
 				previousVertex->getEdges()->begin(), previousVertex->getEdges()->end(),
 				[currentId](std::tuple<int, float, float>& p) { return std::get<0>(p) == currentId; });
 
-			std::cout << "dupa po znajduje droge wchodzaca\n";
 
-			if (toCurrentPath == previousVertex->getEdges()->end())
-			{
-				//(previousVertex->getEdges())->push_back(std::make_tuple(currentId, -newFlow, 0));
-			}
-			else
+			if (toCurrentPath != previousVertex->getEdges()->end())
 			{
 				std::get<2>(*toCurrentPath) += newFlow;
 			}
 
-			std::cout << "dupa po odejmuje flow\n";
-
 		}
-
-		std::cout << "dupa po for drugi\n";
 
 	}
 
@@ -429,7 +399,7 @@ float Graph::maximumFlow(int endnodeId)
 
 void Graph::flowCleaner()
 {
-	for (int i = 0; i < v.size() - 1; i++)
+	for (int i = 0; i < v.size(); i++)
 	{
 		for (int j = 0; j < v[i].getEdges()->size(); j++)
 		{
@@ -440,7 +410,7 @@ void Graph::flowCleaner()
 
 void Graph::showFlow()
 {
-	for (int i = 0; i < v.size() - 1; i++)
+	for (int i = 0; i < v.size(); i++)
 	{
 		for (int j = 0; j < v[i].getEdges()->size(); j++)
 		{
