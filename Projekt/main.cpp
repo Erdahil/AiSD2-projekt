@@ -4,118 +4,165 @@
 #include "Pairs.h"
 #include "ConvexHull.h"
 #include "Melody.h"
-//using namespace std;
+
+int mainMenu();
 
 int main()
 {
-	//dk
-	//ogarnalem 2
-	//meow
-	std::cout << "Hello World!\n"; //niech ktos to usunie pls
-	std::cout << "Meow\n";
-
 	int decision;
-	std::cout << "Wybierz czy chcesz rozwiazac zadanie 1 [1], czy zadanie 2 [2]:\n";//dodalem by szybciej sprawdzac inne zadania - potem mozna zmienic forme
+		
+	while (decision = mainMenu())
+	{
+		if (decision == 1)
+		{
+			int c;
+			std::cout << "--------------------MENU--------------------\n";
+			std::cout << "1.Generuj graf\n";
+			std::cout << "2.Wprowadz graf recznie\n";
+			std::cout << "3.Wroc do glownego menu\n";
 
-	while (!(std::cin >> decision) || !(decision == 1 || decision == 2))
+			std::cout << "Podaj numer: ";
+
+			while (!(std::cin >> c) || !(c >= 1 || c <= 3))
+			{
+				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+			}
+
+			system("CLS");
+
+			Graph g1;
+
+			if (c == 1)
+			{
+				g1.generateGraph();
+				g1.fixGeneratedGraph();//sprawia ze graf staje sie drzewem o korzeniu w fabryce jesli nim nie byl
+				g1.outputGraph();
+
+				//g1.generateGraph();
+				//g1.probaOutputu();
+				/* testy
+				g1.setn(10);
+				g1.probaOutputu();
+				*/
+			}
+			else if (c == 2)
+			{
+				g1.inputGraph();
+				g1.outputGraph();
+			}
+			else if (c == 3)
+			{
+				continue;
+			}
+
+			std::cout << "\n-----------------tragarze-----------------\n";
+			std::cout << "1.Generuj pary tragarzy\n";
+			std::cout << "2.Wprowadz pary tragarzy recznie\n";
+			std::cout << "3.Wroc do glownego menu\n";
+
+			std::cout << "Podaj numer: ";
+
+			while (!(std::cin >> c) || !(c >= 1 || c <= 3))
+			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+			}
+
+			Pairs p1;
+
+			if (c == 1)
+			{
+				p1.generatePairs();
+				p1.outputPairs();
+			}
+			else if (c == 2)
+			{
+				p1.inputPairs();
+				p1.outputPairs();
+			}
+			else if (c == 3)
+			{
+				continue;
+			}
+
+			// Obliczanie otoczki wypuk³ej dla grafu g1
+			std::vector<Vertex> convexHull = ConvexHull::calculateConvexHull(g1.getV()); //usunalem tu z definicji funkcji & by dzialalo
+
+
+
+			// Wyœwietlenie otoczki wypuk³ej
+			std::cout << "-----------------Otoczka wypukla-----------------\n";
+			for (int i = 0; i < convexHull.size(); i++)
+			{
+				std::cout << "id wierzcholka: " << convexHull[i].getid() << ", x: " << convexHull[i].getx() << ", y: " << convexHull[i].gety() << std::endl;
+			}
+			std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
+
+			
+			std::cout << "-----------------Maksymlany przeplyw-----------------\n";
+			for (int i = 0; i < convexHull.size(); i++)
+			{
+				int id = convexHull[i].getid();
+				int flow = g1.maximumFlow(id);
+				std::cout << "id wierzcholka: " << id << ", maksymalny przeplyw z fabryki: " << (flow == 0 ? 0 : flow) << "\n";
+			}
+
+
+			char c2;
+			std::cout << "\n-----------------\n";
+			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.get();
+
+		}
+		else if (decision == 2)
+		{
+			Melody m1;
+
+			m1.generateMelody(20);
+			//m1.setMelody("wcvglcmrxq");
+			m1.outputMelody();
+			m1.encryptHuffman();
+		}
+		else if (decision == 4)
+		{
+			break;
+		}
+	}
+
+	
+
+
+	return 0;
+}
+
+int mainMenu()
+{
+	int decision;
+
+	system("CLS");
+
+	std::cout << "--------------------MENU--------------------\n";
+	std::cout << "Ktory problem chcesz rozwiazac?\n";
+	std::cout << "1.Zadanie 1\n";
+	std::cout << "2.Zadanie 2\n";
+	std::cout << "3.Zadanie 3\n";
+	std::cout << "4.Wyjscie\n";
+
+	std::cout << "Podaj numer: ";
+
+	while (!(std::cin >> decision) || !(decision >= 1 || decision <= 4))
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Niepoprawny numer; podaj jeszcze raz:\n";
 	}
 
-	if (decision == 1)
-	{
-		char c;
-		std::cout << "Wybierz czy chcesz wygenerowac graf [g], czy wprowadzic recznie [r]:\n";
+	system("CLS");
 
-		while (!(std::cin >> c) || !(c == 'g' || c == 'r'))
-		{
-			std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
-			std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
-		}
-
-		Graph g1;
-
-		if (c == 'g')
-		{
-			g1.generateGraph();
-			g1.fixGeneratedGraph();//sprawia ze graf staje sie drzewem o korzeniu w fabryce jesli nim nie byl
-			g1.outputGraph();
-
-			//g1.generateGraph();
-			//g1.probaOutputu();
-			/* testy
-			g1.setn(10);
-			g1.probaOutputu();
-			*/
-		}
-		else if (c == 'r')
-		{
-			g1.inputGraph();
-			g1.outputGraph();
-		}
-
-		std::cout << "\n-----------------\n";
-		std::cout << "Wybierz czy chcesz wygenerowac pary tragarzy [g], czy wprowadzic recznie [r]:\n";
-
-		while (!(std::cin >> c) || !(c == 'g' || c == 'r'))
-		{
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
-		}
-
-		Pairs p1;
-
-		if (c == 'g')
-		{
-			p1.generatePairs();
-			p1.outputPairs();
-		}
-		else if (c == 'r')
-		{
-			p1.inputPairs();
-			p1.outputPairs();
-		}
-
-		//testowanie funkcji do zwracania max przeplywu
-		std::cout << "Czy chcesz sprawdziæ max przeplyw z fabryki do wierzcholka? t/n: ";
-		std::cin >> c;
-
-		if (c)
-		{
-			int id;
-			std::cout << "Podaj id wierzcholka: ";
-			std::cin >> id;
-			std::cout << "Max przeplyw to : " << g1.maximumFlow(id) << "\n";
-		}
-
-		// testowanie otoczki zakomentowala, bo zeby ja testowac to w graph.h wektora przerzucilam z private na public
-
-		// Obliczanie otoczki wypuk³ej dla grafu g1
-		std::vector<Vertex> convexHull = ConvexHull::calculateConvexHull(g1.getV()); //usunalem tu z definicji funkcji & by dzialalo
-
-		// Wyœwietlenie otoczki wypuk³ej
-		std::cout << "Otoczka wypukla:\n";
-		for (int i = 0; i < convexHull.size(); i++)
-		{
-			std::cout << "id wierzcholka: " << convexHull[i].getid() << ", x: " << convexHull[i].getx() << ", y: " << convexHull[i].gety() << std::endl;
-		}
-		std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
-
-	}
-	else if (decision == 2)
-	{
-		Melody m1;
-
-		m1.generateMelody(20);
-		//m1.setMelody("wcvglcmrxq");
-		m1.outputMelody();
-		m1.encryptHuffman();
-	}
-
-
-	return 0;
+	return decision;	
 }
