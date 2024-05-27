@@ -288,10 +288,12 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 		}
 	}
 
+	std::cout << "dupa cos\n";
 	for (int i = endnode; i != factory; i = previous[i])
 	{
 		shortestPath.push_back(v[i]);
 	}
+	std::cout << "dupa cos2\n";
 
 	shortestPath.push_back(v[factory]);
 
@@ -314,12 +316,20 @@ float Graph::maximumFlow(int endnodeId)
 
 	std::vector<Vertex> path;
 
+	std::cout << "dupa przed while\n";
+
 	while (true)
 	{
 		path = getShortestPathBFS(endnode.getid());
 
+		for (Vertex p : path)
+		{
+			std::cout << p.getid() << std::endl;
+		}
+		std::cout << "dupa przed break\n";
 		if (path.size() == 0) break;
 
+		std::cout << "dupa przed for do flow\n";
 		for (int i = path.size() - 1; i > 0; i--) //szuka najmniejszej przepustowosci na sciezce
 		{
 			int key = path[i - 1].getid();
@@ -335,15 +345,20 @@ float Graph::maximumFlow(int endnodeId)
 
 		}
 
+		std::cout << "dupa po for do flow\n";
+
 		if (newFlow <= 0) break;
 
 		maxFLow += newFlow;
 
+		std::cout << "dupa przed for drugi\n";
 
 		for (int i = 0; i < path.size() - 1; i++)
 		{
 			int currentId = path[i].getid();
 			int previousId = path[i + 1].getid();
+
+			std::cout << "dupa przed znajduje wierzcholki\n";
 
 			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
 				v.begin(), v.end(),
@@ -352,10 +367,14 @@ float Graph::maximumFlow(int endnodeId)
 				v.begin(), v.end(),
 				[&previousId](Vertex& p) { return p.getid() == previousId; });
 
+			std::cout << "dupa po znaduje wierzcholki\n";
+
 
 			std::vector<std::tuple<int, float, float>>::iterator toPreviousPath = std::find_if( //znajduje odpowiednia droge wychodzaca z wierzcholka
 				currentVertex->getEdges()->begin(), currentVertex->getEdges()->end(),
 				[previousId](std::tuple<int, float, float>& p) { return std::get<0>(p) == previousId; });
+
+			std::cout << "dupa po znajduje droge\n";
 
 			if (toPreviousPath == currentVertex->getEdges()->end())
 			{
@@ -366,10 +385,14 @@ float Graph::maximumFlow(int endnodeId)
 				std::get<1>(*toPreviousPath) += newFlow;
 			}
 
+			std::cout << "dupa po dodaniu flow\n";
+
 
 			std::vector<std::tuple<int, float, float>>::iterator toCurrentPath = std::find_if( //znajduje odpowiednia droge wchodzaca do wierzcholka
 				previousVertex->getEdges()->begin(), previousVertex->getEdges()->end(),
 				[currentId](std::tuple<int, float, float>& p) { return std::get<0>(p) == currentId; });
+
+			std::cout << "dupa po znajduje droge wchodzaca\n";
 
 			if (toCurrentPath == previousVertex->getEdges()->end())
 			{
@@ -380,7 +403,11 @@ float Graph::maximumFlow(int endnodeId)
 				std::get<1>(*toCurrentPath) -= newFlow;
 			}
 
+			std::cout << "dupa po odejmuje flow\n";
+
 		}
+
+		std::cout << "dupa po for drugi\n";
 
 	}
 
