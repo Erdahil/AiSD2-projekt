@@ -20,5 +20,6 @@ public:
 	void deleteHuffmanTree(TreeNode* del);//trza w destruktorze potem to wywolac jak bedzie dzialalo wogle
 	~Melody();
 	void writeTree(TreeNode* del);
+	std::string getMelody(); // do wyszukiwania wzorca
 };
 
