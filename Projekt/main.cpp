@@ -163,6 +163,12 @@ int main()
 			{
 				std::cout << result[i] << std::endl;
 			}
+
+			std::cout << "\n\n-----------------\n";
+			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.get();
 		}
 		else if (decision == 4)
 		{
