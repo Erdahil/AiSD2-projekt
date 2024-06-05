@@ -137,7 +137,7 @@ void Pairs::inputPairs()
 
 void Pairs::outputPairs()
 {
-	std::cout << "-----------------\n";
+	//std::cout << "-----------------\n";
 	std::cout << "ilosc tragarzy majacych rece w prawo: " << r << '\n';
 	std::cout << "ilosc tragarzy majacych rece w lewo: " << l << '\n';
 	std::cout << "-----------------\n";

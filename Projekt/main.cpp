@@ -10,6 +10,22 @@ int mainMenu();
 int main()
 {
 	int decision;
+	Graph g1;
+
+	if (g1.inputGraphFromFile())
+	{
+		std::cout << "--------------------Wczytano graf--------------------\n";
+	}
+	else
+	{
+		std::cout << "--------------------Nie udalo sie wczytac grafu--------------------\n";
+	}
+
+	std::cout << "Nacisnij (Chyba dwa razy, bo cos nie dziala) ENTER, by kontynuowac\n";
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin.get();
+	//system("pause");
 		
 	while (decision = mainMenu())
 	{
@@ -19,7 +35,8 @@ int main()
 			std::cout << "--------------------MENU--------------------\n";
 			std::cout << "1.Generuj graf\n";
 			std::cout << "2.Wprowadz graf recznie\n";
-			std::cout << "3.Wroc do glownego menu\n";
+			std::cout << "3.Przejdz do zarzadzania tragarzami\n";
+			std::cout << "4.Wroc do glownego menu\n";
 
 			std::cout << "Podaj numer: ";
 
@@ -32,13 +49,12 @@ int main()
 
 			system("CLS");
 
-			Graph g1;
 
 			if (c == 1)
 			{
 				g1.generateGraph();
 				g1.fixGeneratedGraph();//sprawia ze graf staje sie drzewem o korzeniu w fabryce jesli nim nie byl
-				g1.outputGraph();
+				//g1.outputGraph();
 
 				//g1.generateGraph();
 				//g1.probaOutputu();
@@ -49,15 +65,18 @@ int main()
 			}
 			else if (c == 2)
 			{
+				std::cout << "-----------------Wprowadzanie grafu-----------------\n";
 				g1.inputGraph();
-				g1.outputGraph();
+				//g1.outputGraph();
 			}
-			else if (c == 3)
+			else if (c == 4)
 			{
 				continue;
 			}
 
-			std::cout << "\n-----------------tragarze-----------------\n";
+			system("CLS");
+
+			std::cout << "-----------------Wprowadzanie tragarzy-----------------\n";
 			std::cout << "1.Generuj pary tragarzy\n";
 			std::cout << "2.Wprowadz pary tragarzy recznie\n";
 			std::cout << "3.Wroc do glownego menu\n";
@@ -91,10 +110,15 @@ int main()
 			// Obliczanie otoczki wypuk³ej dla grafu g1
 			std::vector<Vertex> convexHull = ConvexHull::calculateConvexHull(g1.getV()); //usunalem tu z definicji funkcji & by dzialalo
 
+			system("CLS");
 
+			std::cout << "-----------------Graf-----------------\n";
+			g1.outputGraph();
+			std::cout << "\n-----------------Tragarze-----------------\n";
+			p1.outputPairs();
 
 			// Wyœwietlenie otoczki wypuk³ej
-			std::cout << "-----------------Otoczka wypukla-----------------\n";
+			std::cout << "\n-----------------Otoczka wypukla-----------------\n";
 			for (int i = 0; i < convexHull.size(); i++)
 			{
 				std::cout << "id wierzcholka: " << convexHull[i].getid() << ", x: " << convexHull[i].getx() << ", y: " << convexHull[i].gety() << std::endl;
@@ -102,7 +126,7 @@ int main()
 			std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
 
 			
-			std::cout << "-----------------Maksymlany przeplyw-----------------\n";
+			std::cout << "\n-----------------Maksymlany przeplyw-----------------\n";
 			for (int i = 0; i < convexHull.size(); i++)
 			{
 				int id = convexHull[i].getid();
@@ -111,8 +135,7 @@ int main()
 			}
 
 
-			char c2;
-			std::cout << "\n-----------------\n";
+			std::cout << "\n\n-----------------\n";
 			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

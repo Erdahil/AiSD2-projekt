@@ -10,6 +10,9 @@ private:
 	std::vector<Vertex> v;
 	int factory;
 	std::vector< std::vector<int>> neighbours;
+	std::string filePath = "Graph.txt";
+
+	bool outpuGraphToFile();
 
 public:
 	//std::vector<Vertex> v; // zrobilam swapa narazie bo mnie cos wezmie zaraz, jestem zbyt glupia zeby ogarnac to jakos inazcej :33
@@ -21,6 +24,7 @@ public:
 	void setn(int n);//do testow na razie tylko - idk czy bedzie potrzebne
 	void outputGraph();
 	void inputGraph();
+	bool inputGraphFromFile();
 	std::vector<Vertex> getV();
 
 

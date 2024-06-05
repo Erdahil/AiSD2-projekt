@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <limits>
 #include <queue>
+#include <fstream>
 #include "Graph.h"
 #include "Vertex.h"
 
@@ -69,6 +70,33 @@ void Graph::generateGraph()
 		}
 	}
 
+	std::cout << "Czy chcesz zapisac graf?\n";
+	std::cout << "1.Tak\n";
+	std::cout << "1.Nie\n";
+
+	int dec;
+
+	while (!(std::cin >> dec) || !(dec >= 1 || dec <= 2))
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+	}
+
+	if (dec == 2)
+	{
+		return;
+	}
+
+	if (outpuGraphToFile())
+	{
+		std::cout << "Zapisano graf\n";
+	}
+	else
+	{
+		std::cout << "Nie udalo sie zapisac grafu\n";
+	}
+
 }
 
 void Graph::dfsForFix(int id, int groupid)
@@ -121,7 +149,6 @@ void Graph::fixGeneratedGraph()
 
 void Graph::inputGraph()
 {
-	;
 	std::cout << "Podaj ilosc wierzcholkow:\n";
 
 	while (!(std::cin >> n) || n < 0)
@@ -211,6 +238,185 @@ void Graph::inputGraph()
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "Bledne id; podaj jeszcze raz:\n";
 	}
+
+	std::cout << "Czy chcesz zapisac graf?\n";
+	std::cout << "1.Tak\n";
+	std::cout << "1.Nie\n";
+
+	int dec;
+
+	while (!(std::cin >> dec) || !(dec >= 1 || dec <= 2))
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+	}
+
+	if (dec == 2)
+	{
+		return;
+	}
+
+	if (outpuGraphToFile())
+	{
+		std::cout << "Zapisano graf\n";
+	}
+	else
+	{
+		std::cout << "Nie udalo sie zapisac grafu\n";
+	}
+}
+
+bool Graph::inputGraphFromFile()
+{
+	std::ifstream inputFile(filePath);
+
+	if (!inputFile.is_open()) {
+		std::cerr << "Error opening the file!" << std::endl;
+		return false;
+	}
+
+	if (!(inputFile >> n) || n < 0)
+	{
+		std::cin.clear(); //czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		return false;
+	}
+	
+	v.resize(n);
+
+
+	for (int i = 0; i < v.size(); i++)//wpisanie wszystkich wierzcholkow
+	{
+		float x, y;
+
+		if (!(inputFile >> x >> y))
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return false;
+		}
+		v[i].setCoords(x, y);
+		v[i].setid(i);
+		v[i].setGroupid(0);
+		v[i].setIsLeader(false);
+
+	}
+
+
+	for (int i = 0; i < v.size(); i++)//wpisanie krawedzi wychodzacych z wierzcholkow
+	{
+		int numberOfEdges;
+
+
+		if (!(inputFile >> numberOfEdges) || !(numberOfEdges >= 0 && numberOfEdges < n))
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return false;
+		}
+
+		v[i].getEdges()->resize(numberOfEdges);
+
+		std::vector <int> contains; //do sprawdzenia czy ten juz byl podany
+
+		for (int j = 0; j < numberOfEdges; j++)
+		{
+			int tempID;
+			float tempFlow;
+
+
+			if (!(inputFile >> tempID) || tempID < 0 || tempID == i || tempID >= n)
+			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				return false;
+			}
+
+			if (std::find(contains.begin(), contains.end(), tempID) != contains.end())
+			{
+				return false;
+			}
+
+			contains.push_back(tempID);
+
+			std::get<0>((*v[i].getEdges())[j]) = tempID;
+
+			if (!(inputFile >> tempFlow) || tempFlow < 0)
+			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				return false;
+			}
+			std::get<1>((*v[i].getEdges())[j]) = tempFlow;
+
+			//std::cin >> (*v[i].getEdges())[j].first >> (*v[i].getEdges())[j].second; // ze starej wersji bez sprawdzania poprawnosci inputu
+		}
+
+	}
+
+
+	if (!(inputFile >> factory) || factory < 0 || factory >= n)
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return false;
+	}
+
+	return true;
+}
+
+bool Graph::outpuGraphToFile()
+{
+	std::ofstream inputFile(filePath);
+
+	if (!inputFile.is_open()) {
+		std::cerr << "Error opening the file!" << std::endl;
+		return false;
+	}
+
+	if (!(inputFile << n << std::endl))
+	{
+		return false;
+	}
+
+	for (int i = 0; i < v.size(); i++)//wpisanie wszystkich wierzcholkow
+	{
+		if (!(inputFile << v[i].getx() << " " << v[i].gety() << std::endl))
+		{
+			return false;
+		}
+	}
+
+	for (int i = 0; i < v.size(); i++)//wpisanie krawedzi wychodzacych z wierzcholkow
+	{
+		int numberOfEdges = v[i].getEdges()->size();
+		if (!(inputFile << numberOfEdges << std::endl))
+		{
+			return false;
+		}
+
+		for (int j = 0; j < numberOfEdges; j++)
+		{
+			int tempID = std::get<0>((*v[i].getEdges())[j]);
+			float tempFlow = std::get<1>((*v[i].getEdges())[j]);
+
+
+			if (!(inputFile << tempID << " " << tempFlow << std::endl))
+			{
+				return false;
+			}
+		}
+
+	}
+
+	if (!(inputFile << factory))
+	{
+		return false;
+	}
+
+	return true;
+
 }
 
 void Graph::probaOutputu()
