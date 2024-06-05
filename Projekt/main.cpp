@@ -4,6 +4,7 @@
 #include "Pairs.h"
 #include "ConvexHull.h"
 #include "Melody.h"
+#include "PatternSearching.h"
 
 int mainMenu();
 
@@ -148,8 +149,20 @@ int main()
 
 			m1.generateMelody(20);
 			//m1.setMelody("wcvglcmrxq");
+			//m1.setMelody("popopolimeowpoli"); // do testu wzorca
 			m1.outputMelody();
 			m1.encryptHuffman();
+
+			std::string pattern = "poli";
+			PatternSearching ps;
+			ps.setPattern(pattern);
+			std::vector<int> result = ps.search(m1.getMelody());
+
+			std::cout << "indeks litery, w ktorej rozpoczyna sie wzorzec:" << std::endl;
+			for (int i = 0; i < result.size(); i++)
+			{
+				std::cout << result[i] << std::endl;
+			}
 		}
 		else if (decision == 4)
 		{

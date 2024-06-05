@@ -185,6 +185,10 @@ void Melody::setMelody(std::string s)
 	this->s = s;
 	this->sSize = s.size();
 }
+std::string Melody::getMelody()
+{
+	return s;
+}
 
 Melody::~Melody()
 {
