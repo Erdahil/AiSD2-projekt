@@ -12,6 +12,7 @@ int main()
 {
 	int decision;
 	Graph g1;
+	std::vector<Vertex> convexHull;
 
 	if (g1.inputGraphFromFile())
 	{
@@ -109,7 +110,7 @@ int main()
 			}
 
 			// Obliczanie otoczki wypuk³ej dla grafu g1
-			std::vector<Vertex> convexHull = ConvexHull::calculateConvexHull(g1.getV()); //usunalem tu z definicji funkcji & by dzialalo
+			convexHull = ConvexHull::calculateConvexHull(g1.getV()); //usunalem tu z definicji funkcji & by dzialalo
 
 			system("CLS");
 
@@ -172,6 +173,11 @@ int main()
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.get();
+		}
+		else if (decision == 3)
+		{
+			g1.guardShedule(convexHull);
+
 		}
 		else if (decision == 4)
 		{
