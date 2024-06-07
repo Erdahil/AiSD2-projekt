@@ -152,6 +152,9 @@ int main()
 			//m1.setMelody("popopolimeowpoli"); // do testu wzorca
 			m1.outputMelody();
 			m1.encryptHuffman();
+			m1.outputEncryptedMelody();
+			m1.decryptHuffman();
+			m1.outputDecryptedMelody();
 
 			std::string pattern = "poli";
 			PatternSearching ps;

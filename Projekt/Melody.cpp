@@ -42,11 +42,13 @@ void Melody::encryptHuffman()
 		t[s[i] - 'a']++;
 	}
 
+	/*
 	for (int i = 0; i < 26; i++)//testowe wyswietlenie ilosci liter
 	{
 		
 		std::cout << "ilosc " << (char)(i + 'a') << ": " << t[i] << '\n';
 	}
+	*/
 	
 	std::priority_queue<TreeNode*, std::vector<TreeNode*>, QueueComparator> q;//tworzenie kolejki priorytertowej
 
@@ -74,7 +76,7 @@ void Melody::encryptHuffman()
 		q.pop();
 		
 
-		std::cout << "laczenie " << leftTN->getn() << " i " << rightTN->getn() << '\n';
+		//std::cout << "laczenie " << leftTN->getn() << " i " << rightTN->getn() << '\n';
 		TreeNode* newTN = new TreeNode();
 		newTN->setc('-');
 		newTN->setn(leftTN->getn() + rightTN->getn());
@@ -89,7 +91,24 @@ void Melody::encryptHuffman()
 	delete outputTN;*/
 	root = q.top();
 
-	
+	//writeTree(root);
+	makeHuffmanMap(root);
+
+	encrypted = "";
+
+	for (int i = 0; i < sSize; i++)
+	{
+		encrypted += mp[s[i]];
+	}
+
+	/*
+	std::cout << "piszem mapem:\n";
+	for (const auto& elem : mp)
+	{
+		std::cout << elem.first << " " << elem.second << "\n";
+	}
+	std::cout << "wypisana\n";
+	*/
 
 
 	//std::cout << outputTN->getLeft()->getLeft()->getn() << " costampiszeee\n";
@@ -101,21 +120,54 @@ void Melody::encryptHuffman()
 
 void Melody::makeHuffmanMap(TreeNode* temp)
 {
-	/*
+	
 	if (temp->getc() == '-')
 	{
-
+		mapTemp += '0';
 		makeHuffmanMap(temp->getLeft());
+		mapTemp += '1';
+		makeHuffmanMap(temp->getRight());
 	}
 	else
 	{
+		
 		mp[temp->getc()] = mapTemp;
-		mapTemp[mapTemp.size() - 1] = '\0';
 	}
-	*/
+
+	
+	if (mapTemp.size() > 0)//wykona siê raz wiêcej - bo te¿ dla pierwszego wêz³a na koniec jak string ju¿ jest pusty wiêc trzeba zabezpieczyæ
+	{
+		mapTemp.pop_back();
+	}
+
 }
 
-void Melody::deleteHuffmanTree(TreeNode* del)
+void Melody::decryptHuffman()
+{
+	TreeNode* current = root;
+	decrypted = "";
+
+	for (int i = 0; i < encrypted.size(); i++)
+	{
+		if (current->getc() != '-')
+		{
+			decrypted += current->getc();
+			current = root;
+		}
+		if (encrypted[i] == '0')
+		{
+			current = current->getLeft();
+		}
+		else if(encrypted[i] == '1')
+		{
+			current = current->getRight();
+		}
+
+	}
+	decrypted += current->getc();//¿eby ostatni¹ literê wpisa³o
+}
+
+void Melody::deleteHuffmanTree(TreeNode* del)//wywolywane potem w destruktorze klasy
 {
 	if (del)
 	{
@@ -156,9 +208,10 @@ void Melody::writeTree(TreeNode* del)//do testow tylko
 	{
 		return;
 	}
+	std::cout << del->getn() << " " << del->getc() << '\n';
 	writeTree(del->getLeft());
 	writeTree(del->getRight());
-	std::cout << del->getn()<<" ";
+	//std::cout << del->getn()<<" "<<del->getc()<<'\n';
 
 }
 
@@ -178,6 +231,18 @@ void Melody::outputMelody()
 {
 	std::cout << "Melodia zapisana na stronie:\n";
 	std::cout << s << '\n';
+}
+
+void Melody::outputEncryptedMelody()
+{
+	std::cout << "Melodia w postaci zaszyfrowanej:\n";
+	std::cout << encrypted << '\n';
+}
+
+void Melody::outputDecryptedMelody()
+{
+	std::cout << "Melodia w postaci odszyfrowanej:\n";
+	std::cout << decrypted << '\n';
 }
 
 void Melody::setMelody(std::string s)
