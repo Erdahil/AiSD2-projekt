@@ -72,7 +72,7 @@ void Graph::generateGraph()
 
 	std::cout << "Czy chcesz zapisac graf?\n";
 	std::cout << "1.Tak\n";
-	std::cout << "1.Nie\n";
+	std::cout << "2.Nie\n";
 
 	int dec;
 
@@ -272,7 +272,7 @@ bool Graph::inputGraphFromFile()
 	std::ifstream inputFile(filePath);
 
 	if (!inputFile.is_open()) {
-		std::cerr << "Error opening the file!" << std::endl;
+		//std::cerr << "Error opening the file!" << std::endl;
 		return false;
 	}
 
@@ -614,16 +614,16 @@ void Graph::flowCleaner()
 	}
 }
 
-void Graph::showFlow()
-{
-	for (int i = 0; i < v.size(); i++)
-	{
-		for (int j = 0; j < v[i].getEdges()->size(); j++)
-		{
-			std::cout << std::get<2>((*v[i].getEdges())[j]);
-		}
-	}
-}
+//void Graph::showFlow()
+//{
+//	for (int i = 0; i < v.size(); i++)
+//	{
+//		for (int j = 0; j < v[i].getEdges()->size(); j++)
+//		{
+//			std::cout << std::get<2>((*v[i].getEdges())[j]);
+//		}
+//	}
+//}
 
 void guardShedule(std::vector<Vertex> convexHull)
 {

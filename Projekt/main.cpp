@@ -13,28 +13,40 @@ int main()
 	int decision;
 	Graph g1;
 	std::vector<Vertex> convexHull;
+	bool graphLoaded = false;
 
 	if (g1.inputGraphFromFile())
 	{
 		std::cout << "--------------------Wczytano graf--------------------\n";
+		graphLoaded = true;
 	}
 	else
 	{
 		std::cout << "--------------------Nie udalo sie wczytac grafu--------------------\n";
 	}
 
-	std::cout << "Nacisnij (Chyba dwa razy, bo cos nie dziala) ENTER, by kontynuowac\n";
+	std::cout << "\nNacisnij ENTER, by wrocic go glownego menu\n";
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	std::cin.get();
-	//system("pause");
 		
 	while (decision = mainMenu())
 	{
+		if (!graphLoaded && decision == 3)
+		{
+			std::cout << "Nie mozna stworzyc harmonogramu dla straznikow bez grafu!\n";
+
+			std::cout << "\n\n-----------------\n";
+			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.get();
+			continue;
+		}
+
 		if (decision == 1)
 		{
 			int c;
-			std::cout << "--------------------MENU--------------------\n";
+			std::cout << "--------------------Graf--------------------\n";
 			std::cout << "1.Generuj graf\n";
 			std::cout << "2.Wprowadz graf recznie\n";
 			std::cout << "3.Przejdz do zarzadzania tragarzami\n";
@@ -42,11 +54,11 @@ int main()
 
 			std::cout << "Podaj numer: ";
 
-			while (!(std::cin >> c) || !(c >= 1 || c <= 3))
+			while (!(std::cin >> c) || !(c >= 1 && c <= 4))
 			{
 				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
-				std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
 			}
 
 			system("CLS");
@@ -76,20 +88,21 @@ int main()
 				continue;
 			}
 
+			graphLoaded = true;
 			system("CLS");
 
-			std::cout << "-----------------Wprowadzanie tragarzy-----------------\n";
+			std::cout << "-----------------Tragarze-----------------\n";
 			std::cout << "1.Generuj pary tragarzy\n";
 			std::cout << "2.Wprowadz pary tragarzy recznie\n";
 			std::cout << "3.Wroc do glownego menu\n";
 
 			std::cout << "Podaj numer: ";
 
-			while (!(std::cin >> c) || !(c >= 1 || c <= 3))
+			while (!(std::cin >> c) || !(c >= 1 && c <= 3))
 			{
 				std::cin.clear();
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout << "Niepoprawne polecenie; podaj jeszcze raz:\n";
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
 			}
 
 			Pairs p1;
@@ -97,12 +110,13 @@ int main()
 			if (c == 1)
 			{
 				p1.generatePairs();
-				p1.outputPairs();
+				//p1.outputPairs();
 			}
 			else if (c == 2)
 			{
+				std::cout << "-----------------Wprowadzanie tragarzy-----------------\n";
 				p1.inputPairs();
-				p1.outputPairs();
+				//p1.outputPairs();
 			}
 			else if (c == 3)
 			{
@@ -147,15 +161,53 @@ int main()
 		else if (decision == 2)
 		{
 			Melody m1;
+			int c;
+			std::cout << "--------------------Melodia--------------------\n";
+			std::cout << "1.Generuj melodie\n";
+			std::cout << "2.Wprowadz melodie recznie\n";
+			std::cout << "3.Wroc do glownego menu\n";
 
-			m1.generateMelody(20);
+			while (!(std::cin >> c) || !(c >= 1 && c <= 3))
+			{
+				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
+			}
+
+			system("CLS");
+
+			if (c == 1)
+			{
+				m1.generateMelody(20);
+			}
+			else if (c == 2)
+			{
+				std::string mel;
+				std::cout << "-----------------Wprowadzanie melodii-----------------\n";
+
+				
+				m1.setMelody(mel);
+			}
+			else if (c == 3)
+			{
+				continue;
+			}
+
+			system("CLS");
+			
 			//m1.setMelody("wcvglcmrxq");
 			//m1.setMelody("popopolimeowpoli"); // do testu wzorca
+
+			std::cout << "-----------------Melodia-----------------\n";
+
 			m1.outputMelody();
+			std::cout << "-----------------\n";
 			m1.encryptHuffman();
 			m1.outputEncryptedMelody();
+			std::cout << "-----------------\n";
 			m1.decryptHuffman();
 			m1.outputDecryptedMelody();
+			std::cout << "-----------------\n";
 
 			std::string pattern = "poli";
 			PatternSearching ps;
@@ -176,7 +228,7 @@ int main()
 		}
 		else if (decision == 3)
 		{
-			g1.guardShedule(convexHull);
+			//g1.guardShedule(convexHull);
 
 		}
 		else if (decision == 4)
@@ -206,11 +258,11 @@ int mainMenu()
 
 	std::cout << "Podaj numer: ";
 
-	while (!(std::cin >> decision) || !(decision >= 1 || decision <= 4))
+	while (!(std::cin >> decision) || !(decision >= 1 && decision <= 4))
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Niepoprawny numer; podaj jeszcze raz:\n";
+		std::cout << "Niepoprawny numer; podaj jeszcze raz: ";
 	}
 
 	system("CLS");
