@@ -14,6 +14,17 @@ private:
 
 	bool outpuGraphToFile();
 
+	struct queueComparator //do kolejki potem potrzebny
+	{
+		bool operator()(const std::pair<int, int>& p1, const std::pair<int, int>& p2)
+		const
+		{
+			return p1.second < p2.second;
+		}
+	};
+	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> guards;
+
+
 public:
 	//std::vector<Vertex> v; // zrobilam swapa narazie bo mnie cos wezmie zaraz, jestem zbyt glupia zeby ogarnac to jakos inazcej :33
 	void generateGraph();//generuje graf
@@ -27,12 +38,12 @@ public:
 	bool inputGraphFromFile();
 	std::vector<Vertex> getV();
 
-	void guardShedule(std::vector<Vertex> convexHull, std::priority_queue<std::pair<int, int>>* guards);
+	void guardShedule(std::vector<Vertex> convexHull);
 	void generateBrightness(std::vector<Vertex>* convexHull);
 	void inputBrightness(std::vector<Vertex>* convexHull);
 
-	void generateGuards(std::priority_queue<std::pair<int, int>>* guards, int maxSize);
-	void inputGuards(std::priority_queue<std::pair<int, int>>* guards);
+	void generateGuards(int maxSize);
+	void inputGuards();
 
 	//std::vector<Vertex> getVerticesBFS(int endnode);
 	//bool ifConnectedBFS();

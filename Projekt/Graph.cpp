@@ -9,6 +9,8 @@
 
 // deklaracje metod z klasy Graph
 
+
+
 void Graph::generateGraph()
 {
 	srand(time(NULL));
@@ -625,7 +627,7 @@ void Graph::showFlow()
 	}
 }
 
-void Graph::guardShedule(std::vector<Vertex> convexHull, std::priority_queue<std::pair<int, int>>* guards)
+void Graph::guardShedule(std::vector<Vertex> convexHull)
 {
 	int startId = 0;//szukanie maksymalnej jasnosci by od niej zaczynac
 
@@ -644,39 +646,45 @@ void Graph::guardShedule(std::vector<Vertex> convexHull, std::priority_queue<std
 		convexHull.erase(convexHull.begin());
 		convexHull.push_back(temp);
 	}
+	std::cout << guards.top().second;
+	guards.pop();
+	std::cout << guards.top().second;
+	guards.pop();
+	std::cout << guards.top().second;
 
 	for (int i = 0; i < 7; i++)//dla kazdego dnia tygodnia trza znalezc
 	{
-		int currentEnergy = (*guards).top().second;
+		int currentEnergy = guards.top().second;
 
 		int currentV = 0;
 
 		while (currentV < convexHull.size())
 		{
 			currentV = convexHull.size();//by sie zatrzymywalo na razie
-			std::priority_queue<std::pair<int, int>> currentlyConsidered; //<id, jasnosc> wierzcholkow do ktorych mozna dojsc
+			//std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> currentlyConsidered; //<id, jasnosc> wierzcholkow do ktorych mozna dojsc
 			for (int j = 0; j < currentEnergy; j++)
 			{
 
 			}
 		}
 
-		(*guards).pop();
+		guards.pop();
 		//na koniec wypisac czy sie udalo i jak tak to ktory straznik tam ma byc
 	}
 
 }
 
-void Graph::generateGuards(std::priority_queue<std::pair<int, int>>* guards, int maxSize)
+void Graph::generateGuards(int maxSize)
 {
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)
 	{
-		(*guards).push(std::make_pair(i, rand() % maxSize));
+		guards.push(std::make_pair(i, rand() % maxSize));
 	}
+	//std::cout << "wygenrowadan\n";
 }
 
-void Graph::inputGuards(std::priority_queue<std::pair<int, int>>* guards)
+void Graph::inputGuards()
 {
 	std::cout << "Podaj ilu straznikow chcesz wygenerowac: \n";
 	int numbOfGuards;
@@ -696,7 +704,7 @@ void Graph::inputGuards(std::priority_queue<std::pair<int, int>>* guards)
 			std::cout << "Niepoprawna ilosc energii\nPodaj nowa wartosc:\n";
 			std::cin >> energy;
 		}
-		(*guards).push(std::make_pair(i,energy));
+		guards.push(std::make_pair(i, energy));
 	}
 }
 
@@ -728,4 +736,6 @@ std::vector<Vertex> Graph::getV()
 {
 	return v;
 }
+
+
 

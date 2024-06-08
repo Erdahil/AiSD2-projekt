@@ -246,18 +246,19 @@ int main()
 			std::cout << "jesli chcesz wygenerowac straznikow wpisz 'g', jesli wpisac wpisz 'w'\n";
 			std::cin >> tempc;
 
-			std::priority_queue<std::pair<int, int>> guards;//wektor straznikow - <id, energia>
+			//std::priority_queue<std::pair<int, int>, guardsComparator> guards;//kolejka straznikow - <id, energia>
 
 			if (tempc == 'g')
 			{
-				g1.generateGuards(&guards, convexHull.size());//domyslnie bedzie generowalo 20, idk mo¿na zmienic potem
+				g1.generateGuards(convexHull.size());//domyslnie bedzie generowalo 20, idk mo¿na zmienic potem
 			}
 			else if (tempc == 'w')
 			{
-				g1.inputGuards(&guards);
+				g1.inputGuards();
 			}
+			
 
-			g1.guardShedule(convexHull, &guards);
+			//g1.guardShedule(convexHull);
 
 			std::cout << "\nstop";//usun¹æ potem, po prostu nie wiem jak dzia³a to wpisywanie teraz co Dominik zrobi³
 			std::cin >> tempc;//to te¿
