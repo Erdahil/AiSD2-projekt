@@ -27,8 +27,12 @@ public:
 	bool inputGraphFromFile();
 	std::vector<Vertex> getV();
 
-	void guardShedule(std::vector<Vertex> convexHull);
+	void guardShedule(std::vector<Vertex> convexHull, std::priority_queue<std::pair<int, int>>* guards);
+	void generateBrightness(std::vector<Vertex>* convexHull);
+	void inputBrightness(std::vector<Vertex>* convexHull);
 
+	void generateGuards(std::priority_queue<std::pair<int, int>>* guards, int maxSize);
+	void inputGuards(std::priority_queue<std::pair<int, int>>* guards);
 
 	//std::vector<Vertex> getVerticesBFS(int endnode);
 	//bool ifConnectedBFS();

@@ -76,7 +76,6 @@ void Melody::encryptHuffman()
 		q.pop();
 		
 
-		//std::cout << "laczenie " << leftTN->getn() << " i " << rightTN->getn() << '\n';
 		TreeNode* newTN = new TreeNode();
 		newTN->setc('-');
 		newTN->setn(leftTN->getn() + rightTN->getn());
@@ -84,15 +83,11 @@ void Melody::encryptHuffman()
 		newTN->setRight(rightTN);
 		q.push(newTN);
 	}
-	/*
-	TreeNode* outputTN = q.top();
-	std::cout<<outputTN->getn()<<'\n'<<outputTN->getLeft()->getn()<<" "<< outputTN->getRight()->getn()<<" tu koniec\n";
 
-	delete outputTN;*/
 	root = q.top();
 
 	//writeTree(root);
-	makeHuffmanMap(root);
+	makeHuffmanMap(root);//zapisanie liter z ich kodowaniami do map
 
 	encrypted = "";
 
@@ -100,22 +95,7 @@ void Melody::encryptHuffman()
 	{
 		encrypted += mp[s[i]];
 	}
-
-	/*
-	std::cout << "piszem mapem:\n";
-	for (const auto& elem : mp)
-	{
-		std::cout << elem.first << " " << elem.second << "\n";
-	}
-	std::cout << "wypisana\n";
-	*/
-
-
-	//std::cout << outputTN->getLeft()->getLeft()->getn() << " costampiszeee\n";
-	//writeTree(q.top());
-	//deleteHuffmanTree(q.top());
-	//potem dokoncze //albo nie. Trudne to. i trza jeszcze destruktor napisac do ostatniego drzewa w kolejce
-
+	
 }
 
 void Melody::makeHuffmanMap(TreeNode* temp)

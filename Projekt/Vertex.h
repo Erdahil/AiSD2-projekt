@@ -11,6 +11,7 @@ private:
 	bool isLeader; // jak wyzej
 	float x;
 	float y;
+	int brightness;
 	std::vector<std::tuple<int, float, float>> edges; //id wierzcholkow do ktorych mozna dojsc z tego (id, max przeplyw, aktualny przeplyw)
 public:
 	void setCoords(float x, float y);
@@ -20,8 +21,10 @@ public:
 	int getid();
 	bool getIsLeader();
 	int getGroupid();
+	int getBrightness();
 	void setid(int id);
 	void setGroupid(int groupid);
 	void setIsLeader(bool isLeader);
+	void setBrightness(int brightness);
 };
 

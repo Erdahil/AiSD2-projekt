@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 //#include <vector>
 #include "Graph.h"
 #include "Pairs.h"
@@ -228,7 +229,38 @@ int main()
 		}
 		else if (decision == 3)
 		{
-			//g1.guardShedule(convexHull);
+			char tempc;
+			std::cout << "jesli chcesz wygenerowac jasnosc punktow otoczki wpisz 'g', jesli wpisac wpisz 'w'\n";
+			std::cin >> tempc;
+
+
+			if (tempc == 'g')
+			{
+				g1.generateBrightness(&convexHull);
+			}
+			else if (tempc == 'w')
+			{
+				g1.inputBrightness(&convexHull);
+			}
+
+			std::cout << "jesli chcesz wygenerowac straznikow wpisz 'g', jesli wpisac wpisz 'w'\n";
+			std::cin >> tempc;
+
+			std::priority_queue<std::pair<int, int>> guards;//wektor straznikow - <id, energia>
+
+			if (tempc == 'g')
+			{
+				g1.generateGuards(&guards, convexHull.size());//domyslnie bedzie generowalo 20, idk mo¿na zmienic potem
+			}
+			else if (tempc == 'w')
+			{
+				g1.inputGuards(&guards);
+			}
+
+			g1.guardShedule(convexHull, &guards);
+
+			std::cout << "\nstop";//usun¹æ potem, po prostu nie wiem jak dzia³a to wpisywanie teraz co Dominik zrobi³
+			std::cin >> tempc;//to te¿
 
 		}
 		else if (decision == 4)

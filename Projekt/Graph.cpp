@@ -625,11 +625,102 @@ void Graph::flowCleaner()
 //	}
 //}
 
-void guardShedule(std::vector<Vertex> convexHull)
+void Graph::guardShedule(std::vector<Vertex> convexHull, std::priority_queue<std::pair<int, int>>* guards)
 {
+	int startId = 0;//szukanie maksymalnej jasnosci by od niej zaczynac
+
 	for (int i = 0; i < convexHull.size(); i++)
 	{
-		
+		if (convexHull[i].getBrightness() > 0)
+		{
+			startId = i;
+		}
+	}
+
+	for (int i = 0; i < startId; i++)
+	{
+		Vertex temp;
+		temp = convexHull[0];
+		convexHull.erase(convexHull.begin());
+		convexHull.push_back(temp);
+	}
+
+	for (int i = 0; i < 7; i++)//dla kazdego dnia tygodnia trza znalezc
+	{
+		int currentEnergy = (*guards).top().second;
+
+		int currentV = 0;
+
+		while (currentV < convexHull.size())
+		{
+			currentV = convexHull.size();//by sie zatrzymywalo na razie
+			std::priority_queue<std::pair<int, int>> currentlyConsidered; //<id, jasnosc> wierzcholkow do ktorych mozna dojsc
+			for (int j = 0; j < currentEnergy; j++)
+			{
+
+			}
+		}
+
+		(*guards).pop();
+		//na koniec wypisac czy sie udalo i jak tak to ktory straznik tam ma byc
+	}
+
+}
+
+void Graph::generateGuards(std::priority_queue<std::pair<int, int>>* guards, int maxSize)
+{
+	srand(time(NULL));
+	for (int i = 0; i < 20; i++)
+	{
+		(*guards).push(std::make_pair(i, rand() % maxSize));
+	}
+}
+
+void Graph::inputGuards(std::priority_queue<std::pair<int, int>>* guards)
+{
+	std::cout << "Podaj ilu straznikow chcesz wygenerowac: \n";
+	int numbOfGuards;
+	std::cin >> numbOfGuards;
+	while (numbOfGuards < 7)
+	{
+		std::cout << "Zbyt malo by sporzadzic grafik pracy na caly tydzien.\nPodaj nowa ilosc:\n";
+		std::cin >> numbOfGuards;
+	}
+	for (int i = 0; i < numbOfGuards; i++)
+	{
+		std::cout << "Podaj energie straznika o id: " << i<<'\n';
+		int energy;
+		std::cin >> energy;
+		while (energy < 1)
+		{
+			std::cout << "Niepoprawna ilosc energii\nPodaj nowa wartosc:\n";
+			std::cin >> energy;
+		}
+		(*guards).push(std::make_pair(i,energy));
+	}
+}
+
+void Graph::generateBrightness(std::vector<Vertex>* convexHull)
+{
+	srand(time(NULL));
+
+	int max = (*convexHull).size();
+	for (int i = 0; i < (*convexHull).size(); i++)
+	{
+		(*convexHull)[i].setBrightness(rand() % max);//zeby wygenerowana jasnosc nie byla wieksza od 
+	}
+}
+
+void Graph::inputBrightness(std::vector<Vertex>* convexHull)
+{
+	for (int i = 0; i < (*convexHull).size(); i++)
+	{
+		int input;
+		std::cout << "Wprowadz jasnosc dla punktu otoczki numer "<<i<<" o wspolrzednych:\n";
+		std::cout << "x: " << (*convexHull)[i].getx() << '\n';
+		std::cout << "y: " << (*convexHull)[i].gety() << '\n';
+		std::cin >> input;
+		(*convexHull)[i].setBrightness(input);
 	}
 }
 

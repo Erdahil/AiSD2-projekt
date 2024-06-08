@@ -27,6 +27,11 @@ void Vertex::setIsLeader(bool isLeader)
 	this->isLeader = isLeader;
 }
 
+void Vertex::setBrightness(int brightness)
+{
+	this->brightness = brightness;
+}
+
 float Vertex::getx()
 {
 	return x;
@@ -50,4 +55,9 @@ int Vertex::getGroupid()
 bool Vertex::getIsLeader()
 {
 	return isLeader;
+}
+
+int Vertex::getBrightness()
+{
+	return brightness;
 }
