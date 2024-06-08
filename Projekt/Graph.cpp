@@ -646,6 +646,9 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 		convexHull.erase(convexHull.begin());
 		convexHull.push_back(temp);
 	}
+
+	std::cout << "Straznicy beda zaczynac od puktu o id: " << startId << '\n';
+
 	/*
 	std::cout << guards.top().second;
 	guards.pop();
@@ -693,7 +696,7 @@ void Graph::generateGuards(int maxSize)
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)//na razie 20, idk mozna zmienic
 	{
-		guards.push(std::make_pair(i, 1 + (rand() % (maxSize - 1))));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
+		guards.push(std::make_pair(i, 1 + (rand() % maxSize)));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
 	}
 }
 

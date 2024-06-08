@@ -243,6 +243,12 @@ int main()
 				g1.inputBrightness(&convexHull);
 			}
 
+			std::cout << "Jasnosci punktow na otoczce\n";
+			for (int i = 0; i < convexHull.size(); i++)
+			{
+				std::cout << "id punktu: " << i << " jasnosc punktu: " << convexHull[i].getBrightness() << '\n';
+			}
+
 			std::cout << "jesli chcesz wygenerowac straznikow wpisz 'g', jesli wpisac wpisz 'w'\n";
 			std::cin >> tempc;
 
