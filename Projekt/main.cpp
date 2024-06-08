@@ -256,9 +256,9 @@ int main()
 			{
 				g1.inputGuards();
 			}
-			
+			g1.outputGuards();//idk czy musi byc
 
-			//g1.guardShedule(convexHull);
+			g1.guardShedule(convexHull);
 
 			std::cout << "\nstop";//usun¹æ potem, po prostu nie wiem jak dzia³a to wpisywanie teraz co Dominik zrobi³
 			std::cin >> tempc;//to te¿

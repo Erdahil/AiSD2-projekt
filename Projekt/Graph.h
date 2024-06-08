@@ -44,6 +44,7 @@ public:
 
 	void generateGuards(int maxSize);
 	void inputGuards();
+	void outputGuards();//idk czy potrzebne per se
 
 	//std::vector<Vertex> getVerticesBFS(int endnode);
 	//bool ifConnectedBFS();

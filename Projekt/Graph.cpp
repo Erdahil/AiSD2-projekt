@@ -646,30 +646,44 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 		convexHull.erase(convexHull.begin());
 		convexHull.push_back(temp);
 	}
+	/*
 	std::cout << guards.top().second;
 	guards.pop();
 	std::cout << guards.top().second;
 	guards.pop();
-	std::cout << guards.top().second;
+	std::cout << guards.top().second;*/
 
 	for (int i = 0; i < 7; i++)//dla kazdego dnia tygodnia trza znalezc
 	{
 		int currentEnergy = guards.top().second;
 
 		int currentV = 0;
+		int currentBrightness = convexHull[0].getBrightness();
+		int rests = 0;
 
-		while (currentV < convexHull.size())
+		while (currentV + currentEnergy < convexHull.size())
 		{
-			currentV = convexHull.size();//by sie zatrzymywalo na razie
-			//std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> currentlyConsidered; //<id, jasnosc> wierzcholkow do ktorych mozna dojsc
-			for (int j = 0; j < currentEnergy; j++)
-			{
 
+			std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> currentlyConsidered; //<id, jasnosc> wierzcholkow do ktorych mozna dojsc
+			
+			for (int j = 1; j <= currentEnergy; j++)//utworzenie kolejki tych do ktorych mozna dojsc
+			{
+				currentlyConsidered.push(std::make_pair(currentV + j, convexHull[currentV + j].getBrightness()));
+			}
+
+			//std::cout << "na topie w kolejce: " << currentlyConsidered.top().first << '\n';//do zakomentowania
+			currentV = currentlyConsidered.top().first;
+			currentBrightness = currentlyConsidered.top().second;
+
+			if (currentlyConsidered.top().second >= currentBrightness)//jesli ten w ktorym jest, nie jest jasniejszy
+			{
+				rests++;
 			}
 		}
 
+		std::cout << "Dla dnia tygodnia nr: " << i + 1 << " przydzielono straznika o id: " << guards.top().first << ". Musi on odpoczac " << rests << " raz(y).\n";
+
 		guards.pop();
-		//na koniec wypisac czy sie udalo i jak tak to ktory straznik tam ma byc
 	}
 
 }
@@ -677,11 +691,10 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 void Graph::generateGuards(int maxSize)
 {
 	srand(time(NULL));
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 20; i++)//na razie 20, idk mozna zmienic
 	{
-		guards.push(std::make_pair(i, rand() % maxSize));
+		guards.push(std::make_pair(i, 1 + (rand() % (maxSize - 1))));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
 	}
-	//std::cout << "wygenrowadan\n";
 }
 
 void Graph::inputGuards()
@@ -715,7 +728,7 @@ void Graph::generateBrightness(std::vector<Vertex>* convexHull)
 	int max = (*convexHull).size();
 	for (int i = 0; i < (*convexHull).size(); i++)
 	{
-		(*convexHull)[i].setBrightness(rand() % max);//zeby wygenerowana jasnosc nie byla wieksza od 
+		(*convexHull)[i].setBrightness(rand() % max);//zeby wygenerowana jasnosc nie byla wieksza od ilosci elementow - to tam nie ma znaczenia i tak i jakos sie lepiej ograniczmy po prostu
 	}
 }
 
@@ -724,12 +737,25 @@ void Graph::inputBrightness(std::vector<Vertex>* convexHull)
 	for (int i = 0; i < (*convexHull).size(); i++)
 	{
 		int input;
-		std::cout << "Wprowadz jasnosc dla punktu otoczki numer "<<i<<" o wspolrzednych:\n";
+		std::cout << "Wprowadz jasnosc dla punktu otoczki numer "<<i<<" o wspolrzednych:\n";//idk czy tu trza wspolrzedne robic
 		std::cout << "x: " << (*convexHull)[i].getx() << '\n';
 		std::cout << "y: " << (*convexHull)[i].gety() << '\n';
 		std::cin >> input;
 		(*convexHull)[i].setBrightness(input);
 	}
+}
+
+void Graph::outputGuards()
+{
+	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> copyGuards = guards;
+	std::cout << "Dostepni straznicy:\n";
+
+	while (!copyGuards.empty())
+	{
+		std::cout << "id: " << copyGuards.top().first << " energia: " << copyGuards.top().second << '\n';
+		copyGuards.pop();
+	}
+	std::cout << '\n';
 }
 
 std::vector<Vertex> Graph::getV()
