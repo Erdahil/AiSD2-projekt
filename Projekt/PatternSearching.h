@@ -8,17 +8,17 @@ class PatternSearching
 {
 private:
     std::string pattern;
-    std::vector<int> Last;
-    std::vector<int> BMNext;
+    std::vector<int> last;
+    std::vector<int> bmnext;
 
-    // wypelnienie wektora Last - wyznacza ostanie po³o¿enia znaków alfabetu we wzorcu
+    // wypelnienie wektora last - wyznacza ostanie po³o¿enia znaków alfabetu we wzorcu
     void fillLast();
 
-    // wypelnianie wektora BMNext - zawiera wartosci przesuniec dla poszczegolnych sufiksow wzorca
+    // wypelnianie wektora bmnext - zawiera wartosci przesuniec dla poszczegolnych sufiksow wzorca
     void fillBMNext();
 
 public:
-    // ustawianie wzorca + przygotowanie wektorow Last i BMNext
+    // ustawianie wzorca + przygotowanie wektorow last i bmnext
     void setPattern(const std::string& pat);
 
     //wyszukiwanie wzorca

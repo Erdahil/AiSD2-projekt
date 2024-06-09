@@ -233,11 +233,17 @@ int main()
 
 					ps.setPattern(pattern);
 					std::vector<int> result = ps.search(m1.getMelody());
-
-					std::cout << "indeks litery, w ktorej rozpoczyna sie wzorzec:" << std::endl;
-					for (int i = 0; i < result.size(); i++)
+					if (result.empty())
 					{
-						std::cout << result[i] << std::endl;
+						std::cout << "nie znaleziono podanego wzorca" << std::endl;
+					}
+					else
+					{
+						std::cout << "indeks litery, w ktorej rozpoczyna sie wzorzec:" << std::endl;
+						for (int i = 0; i < result.size(); i++)
+						{
+							std::cout << result[i] << std::endl;
+						}
 					}
 
 					std::cout << "\n-----------------\n";

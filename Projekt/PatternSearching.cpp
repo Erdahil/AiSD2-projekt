@@ -7,18 +7,18 @@
 void PatternSearching::fillLast()
 {
 	int n = pattern.size();
-	Last.resize(26, -1);  // utworzenie wektora last wypelnionego -1; 26, bo jest 26 malych liter alfabetu angielskiego
+	last.resize(26, -1);  // utworzenie wektora last wypelnionego -1; 26, bo jest 26 malych liter alfabetu angielskiego
 	for (int i = 0; i < n; i++)
 	{
-		Last[pattern[i] - 'a'] = i;  // ustawia ostatnie polozenie kazdego znaku
+		last[pattern[i] - 'a'] = i;  // ustawia ostatnie polozenie kazdego znaku
 	}
 }
 
 void PatternSearching::fillBMNext()
 {
 	int n = pattern.size();
-	BMNext.resize(n + 1, n);   // utworzenie wektora BMNext
-	std::vector<int> Pi(n + 1, 0); // wektor pomocniczy do BMNext
+	bmnext.resize(n + 1, n);   // utworzenie wektora bmnext
+	std::vector<int> Pi(n + 1, 0); // wektor pomocniczy do bmnext
 	Pi[n] = n + 1;  // ustawia ostatnia wartosc na o 1 wieksza niz dlugosc wzorca
 
 	int i = n, j = n + 1;
@@ -26,9 +26,9 @@ void PatternSearching::fillBMNext()
 	{
 		while ((j <= n) && (pattern[i - 1] != pattern[j - 1])) // gdy biezacy prefikso-sufiks istnieje i nie daje sie rozszerzyc w lewo
 		{
-			if (BMNext[j] == 0)
+			if (bmnext[j] == 0)
 			{
-				BMNext[j] = j - i; // przesuniecie dla niepasujacego sufiksu
+				bmnext[j] = j - i; // przesuniecie dla niepasujacego sufiksu
 			}
 			j = Pi[j]; // w j umieszczone jest polozenie prefikso-sufiksu wewnetrznego
 		}
@@ -40,9 +40,9 @@ void PatternSearching::fillBMNext()
 	j = Pi[0]; // najdluzszy prefikso-sufiks
 	for (i = 0; i <= n; i++)
 	{
-		if (BMNext[i] == 0)
+		if (bmnext[i] == 0)
 		{
-			BMNext[i] = j; // w wolnych miejscach umieszczenie polozenia prefikso-sufiksu
+			bmnext[i] = j; // w wolnych miejscach umieszczenie polozenia prefikso-sufiksu
 		}
 		if (i == j)
 		{
@@ -76,19 +76,14 @@ std::vector<int> PatternSearching::search(const std::string& text)
 		if (j == -1)  // caly wzorzec pasuje do okna
 		{
 			matches.push_back(i);
-			i += BMNext[0]; // przesuniecie okna na kolejna mozliwa pozycje
+			i += bmnext[0]; // przesuniecie okna na kolejna mozliwa pozycje
 		}
 		else
 		{
-			int BadCharacter = j = Last[text[i + j] - 'a'];
-			int GoodSuffix = BMNext[j + 1];
-			i += std::max(BadCharacter, GoodSuffix); // jesli jednak wzorzec nie pasuje to pozycja okna wzorca zwieksza sie o MAX z: przesuniecie pasujacego sufiksu ; ostania pozycja nie pasujacego znaku
+			int badCharacter = j = last[text[i + j] - 'a'];
+			int goodSuffix = bmnext[j + 1];
+			i += std::max(badCharacter, goodSuffix); // jesli jednak wzorzec nie pasuje to pozycja okna wzorca zwieksza sie o MAX z: przesuniecie pasujacego sufiksu ; ostania pozycja nie pasujacego znaku
 		}
-	}
-
-	if (matches.empty())
-	{
-		matches.push_back(-1); // jak nie znaleziono wzorca to wynik = -1
 	}
 
 	return matches;
