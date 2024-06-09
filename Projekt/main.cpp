@@ -167,6 +167,7 @@ int main()
 			std::cout << "1.Generuj melodie\n";
 			std::cout << "2.Wprowadz melodie recznie\n";
 			std::cout << "3.Wroc do glownego menu\n";
+			std::cout << "Podaj numer: ";
 
 			while (!(std::cin >> c) || !(c >= 1 && c <= 3))
 			{
@@ -179,12 +180,23 @@ int main()
 
 			if (c == 1)
 			{
-				m1.generateMelody(20);
+				std::cout << "--------------------Generacja melodii--------------------\n";
+				int num;
+				std::cout << "Podaj dlugosc melodii: ";
+				while (!(std::cin >> num) || !(num > 0))
+				{
+					std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+					std::cout << "Niepoprawna liczba; podaj jeszcze raz: ";
+				}
+				m1.generateMelody(num);
 			}
 			else if (c == 2)
 			{
 				std::string tmpMel;
 				std::cout << "-----------------Wprowadzanie melodii-----------------\n";
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				getline(std::cin, tmpMel);
 				m1.setMelody(tmpMel);
 			}
@@ -216,6 +228,7 @@ int main()
 
 			while (true)
 			{
+				std::cout << "Podaj numer: ";
 				while (!(std::cin >> c) || !(c >= 1 && c <= 2))
 				{
 					std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
@@ -268,6 +281,7 @@ int main()
 			std::cout << "1.Generuj jasnosc punktow\n";
 			std::cout << "2.Wprowadz jasnosc punktow recznie\n";
 			std::cout << "3.Wroc do glownego menu\n";
+			std::cout << "Podaj numer: ";
 
 			while (!(std::cin >> tempc) || !(tempc >= 1 && tempc <= 3))
 			{
@@ -304,6 +318,7 @@ int main()
 			std::cout << "1.Generuj straznikow\n";
 			std::cout << "2.Wprowadz straznikow recznie\n";
 			std::cout << "3.Wroc do glownego menu\n";
+			std::cout << "Podaj numer: ";
 
 			while (!(std::cin >> tempc) || !(tempc >= 1 && tempc <= 3))
 			{
