@@ -153,7 +153,7 @@ int main()
 
 
 			std::cout << "\n\n-----------------\n";
-			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
+			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.get();
@@ -183,11 +183,10 @@ int main()
 			}
 			else if (c == 2)
 			{
-				std::string mel;
+				std::string tmpMel;
 				std::cout << "-----------------Wprowadzanie melodii-----------------\n";
-
-				
-				m1.setMelody(mel);
+				getline(std::cin, tmpMel);
+				m1.setMelody(tmpMel);
 			}
 			else if (c == 3)
 			{
@@ -210,64 +209,130 @@ int main()
 			m1.outputDecryptedMelody();
 			std::cout << "-----------------\n";
 
-			std::string pattern = "poli";
-			PatternSearching ps;
-			ps.setPattern(pattern);
-			std::vector<int> result = ps.search(m1.getMelody());
+			std::cout << "\n-----------------\n";
+			std::cout << "Czy chcesz znalezc wzorze w zapisanej melodii?\n";
+			std::cout << "1.Tak\n";
+			std::cout << "2.Nie\n";
 
-			std::cout << "indeks litery, w ktorej rozpoczyna sie wzorzec:" << std::endl;
-			for (int i = 0; i < result.size(); i++)
+			while (true)
 			{
-				std::cout << result[i] << std::endl;
-			}
+				while (!(std::cin >> c) || !(c >= 1 && c <= 2))
+				{
+					std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+					std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
+				}
 
+				if (c == 1)
+				{
+					std::string pattern;
+					PatternSearching ps;
+
+					std::cout << "\nPodaj wzorzec do znalezienia:\n";
+					std::cin >> pattern;
+
+					ps.setPattern(pattern);
+					std::vector<int> result = ps.search(m1.getMelody());
+
+					std::cout << "indeks litery, w ktorej rozpoczyna sie wzorzec:" << std::endl;
+					for (int i = 0; i < result.size(); i++)
+					{
+						std::cout << result[i] << std::endl;
+					}
+
+					std::cout << "\n-----------------\n";
+					std::cout << "Czy chcesz znalezc kolejny wzorze w zapisanej melodii?\n";
+					std::cout << "1.Tak\n";
+					std::cout << "2.Nie\n";
+				}
+				else if (c == 2) { break; }
+			}
+			
+			
 			std::cout << "\n\n-----------------\n";
-			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
+			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.get();
 		}
 		else if (decision == 3)
 		{
-			char tempc;
-			std::cout << "jesli chcesz wygenerowac jasnosc punktow otoczki wpisz 'g', jesli wpisac wpisz 'w'\n";
-			std::cin >> tempc;
+			int tempc;
+			std::cout << "--------------------Jasnosc punktow na otoczce--------------------\n";
+			std::cout << "1.Generuj jasnosc punktow\n";
+			std::cout << "2.Wprowadz jasnosc punktow recznie\n";
+			std::cout << "3.Wroc do glownego menu\n";
 
+			while (!(std::cin >> tempc) || !(tempc >= 1 && tempc <= 3))
+			{
+				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
+			}
 
-			if (tempc == 'g')
+			system("CLS");
+
+			if (tempc == 1)
 			{
 				g1.generateBrightness(&convexHull);
 			}
-			else if (tempc == 'w')
+			else if (tempc == 2)
 			{
+				std::cout << "-----------------Wprowadzanie jasnosci punktow-----------------\n";
 				g1.inputBrightness(&convexHull);
 			}
+			else if (tempc == 3)
+			{
+				continue;
+			}
 
-			std::cout << "Jasnosci punktow na otoczce\n";
+			system("CLS");
+
+			std::cout << "\n-----------------Jasnosc punktow na otoczce-----------------\n";
 			for (int i = 0; i < convexHull.size(); i++)
 			{
 				std::cout << "id punktu: " << i << " jasnosc punktu: " << convexHull[i].getBrightness() << '\n';
 			}
 
-			std::cout << "jesli chcesz wygenerowac straznikow wpisz 'g', jesli wpisac wpisz 'w'\n";
-			std::cin >> tempc;
+			std::cout << "\n\n--------------------Straznicy--------------------\n";
+			std::cout << "1.Generuj straznikow\n";
+			std::cout << "2.Wprowadz straznikow recznie\n";
+			std::cout << "3.Wroc do glownego menu\n";
+
+			while (!(std::cin >> tempc) || !(tempc >= 1 && tempc <= 3))
+			{
+				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
+			}
 
 			//std::priority_queue<std::pair<int, int>, guardsComparator> guards;//kolejka straznikow - <id, energia>
 
-			if (tempc == 'g')
+			if (tempc == 1)
 			{
 				g1.generateGuards(convexHull.size());//domyslnie bedzie generowalo 20, idk mo¿na zmienic potem
 			}
-			else if (tempc == 'w')
+			else if (tempc == 2)
 			{
+				std::cout << "-----------------Wprowadzanie straznikow-----------------\n";
 				g1.inputGuards();
 			}
+			else if (tempc == 3)
+			{
+				continue;
+			}
+
+			std::cout << "\n\n--------------------Straznicy--------------------\n";
 			g1.outputGuards();//idk czy musi byc
 
+			std::cout << "\n\n--------------------Harmonogram straznikow--------------------\n";
 			g1.guardShedule(convexHull);
 
-			std::cout << "\nstop";//usun¹æ potem, po prostu nie wiem jak dzia³a to wpisywanie teraz co Dominik zrobi³
-			std::cin >> tempc;//to te¿
+			std::cout << "\n\n-----------------\n";
+			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.get();
 
 		}
 		else if (decision == 4)

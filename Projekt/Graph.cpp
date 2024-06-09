@@ -202,16 +202,23 @@ void Graph::inputGraph()
 			float tempFlow;
 			std::cout << "Podaj id wierzcholka z ktorym ten jest polaczony:\n";
 
-			while (!(std::cin >> tempID) || tempID < 0 || tempID == i || tempID >= n)
+			while (true)
 			{
-				std::cin.clear();
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cout << "Bledne id; podaj jeszcze raz:\n";
-			}
+				while (!(std::cin >> tempID) || tempID < 0 || tempID == i || tempID >= n)
+				{
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Bledne id; podaj jeszcze raz:\n";
+				}
 
-			while (std::find(contains.begin(), contains.end(), tempID) != contains.end())
-			{
-				std::cout << "To id bylo juz podane; podaj jeszcze raz:\n";
+				if (std::find(contains.begin(), contains.end(), tempID) != contains.end())
+				{
+					std::cout << "To id bylo juz podane; podaj jeszcze raz:\n";
+				}
+				else
+				{
+					break;
+				}
 			}
 
 			contains.push_back(tempID);
