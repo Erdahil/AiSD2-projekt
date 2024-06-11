@@ -4,9 +4,29 @@
 
 void Pairs::generatePairs()
 {
-	srand(time(NULL)+1000); // +1000 zeby generowalo co innego niz przy grafie
-	r = rand() % 10 + 1; // %10 bo dla testow tylko takie male - mozna wiecej, albo ustawic by sie podawalo ilosc przy wywolywaniu potem
-	l = rand() % 10 + 1;
+
+	std::cout << "Podaj ilosc tragarzy majacych rece skierowane w prawo" << std::endl;
+
+	while (!(std::cin >> r) || !(r >= 0))
+	{
+		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		std::cout << "Niepoprawna wartoœæ. Wpisz jeszcze raz: ";
+	}
+
+	std::cout << "\n-----------------\n";
+
+	std::cout << "Podaj ilosc tragarzy majacych rece skierowane w lewo" << std::endl;
+
+	while (!(std::cin >> l) || !(l >= 0))
+	{
+		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		std::cout << "Niepoprawna wartoœæ. Wpisz jeszcze raz: ";
+	}
+
+	std::cout << "\n-----------------\n";
+
 
 	carriers.resize(r + l);
 	for (int i = 0; i < l + r; i++)
@@ -83,30 +103,7 @@ void Pairs::inputPairs()
 		carriers[i].getLikes()->resize(numLikes);
 		if (numLikes > 0)
 		{
-			/*To jest stary kod, zostal zastapiony nowym kodem znajdujacym sie nizej
-			std::cout << "Podaj id tych tragarzy, ktorych lubi (musza byc z rekami skierowanymi w lewo od " << l << " do " << l + r - 1 << " wlacznie ):\n";
-			std::vector <int> contains;//do sprawdzenia czy ten juz byl podany
-			for (int j = 0; j < numLikes; j++)
-			{
-				int newLike;
-				while (!(std::cin >> newLike) || !(newLike >= r && newLike < l + r))
-				{
-					std::cin.clear();
-					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-					std::cout << "Bledne id; podaj jeszcze raz:\n";
-				}
 
-				while (std::find(contains.begin(), contains.end(), newLike) != contains.end())
-				{
-					std::cout << "To id bylo juz podane; podaj jeszcze raz:\n";
-					std::cin >> newLike;
-				}
-
-				contains.push_back(newLike);
-				
-				(*carriers[i].getLikes())[j].first = newLike;
-				(*carriers[i].getLikes())[j].second = 1.0;
-			}*/
 
 			std::cout << "Podaj id tych tragarzy, ktorych lubi (id musi byc w przedziale od 0 do " << l - 1 << " wlacznie ):\n";
 			std::vector <int> contains;//do sprawdzenia czy ten juz byl podany
@@ -118,7 +115,7 @@ void Pairs::inputPairs()
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					std::cout << "Bledne id; podaj jeszcze raz:\n";
-				} 
+				}
 
 				while (std::find(contains.begin(), contains.end(), newLike) != contains.end())
 				{
@@ -144,10 +141,10 @@ void Pairs::outputPairs()
 	std::cout << "kierunek transportu: \n";
 	std::cout << "tragarze z rekami w prawo -> tragarze z rekami w lewo\n";
 	std::cout << "-----------------\n";
-	
-	for (int i = 0; i < r; i++) // wypisuje tylko tych z rekami w prawo bo skoro testowe to po kiego mam pisac dodatkowe funkcje by czytalo w druga strone duh
+
+	for (int i = 0; i < r; i++) // wypisuje tylko tych z rekami w prawo 
 	{
-		std::cout << "id tragarzy ktorych lubi tragarz o id " << i << ":\n";
+		std::cout << "> id leworecznych tragarzy ktorych lubi tragarz praworeczny o id " << i << ":\n";
 		if (carriers[i].getLikes()->empty())
 		{
 			std::cout << "zadnego";
@@ -156,7 +153,7 @@ void Pairs::outputPairs()
 		{
 			for (int j = 0; j < carriers[i].getLikes()->size(); j++)
 			{
-				std::cout << (*carriers[i].getLikes())[j].first - r << ' '; //odejmowanie r daje bardziej czytelny wynik zgodny z systemem indeksowania wyswietlanym w inputPairs()
+				std::cout << (*carriers[i].getLikes())[j].first << ' '; //odejmowanie r daje bardziej czytelny wynik zgodny z systemem indeksowania wyswietlanym w inputPairs()
 			}
 		}
 

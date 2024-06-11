@@ -11,7 +11,7 @@ private:
 public:
 	void generatePairs();
 	void inputPairs();
-	void findPairs();
+	//void findPairs();
 	void outputPairs();
 };
 

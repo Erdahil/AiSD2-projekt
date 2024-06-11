@@ -25,7 +25,7 @@ int main()
 		std::cout << "--------------------Nie udalo sie wczytac grafu--------------------\n";
 	}
 
-	std::cout << "\nNacisnij ENTER, by wrocic go glownego menu\n";
+	std::cout << "\nNacisnij ENTER, by przejsc do glownego menu\n";
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -35,7 +35,7 @@ int main()
 		{
 			std::cout << "Nie mozna stworzyc harmonogramu dla straznikow bez grafu!\n";
 
-			std::cout << "\n\n-----------------\n";
+			std::cout << "\n-----------------\n";
 			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -100,6 +100,8 @@ int main()
 				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
 			}
 
+			system("CLS");
+
 			Pairs p1;
 
 			if (c == 1)
@@ -141,12 +143,20 @@ int main()
 			for (int i = 0; i < convexHull.size(); i++)
 			{
 				int id = convexHull[i].getid();
-				int flow = g1.maximumFlow(id);
-				std::cout << "id wierzcholka: " << id << ", maksymalny przeplyw z fabryki: " << (flow == 0 ? 0 : flow) << "\n";
+				float flow = g1.maximumFlow(id);
+				if (i == g1.getFactoryId())
+				{
+					std::cout << "id wierzcholka: " << id << ", ten wierzcholek jest fabryka" << "\n";
+				}
+				else
+				{
+					std::cout << "id wierzcholka: " << id << ", maksymalny przeplyw z fabryki: " << (flow == 0 ? 0 : flow) << "\n";
+				}
+
 			}
 
 
-			std::cout << "\n\n-----------------\n";
+			std::cout << "\n\n-----------------\n\n";
 			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -263,7 +273,7 @@ int main()
 			}
 
 
-			std::cout << "\n\n-----------------\n";
+			std::cout << "\n\n-----------------\n\n";
 			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -309,7 +319,7 @@ int main()
 				std::cout << "id punktu: " << i << " jasnosc punktu: " << convexHull[i].getBrightness() << '\n';
 			}
 
-			std::cout << "\n\n--------------------Straznicy--------------------\n";
+			std::cout << "\n--------------------Straznicy--------------------\n";
 			std::cout << "1.Generuj straznikow\n";
 			std::cout << "2.Wprowadz straznikow recznie\n";
 			std::cout << "3.Wroc do glownego menu\n";
@@ -338,13 +348,13 @@ int main()
 				continue;
 			}
 
-			std::cout << "\n\n--------------------Straznicy--------------------\n";
+			std::cout << "\n--------------------Straznicy--------------------\n";
 			g1.outputGuards();//idk czy musi byc
 
-			std::cout << "\n\n--------------------Harmonogram straznikow--------------------\n";
+			std::cout << "\n--------------------Harmonogram straznikow--------------------\n";
 			g1.guardShedule(convexHull);
 
-			std::cout << "\n\n-----------------\n";
+			std::cout << "\n-----------------\n";
 			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

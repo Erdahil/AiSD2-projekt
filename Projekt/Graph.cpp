@@ -15,9 +15,17 @@ void Graph::generateGraph()
 {
 	srand(time(NULL));
 
-	n = 3; //minimalna ilosc wierzcholkow maybe
-	n += rand() % 10;//10000; // liczba wierzcholkow [mniejsza od 10003 dla testow na razie]
-	//std::cout << n<<std::endl;
+	std::cout << "Podaj ilosc wierzcholkow do wygenerowania" << std::endl;
+
+	while (!(std::cin >> n) || !(n >= 0))
+	{
+		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		std::cout << "Niepoprawna wartoœæ. Wpisz jeszcze raz: ";
+	}
+
+	std::cout << "\n-----------------\n";
+
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//generacja wszystkich wierzcholkow
 	{
@@ -71,6 +79,9 @@ void Graph::generateGraph()
 			//alreadyIn.erase(alreadyIn.begin() + addingVertID); - niepotrzebne kompletnie
 		}
 	}
+
+	system("CLS");
+
 
 	std::cout << "Czy chcesz zapisac graf?\n";
 	std::cout << "1.Tak\n";
@@ -248,6 +259,7 @@ void Graph::inputGraph()
 		std::cout << "Bledne id; podaj jeszcze raz:\n";
 	}
 
+
 	std::cout << "Czy chcesz zapisac graf?\n";
 	std::cout << "1.Tak\n";
 	std::cout << "1.Nie\n";
@@ -291,7 +303,7 @@ bool Graph::inputGraphFromFile()
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
 		return false;
 	}
-	
+
 	v.resize(n);
 
 
@@ -557,7 +569,7 @@ float Graph::maximumFlow(int endnodeId)
 				path[i].getEdges()->begin(), path[i].getEdges()->end(),
 				[&key](std::tuple<int, float, float>& p) { return std::get<0>(p) == key; }); //zwraca pare, gdzie kluczem jest nastepny wierzcholek
 
-			
+
 			if (newFlow > (std::get<1>(*it) - std::get<2>(*it)))
 			{
 				newFlow = (std::get<1>(*it) - std::get<2>(*it));
@@ -675,7 +687,7 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 		{
 
 			std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> currentlyConsidered; //<id, jasnosc> wierzcholkow do ktorych mozna dojsc
-			
+
 			for (int j = 1; j <= currentEnergy; j++)//utworzenie kolejki tych do ktorych mozna dojsc
 			{
 				currentlyConsidered.push(std::make_pair(currentV + j, convexHull[currentV + j].getBrightness()));
@@ -719,7 +731,7 @@ void Graph::inputGuards()
 	}
 	for (int i = 0; i < numbOfGuards; i++)
 	{
-		std::cout << "Podaj energie straznika o id: " << i<<'\n';
+		std::cout << "Podaj energie straznika o id: " << i << '\n';
 		int energy;
 		std::cin >> energy;
 		while (energy < 1)
@@ -747,7 +759,7 @@ void Graph::inputBrightness(std::vector<Vertex>* convexHull)
 	for (int i = 0; i < (*convexHull).size(); i++)
 	{
 		int input;
-		std::cout << "Wprowadz jasnosc dla punktu otoczki numer "<<i<<" o wspolrzednych:\n";//idk czy tu trza wspolrzedne robic
+		std::cout << "Wprowadz jasnosc dla punktu otoczki numer " << i << " o wspolrzednych:\n";//idk czy tu trza wspolrzedne robic
 		std::cout << "x: " << (*convexHull)[i].getx() << '\n';
 		std::cout << "y: " << (*convexHull)[i].gety() << '\n';
 		std::cin >> input;
@@ -773,5 +785,9 @@ std::vector<Vertex> Graph::getV()
 	return v;
 }
 
+int Graph::getFactoryId()
+{
+	return factory;
+}
 
 
