@@ -313,13 +313,7 @@ int main()
 
 			system("CLS");
 
-			std::cout << "\n-----------------Jasnosc punktow na otoczce-----------------\n";
-			for (int i = 0; i < convexHull.size(); i++)
-			{
-				std::cout << "id punktu: " << i << " jasnosc punktu: " << convexHull[i].getBrightness() << '\n';
-			}
-
-			std::cout << "\n--------------------Straznicy--------------------\n";
+			std::cout << "--------------------Straznicy--------------------\n";
 			std::cout << "1.Generuj straznikow\n";
 			std::cout << "2.Wprowadz straznikow recznie\n";
 			std::cout << "3.Wroc do glownego menu\n";
@@ -331,6 +325,8 @@ int main()
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
 				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
 			}
+
+			system("CLS");
 
 			//std::priority_queue<std::pair<int, int>, guardsComparator> guards;//kolejka straznikow - <id, energia>
 
@@ -346,6 +342,14 @@ int main()
 			else if (tempc == 3)
 			{
 				continue;
+			}
+
+			system("CLS");
+
+			std::cout << "\n-----------------Jasnosc punktow na otoczce-----------------\n";
+			for (int i = 0; i < convexHull.size(); i++)
+			{
+				std::cout << "id punktu: " << i << " jasnosc punktu: " << convexHull[i].getBrightness() << '\n';
 			}
 
 			std::cout << "\n--------------------Straznicy--------------------\n";
