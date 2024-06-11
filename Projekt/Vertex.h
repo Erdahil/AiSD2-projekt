@@ -7,7 +7,7 @@ class Vertex
 {
 private:
 	int id;
-	int groupid; // potrzebne do generacji przydatnego grafu (spojnego z perspektywy fabryki, czyli chyba drzewa, ale idk)
+	int groupid; // potrzebne do generacji przydatnego grafu (spojnego z perspektywy fabryki, czyli chyba drzewa)
 	bool isLeader; // jak wyzej
 	float x;
 	float y;

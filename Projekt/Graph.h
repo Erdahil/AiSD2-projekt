@@ -17,7 +17,7 @@ private:
 	struct queueComparator //do kolejki potem potrzebny
 	{
 		bool operator()(const std::pair<int, int>& p1, const std::pair<int, int>& p2)
-		const
+			const
 		{
 			return p1.second < p2.second;
 		}
@@ -26,7 +26,6 @@ private:
 
 
 public:
-	//std::vector<Vertex> v; // zrobilam swapa narazie bo mnie cos wezmie zaraz, jestem zbyt glupia zeby ogarnac to jakos inazcej :33
 	void generateGraph();//generuje graf
 	void fixGeneratedGraph();
 	void dfsForFix(int id, int groupid); // funkcja uzywana przez fixGeneratedGraph();
@@ -44,7 +43,7 @@ public:
 
 	void generateGuards(int maxSize);
 	void inputGuards();
-	void outputGuards();//idk czy potrzebne per se
+	void outputGuards();
 
 	//std::vector<Vertex> getVerticesBFS(int endnode);
 	//bool ifConnectedBFS();

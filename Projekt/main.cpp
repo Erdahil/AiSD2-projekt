@@ -1,6 +1,5 @@
 #include <iostream>
 #include <queue>
-//#include <vector>
 #include "Graph.h"
 #include "Pairs.h"
 #include "ConvexHull.h"
@@ -69,10 +68,6 @@ int main()
 			{
 				g1.generateGraph();
 				g1.fixGeneratedGraph();//sprawia ze graf staje sie drzewem o korzeniu w fabryce jesli nim nie byl
-				//g1.outputGraph();
-
-				//g1.generateGraph();
-				//g1.probaOutputu();
 				/* testy
 				g1.setn(10);
 				g1.probaOutputu();
@@ -82,7 +77,7 @@ int main()
 			{
 				std::cout << "-----------------Wprowadzanie grafu-----------------\n";
 				g1.inputGraph();
-				//g1.outputGraph();
+
 			}
 			else if (c == 4)
 			{
@@ -110,13 +105,13 @@ int main()
 			if (c == 1)
 			{
 				p1.generatePairs();
-				//p1.outputPairs();
+
 			}
 			else if (c == 2)
 			{
 				std::cout << "-----------------Wprowadzanie tragarzy-----------------\n";
 				p1.inputPairs();
-				//p1.outputPairs();
+
 			}
 			else if (c == 3)
 			{
@@ -260,7 +255,7 @@ int main()
 					}
 
 					std::cout << "\n-----------------\n";
-					std::cout << "Czy chcesz znalezc kolejny wzorze w zapisanej melodii?\n";
+					std::cout << "Czy chcesz znalezc kolejny wzorzec w zapisanej melodii?\n";
 					std::cout << "1.Tak\n";
 					std::cout << "2.Nie\n";
 				}
