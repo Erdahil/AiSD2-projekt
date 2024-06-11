@@ -264,6 +264,29 @@ int main()
 						}
 					}
 
+					std::string newPattern;
+					std::string newMelody = m1.getMelody();
+					std::cout << "\nPodaj tekst do zamienienia:\n";
+					std::cin >> newPattern;
+					/*
+					while (!(std::cin >> newPattern) && pattern.size() != newPattern.size())
+					{
+						std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+						std::cout << "Niepoprawna dlugosc wzorca do podmienienia" << std::endl;
+						
+					}*/
+
+					for (int i = 0; i < result.size(); i++)
+					{
+						for (int j = 0; j < pattern.size(); j++)
+						{
+							newMelody[result[i] + j] = newPattern[j];
+						}
+					}
+					m1.setMelody(newMelody);
+					std::cout << "Nowa melodia: " << newMelody << std::endl;
+
 					std::cout << "\n-----------------\n";
 					std::cout << "Czy chcesz znalezc kolejny wzorzec w zapisanej melodii?\n";
 					std::cout << "1.Tak\n";
