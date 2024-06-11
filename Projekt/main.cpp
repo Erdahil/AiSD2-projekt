@@ -14,12 +14,12 @@ int main()
 	int decision;
 	Graph g1;
 	std::vector<Vertex> convexHull;
-	bool graphLoaded = false;
+	bool firstTaskDone = false;
 
 	if (g1.inputGraphFromFile())
 	{
 		std::cout << "--------------------Wczytano graf--------------------\n";
-		graphLoaded = true;
+
 	}
 	else
 	{
@@ -29,10 +29,10 @@ int main()
 	std::cout << "\nNacisnij ENTER, by wrocic go glownego menu\n";
 	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		
+
 	while (decision = mainMenu())
 	{
-		if (!graphLoaded && decision == 3)
+		if (!firstTaskDone && decision == 3)
 		{
 			std::cout << "Nie mozna stworzyc harmonogramu dla straznikow bez grafu!\n";
 
@@ -89,7 +89,6 @@ int main()
 				continue;
 			}
 
-			graphLoaded = true;
 			system("CLS");
 
 			std::cout << "-----------------Tragarze-----------------\n";
@@ -142,7 +141,7 @@ int main()
 			}
 			std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
 
-			
+
 			std::cout << "\n-----------------Maksymlany przeplyw-----------------\n";
 			for (int i = 0; i < convexHull.size(); i++)
 			{
@@ -158,6 +157,7 @@ int main()
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.get();
 
+			firstTaskDone = true;
 		}
 		else if (decision == 2)
 		{
@@ -206,7 +206,7 @@ int main()
 			}
 
 			system("CLS");
-			
+
 			//m1.setMelody("wcvglcmrxq");
 			//m1.setMelody("popopolimeowpoli"); // do testu wzorca
 
@@ -266,8 +266,8 @@ int main()
 				}
 				else if (c == 2) { break; }
 			}
-			
-			
+
+
 			std::cout << "\n\n-----------------\n";
 			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
 			std::cin.clear();
@@ -362,7 +362,7 @@ int main()
 		}
 	}
 
-	
+
 
 
 	return 0;
@@ -392,5 +392,5 @@ int mainMenu()
 
 	system("CLS");
 
-	return decision;	
+	return decision;
 }
