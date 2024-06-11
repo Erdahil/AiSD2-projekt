@@ -458,7 +458,7 @@ void Graph::outputGraph() //wyswietla graf
 
 	for (int i = 0; i < n; i++)
 	{
-		std::cout << "id wierzholka: " << i << '\n';
+		std::cout << "id wierzcholka: " << i << '\n';
 		//std::cout << "groupid wierzholka: " << v[i].getGroupid() << '\n'; //----- do sprawdzenia dzialania fixGeneratedGraph()
 		std::cout << "x: " << v[i].getx() << " y: " << v[i].gety() << '\n';
 		std::cout << "mozna z niego dojsc do: |id(max przeplyw)| ";
