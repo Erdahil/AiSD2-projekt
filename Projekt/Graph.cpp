@@ -694,8 +694,34 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 			}
 
 			//std::cout << "na topie w kolejce: " << currentlyConsidered.top().first << '\n';//do zakomentowania
+			bool empty = true;
+
 			currentV = currentlyConsidered.top().first;
 			currentBrightness = currentlyConsidered.top().second;
+
+			while (empty)
+			{
+				//std::cout << "std\n";
+				if (currentlyConsidered.top().second == currentBrightness)
+				{
+
+					currentlyConsidered.pop();
+					if (currentlyConsidered.empty())
+					{
+						empty = false;
+					}
+					else
+					{
+						currentV = currentlyConsidered.top().first;
+					}
+				}
+				else
+				{
+					empty = false;
+				}
+
+				
+			}
 
 			if (currentlyConsidered.top().second >= currentBrightness)//jesli ten w ktorym jest, nie jest jasniejszy
 			{
