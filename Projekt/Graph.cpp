@@ -652,7 +652,7 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 
 	for (int i = 0; i < convexHull.size(); i++)
 	{
-		if (convexHull[i].getBrightness() > 0)
+		if (convexHull[i].getBrightness() > convexHull[startId].getBrightness())
 		{
 			startId = i;
 		}
@@ -692,44 +692,47 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 			{
 				currentlyConsidered.push(std::make_pair(currentV + j, convexHull[currentV + j].getBrightness()));
 			}
+			std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> consideredIfBrighter = currentlyConsidered;
 
 			//std::cout << "na topie w kolejce: " << currentlyConsidered.top().first << '\n';//do zakomentowania
 			bool empty = true;
 
-			currentV = currentlyConsidered.top().first;
-			currentBrightness = currentlyConsidered.top().second;
+			//currentV = currentlyConsidered.top().first;
+			//currentBrightness = currentlyConsidered.top().second;
+			int oldBrightness = currentBrightness;
+			bool emptyTemp = false;
 
 			while (empty)
 			{
 				//std::cout << "std\n";
-				if (currentlyConsidered.top().second == currentBrightness)
+				if (currentlyConsidered.top().second >= currentBrightness)//jesli obecny w kolejce jest jaœniejszy
 				{
 
 					currentlyConsidered.pop();
 					if (currentlyConsidered.empty())
 					{
 						empty = false;
-					}
-					else
-					{
-						currentV = currentlyConsidered.top().first;
+						emptyTemp = true;
+						currentV += currentEnergy;
+						currentBrightness = convexHull[currentV].getBrightness(); //jeœli wszystkie w kolejce s¹ jaœniesze to idziemy do ostatniego do którego mo¿emy dojœæ
 					}
 				}
 				else
 				{
 					empty = false;
+					currentV = currentlyConsidered.top().first;
+					currentBrightness = currentlyConsidered.top().second;
 				}
-
-				
 			}
 
-			if (currentlyConsidered.top().second >= currentBrightness)//jesli ten w ktorym jest, nie jest jasniejszy
+			if (oldBrightness <= currentBrightness || emptyTemp)//jesli ten w ktorym jest, nie jest jasniejszy
 			{
 				rests++;
+				//std::cout << currentV << '\n';
 			}
 		}
 
-		std::cout << "Dla dnia tygodnia nr: " << i + 1 << " przydzielono straznika o id: " << guards.top().first << ". Musi on odpoczac " << rests << " raz(y).\n";
+		std::cout << "Dla dnia tygodnia nr: " << i + 1 << " przydzielono straznika o id: " << guards.top().first << ". Musi on odpoczac " << rests + 1 << " raz(y).\n";
 
 		guards.pop();
 	}
@@ -741,7 +744,7 @@ void Graph::generateGuards(int maxSize)
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)//na razie 20, idk mozna zmienic
 	{
-		guards.push(std::make_pair(i, 1 + (rand() % maxSize)));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
+		guards.push(std::make_pair(i, 1 + (rand() % 3)));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
 	}
 }
 
