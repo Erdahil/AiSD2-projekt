@@ -1,5 +1,6 @@
 #pragma once
 #include "Carrier.h"
+#include "Vertex.h"
 
 // klasa do tworzenia grafu tragarzy i szukania ich par
 
@@ -13,5 +14,10 @@ public:
 	void inputPairs();
 	//void findPairs();
 	void outputPairs();
+	void connectingPairs();
+
+	float maximumFlow(int factory, int endnodeId, std::vector<Vertex>* v, std::vector<std::pair<int, int>>* examplePairs);
+	//void flowCleaner(std::vector<Vertex>* v);
+	std::vector<Vertex> getShortestPathBFS(int factory, int endnode, std::vector<Vertex>* v);
 };
 

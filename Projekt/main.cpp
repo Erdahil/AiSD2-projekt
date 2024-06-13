@@ -129,6 +129,7 @@ int main()
 			g1.outputGraph();
 			std::cout << "\n-----------------Tragarze-----------------\n";
 			p1.outputPairs();
+			p1.connectingPairs();
 
 			// Wyœwietlenie otoczki wypuk³ej
 			std::cout << "\n-----------------Otoczka wypukla-----------------\n";
