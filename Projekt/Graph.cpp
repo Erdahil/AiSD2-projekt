@@ -866,8 +866,8 @@ void Graph::drawGraph()
 	}
 
 	file << "digraph G {\n";
-	file << "ranksep = 1;\n";
-	file << "nodesep = 1;\n";
+	file << "size = \"50, 50!\";\n";
+	file << "ratio = \"compress\";\n";
 
 	for (int i = 0; i < n; i++)
 	{
