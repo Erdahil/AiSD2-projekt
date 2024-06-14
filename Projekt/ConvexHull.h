@@ -7,8 +7,8 @@
 class ConvexHull 
 {
 private:
-    static int CrossProduct(Vertex p, Vertex q, Vertex r);
+    static int crossProduct(Vertex p, Vertex q, Vertex r);
 public:
     static std::vector<Vertex> calculateConvexHull(std::vector<Vertex> v); // znajdowanie otoczki
-    static float Perimeter(std::vector<Vertex>& v);  // obliczanie obwodu otoczki
+    static float perimeter(std::vector<Vertex>& v);  // obliczanie obwodu otoczki
 };
