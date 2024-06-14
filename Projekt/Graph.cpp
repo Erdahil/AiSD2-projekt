@@ -867,7 +867,6 @@ void Graph::drawGraph()
 
 	std::cout << "dupa1";
 	file << "digraph G {\n";
-	file << "    layout=sfdp;\n";
 
 	for (int i = 0; i < n; i++)
 	{
