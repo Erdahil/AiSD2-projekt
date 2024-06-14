@@ -389,26 +389,28 @@ bool Graph::inputGraphFromFile()
 		return false;
 	}
 
+	inputFile.close();
+
 	return true;
 }
 
 bool Graph::outpuGraphToFile()
 {
-	std::ofstream inputFile(filePath);
+	std::ofstream outputFile(filePath);
 
-	if (!inputFile.is_open()) {
+	if (!outputFile.is_open()) {
 		std::cerr << "Error opening the file!" << std::endl;
 		return false;
 	}
 
-	if (!(inputFile << n << std::endl))
+	if (!(outputFile << n << std::endl))
 	{
 		return false;
 	}
 
 	for (int i = 0; i < v.size(); i++)//wpisanie wszystkich wierzcholkow
 	{
-		if (!(inputFile << v[i].getx() << " " << v[i].gety() << std::endl))
+		if (!(outputFile << v[i].getx() << " " << v[i].gety() << std::endl))
 		{
 			return false;
 		}
@@ -417,7 +419,7 @@ bool Graph::outpuGraphToFile()
 	for (int i = 0; i < v.size(); i++)//wpisanie krawedzi wychodzacych z wierzcholkow
 	{
 		int numberOfEdges = v[i].getEdges()->size();
-		if (!(inputFile << numberOfEdges << std::endl))
+		if (!(outputFile << numberOfEdges << std::endl))
 		{
 			return false;
 		}
@@ -428,7 +430,7 @@ bool Graph::outpuGraphToFile()
 			float tempFlow = std::get<1>((*v[i].getEdges())[j]);
 
 
-			if (!(inputFile << tempID << " " << tempFlow << std::endl))
+			if (!(outputFile << tempID << " " << tempFlow << std::endl))
 			{
 				return false;
 			}
@@ -436,10 +438,12 @@ bool Graph::outpuGraphToFile()
 
 	}
 
-	if (!(inputFile << factory))
+	if (!(outputFile << factory))
 	{
 		return false;
 	}
+
+	outputFile.close();
 
 	return true;
 
