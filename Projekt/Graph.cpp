@@ -26,6 +26,7 @@ void Graph::generateGraph()
 
 	std::cout << "\n-----------------\n";
 
+	std::cout << "Before resize" << std::endl;
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//generacja wszystkich wierzcholkow
 	{
@@ -37,12 +38,15 @@ void Graph::generateGraph()
 		v[i].setIsLeader(false);
 	}
 
-	factory = rand() % n; // generacja polozenia fabryki;
+	std::cout << "After generacja" << std::endl;
+	factory = (n == 0 ? 0 : rand() % n); // generacja polozenia fabryki;
+	std::cout << "fabryka cos" << std::endl;
 
 	for (int i = 0; i < v.size(); i++)//generacja krawedzi z kazdego wierzcholka po kolei
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
-		int numberOfEdges = rand() % (n - 1); //losowanie ilosci krawedzi idacych z tego wierzcholka
+		int numberOfEdges = (n <= 1 ? 0 : rand() % (n - 1)); //losowanie ilosci krawedzi idacych z tego wierzcholka
+		
 		e->resize(numberOfEdges);
 
 		std::vector<int> alreadyIn;

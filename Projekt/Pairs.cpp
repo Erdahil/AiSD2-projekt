@@ -372,7 +372,7 @@ void Pairs::connectingPairs()
 
 	std::vector<std::pair<int, int>> examplePairs;
 
-	std::cout << "\n\n-----------------\n";
+	std::cout << "\n-----------------\n";
 	std::cout << "Maksymalna liczba par jakie mozna utworzyc: " << maximumFlow(carriersCount, carriersCount + 1, &tmpV, &examplePairs) << "\n";
 	std::cout << "\nPrzykladowe pary tragarzy:\n";
 	for (std::pair<int, int> p : examplePairs)

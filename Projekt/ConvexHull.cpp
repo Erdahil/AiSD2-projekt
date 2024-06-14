@@ -6,8 +6,9 @@
 std::vector<Vertex> ConvexHull::calculateConvexHull(std::vector<Vertex> v) 
 {
     int n = v.size();
-    //if (n < 3) return std::vector<Vertex>(); //bo otoczka potrzebuje conajmniej 3 punktow, nwm czy to potrzebne, bo na poziomie genracji grafu juz odrzuca ta mozliwosc ig  
+    if (n < 3) return std::vector<Vertex>(); //bo otoczka potrzebuje conajmniej 3 punktow, nwm czy to potrzebne, bo na poziomie genracji grafu juz odrzuca ta mozliwosc ig  
     
+
     int minYid = 0; // zmienna do szukania punktu z najmniejszym Y (jezeli jest kilka punktów o najmniejszym Y to wybiera ten najbardziej na lewo)
     for (int i = 1; i < n; i++) 
     {
@@ -55,6 +56,7 @@ int ConvexHull::CrossProduct(Vertex p, Vertex q, Vertex r)
 float ConvexHull::Perimeter(std::vector<Vertex>& v)
 {
     float perimeter = 0;
+    
     for (int i = 1; i < v.size(); i++)
     {
         perimeter += sqrt(pow(v[i].getx() - v[i - 1].getx(), 2) + pow(v[i].gety() - v[i - 1].gety(), 2));

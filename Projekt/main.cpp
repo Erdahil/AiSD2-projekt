@@ -137,7 +137,14 @@ int main()
 			{
 				std::cout << "id wierzcholka: " << convexHull[i].getid() << ", x: " << convexHull[i].getx() << ", y: " << convexHull[i].gety() << std::endl;
 			}
-			std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
+			if (convexHull.size() > 0)
+			{
+				std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
+			}
+			else
+			{
+				std::cout << "brak otoczki\n";
+			}
 
 
 			std::cout << "\n-----------------Maksymlany przeplyw-----------------\n";
@@ -154,6 +161,11 @@ int main()
 					std::cout << "id wierzcholka: " << id << ", maksymalny przeplyw z fabryki: " << flow << "\n";
 				}
 
+			}
+
+			if (convexHull.size() == 0)
+			{
+				std::cout << "Brak przeplywu z powodu braku otoczki\n";
 			}
 
 
@@ -225,7 +237,6 @@ int main()
 			std::cout << "-----------------\n";
 			m1.decryptHuffman();
 			m1.outputDecryptedMelody();
-			std::cout << "-----------------\n";
 
 			std::cout << "\n-----------------\n";
 			std::cout << "Czy chcesz znalezc wzorze w zapisanej melodii?\n";
@@ -249,6 +260,16 @@ int main()
 
 					std::cout << "\nPodaj wzorzec do znalezienia:\n";
 					std::cin >> pattern;
+					while ((!(std::cin >> pattern)))
+					{
+						std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+						std::cout << "Niepoprawny tekst; podaj jeszcze raz:\n";
+					}
+					for (int i = 0; i < pattern.size(); i++)
+					{
+						pattern[i] = tolower(pattern[i]);
+					}
 
 					ps.setPattern(pattern);
 					std::vector<int> result = ps.search(m1.getMelody());
@@ -273,7 +294,12 @@ int main()
 						{
 							std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
 							std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
-							std::cout << "Niepoprawna dlugosc tekstu; podaj jeszcze raz: ";
+							std::cout << "Niepoprawna dlugosc tekstu; podaj jeszcze raz:\n";
+						}
+
+						for (int i = 0; i < newPattern.size(); i++)
+						{
+							newPattern[i] = tolower(newPattern[i]);
 						}
 
 						for (int i = 0; i < result.size(); i++)
@@ -285,6 +311,13 @@ int main()
 						}
 						m1.setMelody(newMelody);
 						std::cout << "Nowa melodia: " << newMelody << std::endl;
+
+						std::cout << "-----------------\n";
+						m1.encryptHuffman();
+						m1.outputEncryptedMelody();
+						std::cout << "-----------------\n";
+						m1.decryptHuffman();
+						m1.outputDecryptedMelody();
 					}
 
 					std::cout << "\n-----------------\n";
