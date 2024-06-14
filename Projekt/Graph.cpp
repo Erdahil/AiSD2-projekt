@@ -38,14 +38,12 @@ void Graph::generateGraph()
 		v[i].setIsLeader(false);
 	}
 
-	std::cout << "After generacja" << std::endl;
-	factory = (n == 0 ? 0 : rand() % n); // generacja polozenia fabryki;
-	std::cout << "fabryka cos" << std::endl;
+	factory = (n == 0 ? 0 : rand() % n); // generacja polozenia fabryki (jesli brak wierzcholkow od razu wpisuje 0 w zmienna);
 
 	for (int i = 0; i < v.size(); i++)//generacja krawedzi z kazdego wierzcholka po kolei
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
-		int numberOfEdges = (n <= 1 ? 0 : rand() % (n - 1)); //losowanie ilosci krawedzi idacych z tego wierzcholka
+		int numberOfEdges = (n <= 1 ? 0 : rand() % (n - 1)); //losowanie ilosci krawedzi idacych z tego wierzcholka (jesli n jest rowne 1 zamiast losowac ilosc wpisuje 0)
 		
 		e->resize(numberOfEdges);
 
@@ -63,7 +61,6 @@ void Graph::generateGraph()
 			}
 		}
 
-		//std::cout << "liczba wierz wylosowana: " << numberOfEdges << std::endl; - debug
 
 		for (int j = 0; j < numberOfEdges; j++)
 		{
@@ -75,13 +72,8 @@ void Graph::generateGraph()
 			alreadyIn[addingVertID] = 1;
 
 			std::get<0>((*e)[j]) = addingVertID;
-			//std::cout << (*e)[j].first << std::endl;
 			std::get<1>((*e)[j]) = rand() % 10000 / 100.0; //losowanie przep³ywu
-			//std::get<1>((*e)[j]) = 5; //losowanie przep³ywu
 			std::get<2>((*e)[j]) = 0; // ustawienie aktualnego przeplywu na 0
-			//std::cout << (*e)[j].second << std::endl;
-
-			//alreadyIn.erase(alreadyIn.begin() + addingVertID); - niepotrzebne kompletnie
 		}
 	}
 
