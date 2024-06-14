@@ -168,7 +168,19 @@ int main()
 				std::cout << "Brak przeplywu z powodu braku otoczki\n";
 			}
 
-			g1.drawGraph();
+
+
+			std::cout << "\n\nCzy chcesz narysowac graf? \n 1. Tak 2. Nie\n";
+			std::cout << "Podaj numer: ";
+			while (!(std::cin >> c) || !(c >= 1 && c <= 2))
+			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
+			}
+
+			if (c == 1) g1.drawGraph();
+
 
 			std::cout << "\n\n-----------------\n\n";
 			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
