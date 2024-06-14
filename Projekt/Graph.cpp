@@ -866,6 +866,8 @@ void Graph::drawGraph()
 	}
 
 	file << "digraph G {\n";
+	file << "ranksep = 1;\n";
+	file << "nodesep = 1;\n";
 
 	for (int i = 0; i < n; i++)
 	{
@@ -888,7 +890,7 @@ void Graph::drawGraph()
 
 	file.close();
 
-	system("dot -Tpng rysunek.dot -o rysunek.png");
+	system("neato -Kfdp -n -Tpng rysunek.dot -o rysunek.png");
 
 	system("rysunek.png");
 
