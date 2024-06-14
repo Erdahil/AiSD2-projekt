@@ -73,6 +73,7 @@ void Graph::generateGraph()
 			std::get<0>((*e)[j]) = addingVertID;
 			//std::cout << (*e)[j].first << std::endl;
 			std::get<1>((*e)[j]) = rand() % 10000 / 100.0; //losowanie przep³ywu
+			//std::get<1>((*e)[j]) = 5; //losowanie przep³ywu
 			std::get<2>((*e)[j]) = 0; // ustawienie aktualnego przeplywu na 0
 			//std::cout << (*e)[j].second << std::endl;
 
@@ -557,7 +558,7 @@ float Graph::maximumFlow(int endnodeId)
 		{
 			std::cout << p.getid() << " ";
 		}
-		std:cout << std::endl;*/
+		std::cout << std::endl;*/
 
 		if (path.size() == 0) break;
 

@@ -145,13 +145,13 @@ int main()
 			{
 				int id = convexHull[i].getid();
 				float flow = g1.maximumFlow(id);
-				if (i == g1.getFactoryId())
+				if (id == g1.getFactoryId())
 				{
 					std::cout << "id wierzcholka: " << id << ", ten wierzcholek jest fabryka" << "\n";
 				}
 				else
 				{
-					std::cout << "id wierzcholka: " << id << ", maksymalny przeplyw z fabryki: " << (flow == 0 ? 0 : flow) << "\n";
+					std::cout << "id wierzcholka: " << id << ", maksymalny przeplyw z fabryki: " << flow << "\n";
 				}
 
 			}
