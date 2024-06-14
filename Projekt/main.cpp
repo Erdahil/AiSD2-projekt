@@ -168,6 +168,7 @@ int main()
 				std::cout << "Brak przeplywu z powodu braku otoczki\n";
 			}
 
+			g1.drawGraph();
 
 			std::cout << "\n\n-----------------\n\n";
 			std::cout << "Nacisnij ENTER, by wrocic do glownego menu\n";
@@ -289,7 +290,7 @@ int main()
 						std::string newPattern;
 						std::string newMelody = m1.getMelody();
 						std::cout << "\nPodaj tekst do zamienienia:\n";
-						
+
 						while ((!(std::cin >> newPattern) || pattern.size() != newPattern.size()))
 						{
 							std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac

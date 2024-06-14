@@ -46,7 +46,7 @@ void Graph::generateGraph()
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
 		int numberOfEdges = (n <= 1 ? 0 : rand() % (n - 1)); //losowanie ilosci krawedzi idacych z tego wierzcholka
-		
+
 		e->resize(numberOfEdges);
 
 		std::vector<int> alreadyIn;
@@ -824,4 +824,80 @@ int Graph::getFactoryId()
 	return factory;
 }
 
+//void Graph::drawGraph()
+//{
+//	std::ofstream file("./rysunek.dot");
+//
+//	if (!file) {
+//		std::cerr << "Blad otwarcia pliku " << std::endl;
+//		return;
+//	}
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		file << "digraph G {\n";
+//		file << "	" << i << " [pos=\"" << v[i].getx() << "," << v[i].gety() << "!\", label=\"" << i << "\", color = \"" << (i == factory ? "red" : "blue") << "\"];\n";
+//	}
+//	file << "	\n";
+//	for (int i = 0; i < n; i++)
+//	{
+//		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
+//
+//		for (int j = 0; j < e->size(); j++)
+//		{
+//			file << "	" << i << "->" << j << "label=\"" << std::get<1>((*e)[j]) << "\"" << "\"];\n";
+//		}
+//	}
+//	file << "}\n";
+//
+//	file.close();
+//	system("dot -Tpng rysunek.dot -o rysunek.png");
+//
+//	system("rysunek.png");
+//
+//}
+void Graph::drawGraph()
+{
+	std::ofstream file("./rysunek.dot");
+
+	if (!file) {
+		std::cerr << "Blad otwarcia pliku " << std::endl;
+		return;
+	}
+
+	std::cout << "dupa1";
+	file << "digraph G {\n";
+	file << "    layout=sfdp;\n";
+
+	for (int i = 0; i < n; i++)
+	{
+		file << "    " << i << " [pos=\"" << v[i].getx() << "," << v[i].gety() << "!\", label=\"" << i << "\", color=\"" << (i == factory ? "red" : "blue") << "\"];\n";
+	}
+
+
+	for (int i = 0; i < n; i++)
+	{
+		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
+
+		for (int j = 0; j < e->size(); j++)
+		{
+			file << "    " << i << " -> " << std::get<0>((*e)[j]) << " [label=\"" << std::get<1>((*e)[j]) << "\"];\n";
+		}
+	}
+
+
+	file << "}\n";
+	std::cout << "dupa2";
+
+	file.close();
+
+	std::cout << "dupa3";
+
+	system("dot -Tpng rysunek.dot -o rysunek.png");
+
+	std::cout << "dupa4";
+
+	system("rysunek.png");
+
+}
 

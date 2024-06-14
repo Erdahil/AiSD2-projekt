@@ -55,5 +55,7 @@ public:
 
 	void showFlow();//do testowania
 
+	void drawGraph();
+
 };
 
