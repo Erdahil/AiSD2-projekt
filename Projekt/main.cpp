@@ -139,7 +139,7 @@ int main()
 			}
 			if (convexHull.size() > 0)
 			{
-				std::cout << "obwod otoczki: " << ConvexHull::Perimeter(convexHull) << std::endl;
+				std::cout << "obwod otoczki: " << ConvexHull::perimeter(convexHull) << std::endl;
 			}
 			else
 			{

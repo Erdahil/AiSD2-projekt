@@ -20,31 +20,32 @@ std::vector<Vertex> ConvexHull::calculateConvexHull(std::vector<Vertex> v)
 
     int q, p = minYid; // id punktow ktorymi bede szukac otoczki
     std::vector<Vertex> convexHull; //wektor, w ktorym beda punkty nalezace do otoczki
-    std::vector<bool> onHull(n, false); // wektor, ktory oznacza jakie wierzcholki naleza do otoczki
+    //std::vector<bool> onHull(n, false); // wektor, ktory oznacza jakie wierzcholki naleza do otoczki
     for (int i = 0; i < n; i++) 
     {
         q = (p + 1) % n; // po prostu nastêpny punkt, ale daje modulo ilosc punktow, zeby ciagle iterowac po punktach
         for (int j = 0; j < n; j++) //petla do szukania kiedy wzystkie 3 punkty uloza sie przeciwnie do wskazowek zegara
         {
-            if (CrossProduct(v[p], v[j], v[q]) == 2) 
+            if (crossProduct(v[p], v[j], v[q]) == 2) 
             {
                 q = j;
             }
         }
-        onHull[q] = true; // Dodaj punkt do otoczki
+        convexHull.push_back(v[q]);
+        //onHull[q] = true; // Dodaj punkt do otoczki
         p = q;
 
         if (p == minYid) break; // jak powroce do punktu z ktorego zaczelam to wychodze z petli
     }
-    for (int i = 0; i < n; i++)
+    /*for (int i = 0; i < n; i++)
     {
         if (onHull[i]) convexHull.push_back(v[i]);
-    }
+    }*/
   
     return convexHull;
 }
 
-int ConvexHull::CrossProduct(Vertex p, Vertex q, Vertex r) 
+int ConvexHull::crossProduct(Vertex p, Vertex q, Vertex r) 
 {
     int n = (q.getx() - p.getx()) * (r.gety() - q.gety()) - (q.gety() - p.gety()) * (r.getx() - q.getx()); // iloczyn wektorowy
     if (n == 0) return 0; // kolinearne
@@ -53,17 +54,17 @@ int ConvexHull::CrossProduct(Vertex p, Vertex q, Vertex r)
 
 }
 
-float ConvexHull::Perimeter(std::vector<Vertex>& v)
+float ConvexHull::perimeter(std::vector<Vertex>& v)
 {
-    float perimeter = 0;
+    float calculatePerimeter = 0;
     
     for (int i = 1; i < v.size(); i++)
     {
-        perimeter += sqrt(pow(v[i].getx() - v[i - 1].getx(), 2) + pow(v[i].gety() - v[i - 1].gety(), 2));
+        calculatePerimeter += sqrt(pow(v[i].getx() - v[i - 1].getx(), 2) + pow(v[i].gety() - v[i - 1].gety(), 2));
     }
 
     // obliczanie dlugosci ostatniego odcinka - z punktu ostatniego w wektorze do punktu pierwszego w wektorze
-    perimeter += sqrt(pow(v[v.size() - 1].getx() - v[0].getx(), 2) + pow(v[v.size() - 1].gety() - v[0].gety(), 2)); 
-    return perimeter;
+    calculatePerimeter += sqrt(pow(v[v.size() - 1].getx() - v[0].getx(), 2) + pow(v[v.size() - 1].gety() - v[0].gety(), 2)); 
+    return calculatePerimeter;
 
 }
