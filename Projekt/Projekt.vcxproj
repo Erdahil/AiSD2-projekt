@@ -109,7 +109,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Graphviz-11.0.0-win64\lib\gvc.lib;C:\Programming\Scripts\Projekty_GIT\AiSD2\Projekt\Graphviz-11.0.0-win64\lib\cgraph.lib</AdditionalDependencies>
+      <AdditionalDependencies>Graphviz-11.0.0-win64\lib\gvc.lib;Graphviz-11.0.0-win64\lib\cgraph.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
