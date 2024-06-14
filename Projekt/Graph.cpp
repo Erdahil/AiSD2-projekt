@@ -865,9 +865,7 @@ void Graph::drawGraph()
 		return;
 	}
 
-	std::cout << "dupa1";
 	file << "digraph G {\n";
-	file << "    layout=sfdp;\n";
 
 	for (int i = 0; i < n; i++)
 	{
@@ -887,15 +885,10 @@ void Graph::drawGraph()
 
 
 	file << "}\n";
-	std::cout << "dupa2";
 
 	file.close();
 
-	std::cout << "dupa3";
-
 	system("dot -Tpng rysunek.dot -o rysunek.png");
-
-	std::cout << "dupa4";
 
 	system("rysunek.png");
 
