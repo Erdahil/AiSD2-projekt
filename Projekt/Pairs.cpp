@@ -30,6 +30,9 @@ void Pairs::generatePairs()
 
 
 	carriers.resize(r + l);
+
+	if (l == 0 || r == 0) return;
+
 	for (int i = 0; i < l + r; i++)
 	{
 		carriers[i].setid(i);
@@ -89,6 +92,9 @@ void Pairs::inputPairs()
 
 	std::cout << "Wczytywanie danych dla tragarzy z rekami w prawo!\nDla tych z rekami w lewo zostanie uzupelnione przez program\n";
 	carriers.resize(l + r);
+
+	if (l == 0 || r == 0) return;
+
 	for (int i = 0; i < r; i++)
 	{
 		int numLikes;
@@ -104,8 +110,6 @@ void Pairs::inputPairs()
 		carriers[i].getLikes()->resize(numLikes);
 		if (numLikes > 0)
 		{
-
-
 			std::cout << "Podaj id tych tragarzy, ktorych lubi (id musi byc w przedziale od 0 do " << l - 1 << " wlacznie ):\n";
 			std::vector <int> contains;//do sprawdzenia czy ten juz byl podany
 			for (int j = 0; j < numLikes; j++)
