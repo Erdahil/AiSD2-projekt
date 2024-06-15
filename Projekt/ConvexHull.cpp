@@ -20,17 +20,22 @@ std::vector<Vertex> ConvexHull::calculateConvexHull(std::vector<Vertex> v)
 
 	int q, p = minYid; // id punktow ktorymi bede szukac otoczki
 	std::vector<Vertex> convexHull; //wektor, w ktorym beda punkty nalezace do otoczki
+	std::vector<bool> used(n, false);
 	for (int i = 0; i < n; i++)
 	{
+		convexHull.push_back(v[p]);
+		used[p] = true;
 		q = (p + 1) % n; // po prostu nastêpny punkt, ale daje modulo ilosc punktow, zeby ciagle iterowac po punktach
+		if (q == minYid) break;
 		for (int j = 0; j < n; j++) //petla do szukania kiedy wzystkie 3 punkty uloza sie przeciwnie do wskazowek zegara
 		{
-			if (crossProduct(v[p], v[j], v[q]) == 2)
+			int cross = crossProduct(v[p], v[q], v[j]);
+			if (cross == 2 || (cross == 0 && !used[j] && distance(v[p], v[j]) > distance(v[p], v[q])))
 			{
 				q = j;
 			}
 		}
-		convexHull.push_back(v[q]);
+		
 
 		p = q;
 
@@ -47,6 +52,11 @@ int ConvexHull::crossProduct(Vertex p, Vertex q, Vertex r)
 	if (n > 0) return 1; // zgodnie z ruchem wskazowek zegara
 	else return 2; // przeciwnie z ruchem wskazowek zegara
 
+}
+
+float ConvexHull::distance(Vertex p, Vertex q)
+{
+	return sqrt(pow(q.getx() - p.getx(), 2) + pow(q.gety() - p.gety(), 2));
 }
 
 float ConvexHull::perimeter(std::vector<Vertex>& v)
