@@ -841,7 +841,7 @@ void Graph::drawGraph()
 
 	file.close();
 
-	system("neato -Kfdp -n -Tpng rysunek.dot -o rysunek.png");
+	system("neato -Kfdp -n -Tpng rysunek.dot -o rysunek.png > NUL 2>&1");
 
 	system("rysunek.png");
 

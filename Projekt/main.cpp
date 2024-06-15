@@ -33,7 +33,7 @@ int main()
 	{
 		if (!firstTaskDone && decision == 3)
 		{
-			std::cout << "Nie mozna stworzyc harmonogramu dla straznikow bez grafu!\n";
+			std::cout << "Nie mozna stworzyc harmonogramu dla straznikow bez stworzonej otoczki!\n";
 
 			std::cout << "\n-----------------\n";
 			std::cout << "Nacisnij ENTER, by wrocic go glownego menu\n";
