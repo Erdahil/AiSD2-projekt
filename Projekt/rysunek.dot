@@ -1,19 +1,14 @@
 digraph G {
-    0 [pos="0.417,1.529!", label="0", color="red"];
-    1 [pos="1.14,-3.986!", label="1", color="blue"];
-    2 [pos="6.707,-6.818!", label="2", color="blue"];
-    3 [pos="-3.299,-7.668!", label="3", color="blue"];
-    4 [pos="-9.497,-6.477!", label="4", color="blue"];
-    5 [pos="-9.91,5.665!", label="5", color="blue"];
-    6 [pos="-8.685,1.319!", label="6", color="blue"];
-    0 -> 1 [label="18.73"];
-    0 -> 6 [label="8.58"];
-    0 -> 5 [label="41.46"];
-    3 -> 6 [label="71.56"];
-    3 -> 4 [label="5.62"];
-    3 -> 1 [label="44.53"];
-    5 -> 4 [label="16.73"];
-    5 -> 2 [label="7.66"];
-    5 -> 3 [label="96.1"];
-    5 -> 0 [label="4.99"];
+    0 [pos="-2.813,-1.46!", label="0", color="red"];
+    1 [pos="4.629,-2.371!", label="1", color="blue"];
+    2 [pos="-6.072,3.121!", label="2", color="blue"];
+    3 [pos="-3.676,6.832!", label="3", color="blue"];
+    4 [pos="-4.976,-2.504!", label="4", color="blue"];
+    0 -> 4 [label="65.85"];
+    2 -> 3 [label="3.49"];
+    3 -> 4 [label="71.29"];
+    3 -> 2 [label="21.16"];
+    3 -> 1 [label="2.78"];
+    4 -> 3 [label="91.05"];
+    4 -> 0 [label="28.08"];
 }

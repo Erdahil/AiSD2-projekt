@@ -272,7 +272,7 @@ int main()
 					PatternSearching ps;
 
 					std::cout << "\nPodaj wzorzec do znalezienia:\n";
-					std::cin >> pattern;
+
 					while ((!(std::cin >> pattern)))
 					{
 						std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
