@@ -30,8 +30,8 @@ void Graph::generateGraph()
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//generacja wszystkich wierzcholkow
 	{
-		float x = (rand() % 20000 - 10000) / 100.0; //moga byc ujemne
-		float y = (rand() % 20000 - 10000) / 100.0;
+		float x = (rand() % 20000 - 10000) / 1000.0; //moga byc ujemne
+		float y = (rand() % 20000 - 10000) / 1000.0;
 		v[i].setCoords(x, y);
 		v[i].setid(i);
 		v[i].setGroupid(0);
@@ -45,7 +45,7 @@ void Graph::generateGraph()
 	for (int i = 0; i < v.size(); i++)//generacja krawedzi z kazdego wierzcholka po kolei
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
-		int numberOfEdges = (n <= 1 ? 0 : rand() % (n - 1)); //losowanie ilosci krawedzi idacych z tego wierzcholka
+		int numberOfEdges = (n <= 1 ? 0 : (rand() % (n - 1)) % 5); //losowanie ilosci krawedzi idacych z tego wierzcholka
 
 		e->resize(numberOfEdges);
 
@@ -868,6 +868,9 @@ void Graph::drawGraph()
 	file << "digraph G {\n";
 	file << "size = \"50, 50!\";\n";
 	file << "ratio = \"compress\";\n";
+
+	//file << "ranksep = 1;\n";
+	//file << "nodesep = 1;\n";
 
 	for (int i = 0; i < n; i++)
 	{
