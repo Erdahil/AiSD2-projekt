@@ -22,7 +22,7 @@ private:
 			return p1.second < p2.second;
 		}
 	};
-	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> guards;
+	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> guards;//kolejka stra¿ników <id, energia>
 
 
 public:
