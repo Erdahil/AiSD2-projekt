@@ -174,27 +174,6 @@ void Melody::deleteHuffmanTree(TreeNode* del)//wywolywane potem w destruktorze k
 	*/
 }
 
-void Melody::writeTree(TreeNode* del)//do testow tylko 
-{
-	/*
-	if (del)
-	{
-		deleteHuffmanTree(del->getLeft());
-		deleteHuffmanTree(del->getRight());
-		std::cout << "thing\n";
-	}*/
-
-	if (del == NULL)
-	{
-		return;
-	}
-	std::cout << del->getn() << " " << del->getc() << '\n';
-	writeTree(del->getLeft());
-	writeTree(del->getRight());
-	//std::cout << del->getn()<<" "<<del->getc()<<'\n';
-
-}
-
 void Melody::generateMelody(int len)
 {
 	srand(time(NULL));
@@ -237,9 +216,5 @@ std::string Melody::getMelody()
 
 Melody::~Melody()
 {
-	
-	//writeTree(root);
-	//std::cout << "zrobilo write\n";
 	deleteHuffmanTree(root);
-	//std::cout << "drzewo usuniete z pamieci\n";
 }
