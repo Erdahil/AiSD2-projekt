@@ -717,7 +717,10 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 
 		guards.pop();
 	}
-
+	while (!guards.empty())
+	{
+		guards.pop();
+	}
 }
 
 void Graph::generateGuards(int maxSize)
@@ -787,6 +790,7 @@ void Graph::outputGuards()
 		std::cout << "id: " << copyGuards.top().first << " energia: " << copyGuards.top().second << '\n';
 		copyGuards.pop();
 	}
+
 	std::cout << '\n';
 }
 
