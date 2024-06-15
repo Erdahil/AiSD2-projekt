@@ -9,7 +9,6 @@ private:
 	int n; // liczba wierzcholkow
 	std::vector<Vertex> v;
 	int factory;
-	std::vector< std::vector<int>> neighbours;
 	std::string filePath = "Graph.txt";
 
 	bool outpuGraphToFile();
@@ -36,6 +35,7 @@ public:
 	void outputGraph();
 	void inputGraph();
 	bool inputGraphFromFile();
+	bool outpuGraphToFile();
 	std::vector<Vertex> getV();
 
 	void guardShedule(std::vector<Vertex> convexHull);
