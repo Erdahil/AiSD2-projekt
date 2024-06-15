@@ -17,7 +17,7 @@ void Graph::generateGraph()
 
 	std::cout << "Podaj ilosc wierzcholkow do wygenerowania" << std::endl;
 
-	while (!(std::cin >> n) || !(n >= 0))
+	while (!(std::cin >> n) || !(n >= 3))
 	{
 		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
@@ -26,7 +26,6 @@ void Graph::generateGraph()
 
 	std::cout << "\n-----------------\n";
 
-	std::cout << "Before resize" << std::endl;
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//generacja wszystkich wierzcholkow
 	{
@@ -38,14 +37,13 @@ void Graph::generateGraph()
 		v[i].setIsLeader(false);
 	}
 
-	std::cout << "After generacja" << std::endl;
-	factory = (n == 0 ? 0 : rand() % n); // generacja polozenia fabryki;
-	std::cout << "fabryka cos" << std::endl;
+	factory = rand() % n; // generacja polozenia fabryki;
 
 	for (int i = 0; i < v.size(); i++)//generacja krawedzi z kazdego wierzcholka po kolei
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
-		int numberOfEdges = (n <= 1 ? 0 : (rand() % (n - 1)) % 5); //losowanie ilosci krawedzi idacych z tego wierzcholka
+		//int numberOfEdges = (n <= 1 ? 0 : (rand() % (n - 1)) % 5); //losowanie ilosci krawedzi idacych z tego wierzcholka
+		int numberOfEdges =rand() % (n - 1) % 5; //losowanie ilosci krawedzi idacych z tego wierzcholka
 
 		e->resize(numberOfEdges);
 
@@ -892,7 +890,10 @@ void Graph::drawGraph()
 
 		for (int j = 0; j < e->size(); j++)
 		{
-			file << "    " << i << " -> " << std::get<0>((*e)[j]) << " [label=\"" << std::get<1>((*e)[j]) << "\"];\n";
+			if (std::get<1>((*e)[j]) != 0)
+			{
+				file << "    " << i << " -> " << std::get<0>((*e)[j]) << " [label=\"" << std::get<1>((*e)[j]) << "\"];\n";
+			}
 		}
 	}
 
