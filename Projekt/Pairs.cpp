@@ -77,7 +77,7 @@ void Pairs::inputPairs()
 	while (!(std::cin >> r) || r < 0)
 	{
 		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
 		std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
 	}
 
@@ -137,7 +137,6 @@ void Pairs::inputPairs()
 
 void Pairs::outputPairs()
 {
-	//std::cout << "-----------------\n";
 	std::cout << "ilosc tragarzy majacych rece w prawo: " << r << '\n';
 	std::cout << "ilosc tragarzy majacych rece w lewo: " << l << '\n';
 	std::cout << "\n-----------------\n";
@@ -227,8 +226,6 @@ float Pairs::maximumFlow(int factory, int endnodeId, std::vector<Vertex>* v, std
 	{
 		return 0;
 	}
-	//flowCleaner(v);
-
 	std::vector<Vertex> path;
 
 
@@ -237,11 +234,6 @@ float Pairs::maximumFlow(int factory, int endnodeId, std::vector<Vertex>* v, std
 		newFlow = FLT_MAX;
 		path = getShortestPathBFS(factory, endnode.getid(), v);
 
-		/*for (Vertex p : path)
-		{
-			std::cout << p.getid() << " ";
-		}
-		std::cout << std::endl;*/
 
 		if (path.size() == 0) break;
 
@@ -310,16 +302,6 @@ float Pairs::maximumFlow(int factory, int endnodeId, std::vector<Vertex>* v, std
 	return maxFlow;
 }
 
-//void Pairs::flowCleaner(std::vector<Vertex>* v)
-//{
-//	for (int i = 0; i < v->size(); i++)
-//	{
-//		for (int j = 0; j < (*v)[i].getEdges()->size(); j++)
-//		{
-//			std::get<2>((*(*v)[i].getEdges())[j]) = 0;
-//		}
-//	}
-//}
 
 void Pairs::connectingPairs()
 {

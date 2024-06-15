@@ -42,7 +42,6 @@ void Graph::generateGraph()
 	for (int i = 0; i < v.size(); i++)//generacja krawedzi z kazdego wierzcholka po kolei
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
-		//int numberOfEdges = (n <= 1 ? 0 : (rand() % (n - 1)) % 5); //losowanie ilosci krawedzi idacych z tego wierzcholka
 		int numberOfEdges = rand() % (n - 1) % 5; //losowanie ilosci krawedzi idacych z tego wierzcholka
 
 		e->resize(numberOfEdges);
@@ -164,7 +163,7 @@ void Graph::inputGraph()
 	while (!(std::cin >> n) || n < 0)
 	{
 		std::cin.clear(); //czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
 		std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
 	}
 
@@ -243,7 +242,6 @@ void Graph::inputGraph()
 			}
 			std::get<1>((*v[i].getEdges())[j]) = tempFlow;
 
-			//std::cin >> (*v[i].getEdges())[j].first >> (*v[i].getEdges())[j].second; // ze starej wersji bez sprawdzania poprawnosci inputu
 		}
 
 	}
@@ -297,7 +295,7 @@ bool Graph::inputGraphFromFile()
 	if (!(inputFile >> n) || n < 0)
 	{
 		std::cin.clear(); //czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
 		return false;
 	}
 
@@ -440,15 +438,6 @@ bool Graph::outpuGraphToFile()
 
 }
 
-void Graph::probaOutputu()
-{
-	std::cout << n << '\n';
-}
-
-void Graph::setn(int n)
-{
-	this->n = n;
-}
 
 void Graph::outputGraph() //wyswietla graf
 {

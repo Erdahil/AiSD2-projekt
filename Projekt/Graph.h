@@ -11,7 +11,7 @@ private:
 	int factory;
 	std::string filePath = "Graph.txt";
 
-	struct queueComparator //do kolejki potem potrzebny
+	struct queueComparator //do kolejki potrzebny
 	{
 		bool operator()(const std::pair<int, int>& p1, const std::pair<int, int>& p2)
 			const
@@ -28,8 +28,6 @@ public:
 	void fixGeneratedGraph();
 	void dfsForFix(int id, int groupid); // funkcja uzywana przez fixGeneratedGraph();
 	int ifConnected(); // funkcja uzywana przez fixGeneratedGraph();
-	void probaOutputu();//testowa
-	void setn(int n);//do testow na razie tylko - idk czy bedzie potrzebne
 	void outputGraph();
 	void inputGraph();
 	bool inputGraphFromFile();
@@ -43,9 +41,6 @@ public:
 	void generateGuards(int maxSize);
 	void inputGuards();
 	void outputGuards();
-
-	//std::vector<Vertex> getVerticesBFS(int endnode);
-	//bool ifConnectedBFS();
 	std::vector<Vertex> getShortestPathBFS(int endnode);
 
 	float maximumFlow(int endnodeId);
