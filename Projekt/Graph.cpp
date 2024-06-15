@@ -390,7 +390,7 @@ bool Graph::outpuGraphToFile()
 {
 	std::ofstream outputFile(filePath);
 
-	if (!inputFile.is_open()) 
+	if (!outputFile.is_open()) 
 	{
 		return false;
 	}
