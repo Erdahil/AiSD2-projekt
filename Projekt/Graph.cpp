@@ -17,7 +17,7 @@ void Graph::generateGraph()
 
 	std::cout << "Podaj ilosc wierzcholkow do wygenerowania" << std::endl;
 
-	while (!(std::cin >> n) || !(n >= 0))
+	while (!(std::cin >> n) || !(n >= 3))
 	{
 		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
@@ -26,25 +26,25 @@ void Graph::generateGraph()
 
 	std::cout << "\n-----------------\n";
 
-	std::cout << "Before resize" << std::endl;
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//generacja wszystkich wierzcholkow
 	{
-		float x = (rand() % 20000 - 10000) / 100.0; //moga byc ujemne
-		float y = (rand() % 20000 - 10000) / 100.0;
+		float x = (rand() % 20000 - 10000) / 1000.0; //moga byc ujemne
+		float y = (rand() % 20000 - 10000) / 1000.0;
 		v[i].setCoords(x, y);
 		v[i].setid(i);
 		v[i].setGroupid(0);
 		v[i].setIsLeader(false);
 	}
 
-	factory = (n == 0 ? 0 : rand() % n); // generacja polozenia fabryki (jesli brak wierzcholkow od razu wpisuje 0 w zmienna);
+	factory = rand() % n; // generacja polozenia fabryki;
 
 	for (int i = 0; i < v.size(); i++)//generacja krawedzi z kazdego wierzcholka po kolei
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
-		int numberOfEdges = (n <= 1 ? 0 : rand() % (n - 1)); //losowanie ilosci krawedzi idacych z tego wierzcholka (jesli n jest rowne 1 zamiast losowac ilosc wpisuje 0)
-		
+		//int numberOfEdges = (n <= 1 ? 0 : (rand() % (n - 1)) % 5); //losowanie ilosci krawedzi idacych z tego wierzcholka
+		int numberOfEdges =rand() % (n - 1) % 5; //losowanie ilosci krawedzi idacych z tego wierzcholka
+
 		e->resize(numberOfEdges);
 
 		std::vector<int> alreadyIn;
@@ -289,8 +289,8 @@ bool Graph::inputGraphFromFile()
 {
 	std::ifstream inputFile(filePath);
 
-	if (!inputFile.is_open()) {
-		//std::cerr << "Error opening the file!" << std::endl;
+	if (!inputFile.is_open()) 
+	{
 		return false;
 	}
 
@@ -390,8 +390,8 @@ bool Graph::outpuGraphToFile()
 {
 	std::ofstream outputFile(filePath);
 
-	if (!outputFile.is_open()) {
-		std::cerr << "Error opening the file!" << std::endl;
+	if (!inputFile.is_open()) 
+	{
 		return false;
 	}
 
@@ -554,7 +554,7 @@ float Graph::maximumFlow(int endnodeId)
 		newFlow = FLT_MAX;
 		path = getShortestPathBFS(endnode.getid());
 
-		/*for (Vertex p : path)
+		/*for (Vertex p : path) //wyswietlanie drogi
 		{
 			std::cout << p.getid() << " ";
 		}
@@ -593,7 +593,7 @@ float Graph::maximumFlow(int endnodeId)
 			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
 				v.begin(), v.end(),
 				[&currentId](Vertex& p) { return p.getid() == currentId; });
-			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednik wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
+			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednika wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
 				v.begin(), v.end(),
 				[&previousId](Vertex& p) { return p.getid() == previousId; });
 
@@ -605,6 +605,10 @@ float Graph::maximumFlow(int endnodeId)
 			if (toPreviousPath != currentVertex->getEdges()->end())
 			{
 				std::get<2>(*toPreviousPath) -= newFlow;
+			}
+			else
+			{
+				v[currentId].getEdges()->push_back(std::make_tuple(previousId, 0, -newFlow));
 			}
 
 
@@ -820,4 +824,78 @@ int Graph::getFactoryId()
 	return factory;
 }
 
+//void Graph::drawGraph()
+//{
+//	std::ofstream file("./rysunek.dot");
+//
+//	if (!file) {
+//		std::cerr << "Blad otwarcia pliku " << std::endl;
+//		return;
+//	}
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		file << "digraph G {\n";
+//		file << "	" << i << " [pos=\"" << v[i].getx() << "," << v[i].gety() << "!\", label=\"" << i << "\", color = \"" << (i == factory ? "red" : "blue") << "\"];\n";
+//	}
+//	file << "	\n";
+//	for (int i = 0; i < n; i++)
+//	{
+//		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
+//
+//		for (int j = 0; j < e->size(); j++)
+//		{
+//			file << "	" << i << "->" << j << "label=\"" << std::get<1>((*e)[j]) << "\"" << "\"];\n";
+//		}
+//	}
+//	file << "}\n";
+//
+//	file.close();
+//	system("dot -Tpng rysunek.dot -o rysunek.png");
+//
+//	system("rysunek.png");
+//
+//}
+void Graph::drawGraph()
+{
+	std::ofstream file("./rysunek.dot");
+
+	if (!file) {
+		std::cerr << "Blad otwarcia pliku " << std::endl;
+		return;
+	}
+
+	std::string color = "blue";
+
+	file << "digraph G {\n";
+
+	for (int i = 0; i < n; i++)
+	{
+		file << "    " << i << " [pos=\"" << v[i].getx() << "," << v[i].gety() << "!\", label=\"" << i << "\", color=\"" << (i == factory ? "red" : "blue") << "\"];\n";
+	}
+
+
+	for (int i = 0; i < n; i++)
+	{
+		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
+
+		for (int j = 0; j < e->size(); j++)
+		{
+			if (std::get<1>((*e)[j]) != 0)
+			{
+				file << "    " << i << " -> " << std::get<0>((*e)[j]) << " [label=\"" << std::get<1>((*e)[j]) << "\"];\n";
+			}
+		}
+	}
+
+
+	file << "}\n";
+
+	file.close();
+
+	system("neato -Kfdp -n -Tpng rysunek.dot -o rysunek.png");
+
+	system("rysunek.png");
+
+}
 

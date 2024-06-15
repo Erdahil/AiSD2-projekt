@@ -9,9 +9,9 @@ class Carrier
 private:
 	int id;
 	int numberOfLikes;
-	std::vector<std::pair<int, float>> likes;
+	std::vector<int> likes;
 public:
-	std::vector<std::pair<int, float>>* getLikes();
+	std::vector<int>* getLikes();
 	void setid(int id);
 	void setNumberOfLikes(int l);
 	int getid();

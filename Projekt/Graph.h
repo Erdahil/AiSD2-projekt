@@ -9,10 +9,7 @@ private:
 	int n; // liczba wierzcholkow
 	std::vector<Vertex> v;
 	int factory;
-	std::vector< std::vector<int>> neighbours;
 	std::string filePath = "Graph.txt";
-
-	bool outpuGraphToFile();
 
 	struct queueComparator //do kolejki potem potrzebny
 	{
@@ -22,7 +19,7 @@ private:
 			return p1.second < p2.second;
 		}
 	};
-	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> guards;
+	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> guards;//kolejka stra¿ników <id, energia>
 
 
 public:
@@ -36,6 +33,7 @@ public:
 	void outputGraph();
 	void inputGraph();
 	bool inputGraphFromFile();
+	bool outpuGraphToFile();
 	std::vector<Vertex> getV();
 
 	void guardShedule(std::vector<Vertex> convexHull);
@@ -54,6 +52,8 @@ public:
 	void flowCleaner();
 
 	void showFlow();//do testowania
+
+	void drawGraph();
 
 };
 
