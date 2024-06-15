@@ -54,7 +54,7 @@ int main()
 
 			std::cout << "Podaj numer: ";
 
-			while (!(std::cin >> c) || !(c >= 1 && c <= 4))
+			while (!(std::cin >> c) || !(c >= 1 && c <= 4)) //sprawdzenie zakresu
 			{
 				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
@@ -68,10 +68,7 @@ int main()
 			{
 				g1.generateGraph();
 				g1.fixGeneratedGraph();//sprawia ze graf staje sie drzewem o korzeniu w fabryce jesli nim nie byl
-				/* testy
-				g1.setn(10);
-				g1.probaOutputu();
-				*/
+
 			}
 			else if (c == 2)
 			{
@@ -121,7 +118,7 @@ int main()
 			}
 
 			// Obliczanie otoczki wypuk³ej dla grafu g1
-			convexHull = ConvexHull::calculateConvexHull(g1.getV()); //usunalem tu z definicji funkcji & by dzialalo
+			convexHull = ConvexHull::calculateConvexHull(g1.getV());
 
 			system("CLS");
 
@@ -146,7 +143,7 @@ int main()
 				std::cout << "brak otoczki\n";
 			}
 
-
+			//wyswietlanie maksymalnego przeplywu
 			std::cout << "\n-----------------Maksymlany przeplyw-----------------\n";
 			for (int i = 0; i < convexHull.size(); i++)
 			{
@@ -167,8 +164,6 @@ int main()
 			{
 				std::cout << "Brak przeplywu z powodu braku otoczki\n";
 			}
-
-
 
 			std::cout << "\n\nCzy chcesz narysowac graf? \n 1. Tak 2. Nie\n";
 			std::cout << "Podaj numer: ";
@@ -238,8 +233,6 @@ int main()
 
 			system("CLS");
 
-			//m1.setMelody("wcvglcmrxq");
-			//m1.setMelody("popopolimeowpoli"); // do testu wzorca
 
 			std::cout << "-----------------Melodia-----------------\n";
 
@@ -276,16 +269,16 @@ int main()
 					while ((!(std::cin >> pattern)))
 					{
 						std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
 						std::cout << "Niepoprawny tekst; podaj jeszcze raz:\n";
 					}
 					for (int i = 0; i < pattern.size(); i++)
 					{
-						pattern[i] = tolower(pattern[i]);
+						pattern[i] = tolower(pattern[i]); //wszystkie litery we wzorcu zamienia na male litery
 					}
 
 					ps.setPattern(pattern);
-					std::vector<int> result = ps.search(m1.getMelody());
+					std::vector<int> result = ps.search(m1.getMelody()); // wektor indeksow pierwszych liter odnalezionego wzorca
 					if (result.empty())
 					{
 						std::cout << "nie znaleziono podanego wzorca" << std::endl;
@@ -306,7 +299,7 @@ int main()
 						while ((!(std::cin >> newPattern) || pattern.size() != newPattern.size()))
 						{
 							std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-							std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+							std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
 							std::cout << "Niepoprawna dlugosc tekstu; podaj jeszcze raz:\n";
 						}
 
@@ -360,7 +353,7 @@ int main()
 			while (!(std::cin >> tempc) || !(tempc >= 1 && tempc <= 3))
 			{
 				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
 				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
 			}
 
@@ -391,17 +384,16 @@ int main()
 			while (!(std::cin >> tempc) || !(tempc >= 1 && tempc <= 3))
 			{
 				std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
 				std::cout << "Niepoprawne polecenie; podaj jeszcze raz: ";
 			}
 
 			system("CLS");
 
-			//std::priority_queue<std::pair<int, int>, guardsComparator> guards;//kolejka straznikow - <id, energia>
 
 			if (tempc == 1)
 			{
-				g1.generateGuards(convexHull.size());//domyslnie bedzie generowalo 20, idk mo¿na zmienic potem
+				g1.generateGuards(3);//domyslnie bedzie generowalo 20 stra¿ników, z maksymaln¹ energi¹ podan¹ 3 by przyk³ad czytelnie pokazywa³ ¿e dzia³a
 			}
 			else if (tempc == 2)
 			{
@@ -422,7 +414,7 @@ int main()
 			}
 
 			std::cout << "\n--------------------Straznicy--------------------\n";
-			g1.outputGuards();//idk czy musi byc
+			g1.outputGuards();
 
 			std::cout << "\n--------------------Harmonogram straznikow--------------------\n";
 			g1.guardShedule(convexHull);
