@@ -43,7 +43,7 @@ void Graph::generateGraph()
 	{
 		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
 		//int numberOfEdges = (n <= 1 ? 0 : (rand() % (n - 1)) % 5); //losowanie ilosci krawedzi idacych z tego wierzcholka
-		int numberOfEdges =rand() % (n - 1) % 5; //losowanie ilosci krawedzi idacych z tego wierzcholka
+		int numberOfEdges = rand() % (n - 1) % 5; //losowanie ilosci krawedzi idacych z tego wierzcholka
 
 		e->resize(numberOfEdges);
 
@@ -289,7 +289,7 @@ bool Graph::inputGraphFromFile()
 {
 	std::ifstream inputFile(filePath);
 
-	if (!inputFile.is_open()) 
+	if (!inputFile.is_open())
 	{
 		return false;
 	}
@@ -368,7 +368,6 @@ bool Graph::inputGraphFromFile()
 			}
 			std::get<1>((*v[i].getEdges())[j]) = tempFlow;
 
-			//std::cin >> (*v[i].getEdges())[j].first >> (*v[i].getEdges())[j].second; // ze starej wersji bez sprawdzania poprawnosci inputu
 		}
 
 	}
@@ -390,7 +389,7 @@ bool Graph::outpuGraphToFile()
 {
 	std::ofstream outputFile(filePath);
 
-	if (!outputFile.is_open()) 
+	if (!outputFile.is_open())
 	{
 		return false;
 	}
@@ -460,7 +459,6 @@ void Graph::outputGraph() //wyswietla graf
 	for (int i = 0; i < n; i++)
 	{
 		std::cout << "id wierzcholka: " << i << '\n';
-		//std::cout << "groupid wierzholka: " << v[i].getGroupid() << '\n'; //----- do sprawdzenia dzialania fixGeneratedGraph()
 		std::cout << "x: " << v[i].getx() << " y: " << v[i].gety() << '\n';
 		std::cout << "mozna z niego dojsc do: |id(max przeplyw)| ";
 		if (v[i].getEdges()->empty())
@@ -486,12 +484,12 @@ std::vector<Vertex> Graph::getShortestPathBFS(int endnode)
 	std::vector<Vertex> shortestPath;
 	std::vector<int> previous(n, -1); // zbior poprzednikow
 	std::vector<bool> visited(n, false);
-	std::queue<int> line; // do bfsa - kolejka, do dfa - stos
-	bool changed = false; // do sprawdzenia czy wektor intow 'previous' zostala zmodyfikowana jakos
+	std::queue<int> line; // do bfsa - kolejka
+	bool changed = false; // do sprawdzenia czy wektor intow 'previous' zostala zmodyfikowana 
 
 	if (v.size() == 0)
 	{
-		return shortestPath; // pusty wektor, nwm czy nie lepiej wtedy -1, burza mozgow jest potrzebna
+		return shortestPath; // pusty wektor
 	}
 
 	line.push(factory);
@@ -554,11 +552,6 @@ float Graph::maximumFlow(int endnodeId)
 		newFlow = FLT_MAX;
 		path = getShortestPathBFS(endnode.getid());
 
-		/*for (Vertex p : path) //wyswietlanie drogi
-		{
-			std::cout << p.getid() << " ";
-		}
-		std::cout << std::endl;*/
 
 		if (path.size() == 0) break;
 
@@ -590,7 +583,7 @@ float Graph::maximumFlow(int endnodeId)
 			int previousId = path[i + 1].getid();
 
 
-			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
+			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow 
 				v.begin(), v.end(),
 				[&currentId](Vertex& p) { return p.getid() == currentId; });
 			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednika wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
@@ -673,14 +666,9 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 
 	std::cout << "Straznicy beda zaczynac od puktu o id: " << startId << '\n';
 
-	/*
-	std::cout << guards.top().second;
-	guards.pop();
-	std::cout << guards.top().second;
-	guards.pop();
-	std::cout << guards.top().second;*/
 
-	for (int i = 0; i < 7; i++)//dla kazdego dnia tygodnia trza znalezc
+
+	for (int i = 0; i < 7; i++)//dla kazdego dnia tygodnia trzeba znalezc
 	{
 		int currentEnergy = guards.top().second;
 
@@ -699,17 +687,16 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 			}
 			std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> consideredIfBrighter = currentlyConsidered;
 
-			//std::cout << "na topie w kolejce: " << currentlyConsidered.top().first << '\n';//do zakomentowania
+
 			bool empty = true;
 
-			//currentV = currentlyConsidered.top().first;
-			//currentBrightness = currentlyConsidered.top().second;
+
 			int oldBrightness = currentBrightness;
 			bool emptyTemp = false;
 
 			while (empty)
 			{
-				//std::cout << "std\n";
+
 				if (currentlyConsidered.top().second >= currentBrightness)//jesli obecny w kolejce jest jaœniejszy
 				{
 
@@ -733,7 +720,7 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 			if (oldBrightness <= currentBrightness || emptyTemp)//jesli ten w ktorym jest, nie jest jasniejszy
 			{
 				rests++;
-				//std::cout << currentV << '\n';
+
 			}
 		}
 
@@ -747,7 +734,7 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 void Graph::generateGuards(int maxSize)
 {
 	srand(time(NULL));
-	for (int i = 0; i < 20; i++)//na razie 20, idk mozna zmienic
+	for (int i = 0; i < 20; i++)//wg dokumentacji -> 20
 	{
 		guards.push(std::make_pair(i, 1 + (rand() % maxSize)));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
 	}
@@ -784,7 +771,7 @@ void Graph::generateBrightness(std::vector<Vertex>* convexHull)
 	int max = (*convexHull).size();
 	for (int i = 0; i < (*convexHull).size(); i++)
 	{
-		(*convexHull)[i].setBrightness(rand() % max);//zeby wygenerowana jasnosc nie byla wieksza od ilosci elementow - to tam nie ma znaczenia i tak i jakos sie lepiej ograniczmy po prostu
+		(*convexHull)[i].setBrightness(rand() % max);//zeby wygenerowana jasnosc nie byla wieksza od ilosci elementow
 	}
 }
 
@@ -793,7 +780,7 @@ void Graph::inputBrightness(std::vector<Vertex>* convexHull)
 	for (int i = 0; i < (*convexHull).size(); i++)
 	{
 		int input;
-		std::cout << "Wprowadz jasnosc dla punktu otoczki numer " << i << " o wspolrzednych:\n";//idk czy tu trza wspolrzedne robic
+		std::cout << "Wprowadz jasnosc dla punktu otoczki numer " << i << " o wspolrzednych:\n";
 		std::cout << "x: " << (*convexHull)[i].getx() << '\n';
 		std::cout << "y: " << (*convexHull)[i].gety() << '\n';
 		std::cin >> input;
@@ -824,38 +811,6 @@ int Graph::getFactoryId()
 	return factory;
 }
 
-//void Graph::drawGraph()
-//{
-//	std::ofstream file("./rysunek.dot");
-//
-//	if (!file) {
-//		std::cerr << "Blad otwarcia pliku " << std::endl;
-//		return;
-//	}
-//
-//	for (int i = 0; i < n; i++)
-//	{
-//		file << "digraph G {\n";
-//		file << "	" << i << " [pos=\"" << v[i].getx() << "," << v[i].gety() << "!\", label=\"" << i << "\", color = \"" << (i == factory ? "red" : "blue") << "\"];\n";
-//	}
-//	file << "	\n";
-//	for (int i = 0; i < n; i++)
-//	{
-//		std::vector<std::tuple<int, float, float>>* e = v[i].getEdges();
-//
-//		for (int j = 0; j < e->size(); j++)
-//		{
-//			file << "	" << i << "->" << j << "label=\"" << std::get<1>((*e)[j]) << "\"" << "\"];\n";
-//		}
-//	}
-//	file << "}\n";
-//
-//	file.close();
-//	system("dot -Tpng rysunek.dot -o rysunek.png");
-//
-//	system("rysunek.png");
-//
-//}
 void Graph::drawGraph()
 {
 	std::ofstream file("./rysunek.dot");
