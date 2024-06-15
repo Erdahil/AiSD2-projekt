@@ -558,11 +558,11 @@ float Graph::maximumFlow(int endnodeId)
 		newFlow = FLT_MAX;
 		path = getShortestPathBFS(endnode.getid());
 
-		/*for (Vertex p : path)
+		for (Vertex p : path)
 		{
 			std::cout << p.getid() << " ";
 		}
-		std::cout << std::endl;*/
+		std::cout << std::endl;
 
 		if (path.size() == 0) break;
 
@@ -582,6 +582,8 @@ float Graph::maximumFlow(int endnodeId)
 
 		}
 
+		std::cout << "Min flow ^" << newFlow << std::endl;
+
 
 		if (newFlow <= 0) break;
 
@@ -597,7 +599,7 @@ float Graph::maximumFlow(int endnodeId)
 			std::vector<Vertex>::iterator currentVertex = std::find_if(	//znajduje pierwszy wierzcholek, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
 				v.begin(), v.end(),
 				[&currentId](Vertex& p) { return p.getid() == currentId; });
-			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednik wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
+			std::vector<Vertex>::iterator previousVertex = std::find_if(	//znajduje poprzednika wczesniejszego wierzcholka, mozna pominac jesli path zawieralby reference do wierzcholkow chyba
 				v.begin(), v.end(),
 				[&previousId](Vertex& p) { return p.getid() == previousId; });
 
@@ -609,6 +611,10 @@ float Graph::maximumFlow(int endnodeId)
 			if (toPreviousPath != currentVertex->getEdges()->end())
 			{
 				std::get<2>(*toPreviousPath) -= newFlow;
+			}
+			else
+			{
+				v[currentId].getEdges()->push_back(std::make_tuple(previousId, 0, -newFlow));
 			}
 
 
@@ -865,9 +871,11 @@ void Graph::drawGraph()
 		return;
 	}
 
+	std::string color = "blue";
+
 	file << "digraph G {\n";
-	file << "size = \"50, 50!\";\n";
-	file << "ratio = \"compress\";\n";
+	//file << "size = \"50, 50!\";\n";
+	//file << "ratio = \"compress\";\n";
 
 	//file << "ranksep = 1;\n";
 	//file << "nodesep = 1;\n";
