@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <utility> //zawiera pair - mozliwe ze bedzie potrzebne przy szukaniu par - na razie nie robie tego
+#include <utility> //zawiera pair
 
 // pojedynczy tragarz
 
