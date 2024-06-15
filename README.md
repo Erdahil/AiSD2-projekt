@@ -1,4 +1,4 @@
-nikt nie czyta readme i tak
+Aby uruchomić program należy dodać w zmiennych środowiskowych do zmiennej PATH ścieżkę do pliku bin z biblioteki "graphviz".
 
 link do dokumentacji: https://hackmd.io/@ruteczeq/projekt
 
