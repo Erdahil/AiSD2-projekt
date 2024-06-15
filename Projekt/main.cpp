@@ -401,7 +401,7 @@ int main()
 
 			if (tempc == 1)
 			{
-				g1.generateGuards(convexHull.size());//domyslnie bedzie generowalo 20, idk mo¿na zmienic potem
+				g1.generateGuards(3);//domyslnie bedzie generowalo 20 stra¿ników, z maksymaln¹ energi¹ podan¹ 3 by przyk³ad czytelnie pokazywa³ ¿e dzia³a
 			}
 			else if (tempc == 2)
 			{

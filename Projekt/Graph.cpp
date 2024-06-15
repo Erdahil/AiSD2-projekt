@@ -749,7 +749,7 @@ void Graph::generateGuards(int maxSize)
 	srand(time(NULL));
 	for (int i = 0; i < 20; i++)//na razie 20, idk mozna zmienic
 	{
-		guards.push(std::make_pair(i, 1 + (rand() % 3)));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
+		guards.push(std::make_pair(i, 1 + (rand() % maxSize)));//zeby maksymalnie mieli tyle energii ile jest w otoczce wierzcholkow
 	}
 }
 
