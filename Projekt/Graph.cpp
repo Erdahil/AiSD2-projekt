@@ -872,11 +872,6 @@ void Graph::drawGraph()
 	std::string color = "blue";
 
 	file << "digraph G {\n";
-	//file << "size = \"50, 50!\";\n";
-	//file << "ratio = \"compress\";\n";
-
-	//file << "ranksep = 1;\n";
-	//file << "nodesep = 1;\n";
 
 	for (int i = 0; i < n; i++)
 	{
