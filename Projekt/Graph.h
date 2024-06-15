@@ -11,8 +11,6 @@ private:
 	int factory;
 	std::string filePath = "Graph.txt";
 
-	bool outpuGraphToFile();
-
 	struct queueComparator //do kolejki potem potrzebny
 	{
 		bool operator()(const std::pair<int, int>& p1, const std::pair<int, int>& p2)

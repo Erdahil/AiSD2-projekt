@@ -1,6 +1,6 @@
 #include "Carrier.h"
 
-std::vector<std::pair<int, float>>* Carrier::getLikes()
+std::vector<int>* Carrier::getLikes()
 {
 	return &likes;
 }

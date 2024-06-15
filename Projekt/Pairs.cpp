@@ -39,7 +39,7 @@ void Pairs::generatePairs()
 		if (i < r) // losujemy ile wychodzi tylko dla tych z jednej strony
 		{
 			int randLikes = rand() % l;
-			std::vector<std::pair<int, float>>* likes = carriers[i].getLikes();
+			std::vector<int>* likes = carriers[i].getLikes();
 			carriers[i].setNumberOfLikes(randLikes);
 			carriers[i].getLikes()->resize(randLikes);
 			std::vector<int> alreadyIn; // wektor do sprawdzania zeby nie bylo powtorek
@@ -65,8 +65,7 @@ void Pairs::generatePairs()
 				}
 				alreadyIn[addingCarrierID] = 1;
 
-				(*likes)[j].first = addingCarrierID;
-				(*likes)[j].second = 1.0;
+				(*likes)[j] = addingCarrierID;
 			}
 		}
 	}
@@ -130,8 +129,7 @@ void Pairs::inputPairs()
 
 				contains.push_back(newLike);
 
-				(*carriers[i].getLikes())[j].first = newLike;
-				(*carriers[i].getLikes())[j].second = 1.0;
+				(*carriers[i].getLikes())[j] = newLike;
 			}
 		}
 	}
@@ -158,7 +156,7 @@ void Pairs::outputPairs()
 		{
 			for (int j = 0; j < carriers[i].getLikes()->size(); j++)
 			{
-				std::cout << (*carriers[i].getLikes())[j].first << ' '; //odejmowanie r daje bardziej czytelny wynik zgodny z systemem indeksowania wyswietlanym w inputPairs()
+				std::cout << (*carriers[i].getLikes())[j] << ' '; //odejmowanie r daje bardziej czytelny wynik zgodny z systemem indeksowania wyswietlanym w inputPairs()
 			}
 		}
 
@@ -345,7 +343,7 @@ void Pairs::connectingPairs()
 	for (int i = 0; i < r; i++) //polaczenie kazdego z praworecznych tragarzy z tragarzmi ktorych lubi
 	{
 		std::vector<std::tuple<int, float, float>>* e = tmpV[i].getEdges();
-		std::vector<std::pair<int, float>>* likes = carriers[i].getLikes();
+		std::vector<int>* likes = carriers[i].getLikes();
 		int numberOfLikes = carriers[i].getNumberOfLikes();
 
 		e->resize(numberOfLikes);
@@ -354,7 +352,7 @@ void Pairs::connectingPairs()
 
 		for (int j = 0; j < numberOfLikes; j++)
 		{
-			std::get<0>((*e)[j]) = (*likes)[j].first;
+			std::get<0>((*e)[j]) = (*likes)[j];
 			std::get<1>((*e)[j]) = 1;
 			std::get<2>((*e)[j]) = 0;
 		}
@@ -363,7 +361,7 @@ void Pairs::connectingPairs()
 	for (int i = r; i < l + r; i++)  //polaczenie leworecznych tragarzy z wierzcholkiem koncowym
 	{
 		std::vector<std::tuple<int, float, float>>* e = tmpV[i].getEdges();
-		std::vector<std::pair<int, float>>* likes = carriers[i].getLikes();
+		std::vector<int>* likes = carriers[i].getLikes();
 		int numberOfLikes = carriers[i].getNumberOfLikes();
 
 		e->resize(1);

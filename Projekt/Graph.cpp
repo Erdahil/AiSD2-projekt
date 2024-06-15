@@ -295,8 +295,8 @@ bool Graph::inputGraphFromFile()
 {
 	std::ifstream inputFile(filePath);
 
-	if (!inputFile.is_open()) {
-		//std::cerr << "Error opening the file!" << std::endl;
+	if (!inputFile.is_open()) 
+	{
 		return false;
 	}
 
@@ -394,8 +394,8 @@ bool Graph::outpuGraphToFile()
 {
 	std::ofstream inputFile(filePath);
 
-	if (!inputFile.is_open()) {
-		std::cerr << "Error opening the file!" << std::endl;
+	if (!inputFile.is_open()) 
+	{
 		return false;
 	}
 
@@ -556,11 +556,11 @@ float Graph::maximumFlow(int endnodeId)
 		newFlow = FLT_MAX;
 		path = getShortestPathBFS(endnode.getid());
 
-		for (Vertex p : path)
+		/*for (Vertex p : path) //wyswietlanie drogi
 		{
 			std::cout << p.getid() << " ";
 		}
-		std::cout << std::endl;
+		std::cout << std::endl;*/
 
 		if (path.size() == 0) break;
 
@@ -579,8 +579,6 @@ float Graph::maximumFlow(int endnodeId)
 			}
 
 		}
-
-		std::cout << "Min flow ^" << newFlow << std::endl;
 
 
 		if (newFlow <= 0) break;
