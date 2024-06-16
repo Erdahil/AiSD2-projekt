@@ -21,7 +21,7 @@ void Graph::generateGraph()
 	{
 		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
-		std::cout << "Niepoprawna wartoœæ. Wpisz jeszcze raz: ";
+		std::cout << "Niepoprawna wartosc. Wpisz jeszcze raz: ";
 	}
 
 	std::cout << "\n-----------------\n";
@@ -160,11 +160,11 @@ void Graph::inputGraph()
 {
 	std::cout << "Podaj ilosc wierzcholkow:\n";
 
-	while (!(std::cin >> n) || n < 0)
+	while (!(std::cin >> n) || !(n >= 3))
 	{
-		std::cin.clear(); //czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow, by nie wywolaly ponownie bledu
-		std::cout << "Niepoprawna ilosc; podaj jeszcze raz:\n";
+		std::cin.clear();//czysci flagi bledow pojawiajace sie w cin, by dalej mozna bylo z niego korzystac
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//usuwa reszte znakow by nie wywolaly ponownie bledu
+		std::cout << "Niepoprawna wartosc. Wpisz jeszcze raz: ";
 	}
 
 	v.resize(n);

@@ -41,13 +41,17 @@ std::vector<Vertex> ConvexHull::calculateConvexHull(std::vector<Vertex> v)
 			//std::cout << "\n D U P A\n" << std::endl;
 			break; // jak powroce do punktu z ktorego zaczelam to wychodze z petli
 		}
-		if (used[q] == false)
-		{
-			//std::cout << "\nC H U J\n" << q << std::endl;
-			p = q;
-			convexHull.push_back(v[p]);
-			used[p] = true;
-		}
+		//if (used[q] == false)
+		//{
+		//	//std::cout << "\nC H U J\n" << q << std::endl;
+		//	p = q;
+		//	convexHull.push_back(v[p]);
+		//	used[p] = true;
+		//}
+
+		p = q;
+		convexHull.push_back(v[p]);
+		used[p] = true;
 
 		if (p == minYid)
 		{
@@ -69,9 +73,9 @@ std::vector<Vertex> ConvexHull::calculateConvexHull(std::vector<Vertex> v)
 	return convexHull;
 }
 
-int ConvexHull::crossProduct(Vertex p, Vertex q, Vertex r)
+float ConvexHull::crossProduct(Vertex p, Vertex q, Vertex r)
 {
-	int n = (q.getx() - p.getx()) * (r.gety() - q.gety()) - (q.gety() - p.gety()) * (r.getx() - q.getx()); // iloczyn wektorowy
+	float n = (q.getx() - p.getx()) * (r.gety() - q.gety()) - (q.gety() - p.gety()) * (r.getx() - q.getx()); // iloczyn wektorowy
 	if (n == 0) return 0; // kolinearne
 	if (n > 0) return 1; // zgodnie z ruchem wskazowek zegara
 	else return 2; // przeciwnie z ruchem wskazowek zegara
