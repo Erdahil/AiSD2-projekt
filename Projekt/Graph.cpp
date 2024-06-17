@@ -257,7 +257,7 @@ void Graph::inputGraph()
 
 	std::cout << "Czy chcesz zapisac graf?\n";
 	std::cout << "1.Tak\n";
-	std::cout << "1.Nie\n";
+	std::cout << "2.Nie\n";
 
 	int dec;
 
@@ -812,10 +812,8 @@ void Graph::drawGraph()
 		std::cerr << "Blad otwarcia pliku " << std::endl;
 		return;
 	}
-
-	std::string color = "blue";
-
 	file << "digraph G {\n";
+	file << "overlap = \"true\";\n";
 
 	for (int i = 0; i < n; i++)
 	{
@@ -841,7 +839,7 @@ void Graph::drawGraph()
 
 	file.close();
 
-	system("neato -Kfdp -n -Tpng rysunek.dot -o rysunek.png > NUL 2>&1");
+	system("neato -Kfdp -n3 -Tpng rysunek.dot -o rysunek.png > NUL 2 > &1");
 
 	system("rysunek.png");
 
