@@ -45,24 +45,39 @@ void Melody::encryptHuffman()
 			q.push(newTreeNode);
 		}
 	}
-
-	while (q.size() > 1) //laczenie drzew po dwa tak dlugo az bedzie jedno tylko
+	if (s.size() == 1)
 	{
 		TreeNode* leftTN;
 		leftTN = q.top();
 		q.pop();
 
-		TreeNode* rightTN;
-		rightTN = q.top();
-		q.pop();
-
-
 		TreeNode* newTN = new TreeNode();
 		newTN->setc('-');
-		newTN->setn(leftTN->getn() + rightTN->getn());
+		newTN->setn(leftTN->getn());
 		newTN->setLeft(leftTN);
-		newTN->setRight(rightTN);
+		newTN->setRight(nullptr);
 		q.push(newTN);
+	}
+	else
+	{
+		while (q.size() > 1) //laczenie drzew po dwa tak dlugo az bedzie jedno tylko
+		{
+			TreeNode* leftTN;
+			leftTN = q.top();
+			q.pop();
+
+			TreeNode* rightTN;
+			rightTN = q.top();
+			q.pop();
+
+
+			TreeNode* newTN = new TreeNode();
+			newTN->setc('-');
+			newTN->setn(leftTN->getn() + rightTN->getn());
+			newTN->setLeft(leftTN);
+			newTN->setRight(rightTN);
+			q.push(newTN);
+		}
 	}
 
 	root = q.top();
@@ -80,6 +95,7 @@ void Melody::encryptHuffman()
 
 void Melody::makeHuffmanMap(TreeNode* temp)
 {
+	if (!temp) return;
 
 	if (temp->getc() == '-')
 	{
@@ -90,10 +106,8 @@ void Melody::makeHuffmanMap(TreeNode* temp)
 	}
 	else
 	{
-
 		mp[temp->getc()] = mapTemp;
 	}
-
 
 	if (mapTemp.size() > 0)//wykona siê raz wiêcej - bo te¿ dla pierwszego wêz³a na koniec jak string ju¿ jest pusty
 	{
@@ -131,10 +145,8 @@ void Melody::deleteHuffmanTree(TreeNode* del)//wywolywane potem w destruktorze k
 {
 	if (del)
 	{
-		std::cout << "l ";
 		deleteHuffmanTree(del->getLeft());
 		deleteHuffmanTree(del->getRight());
-		std::cout << "r\n";
 		delete del;
 	}
 }
