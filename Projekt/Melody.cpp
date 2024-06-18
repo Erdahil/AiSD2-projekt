@@ -30,6 +30,15 @@ void Melody::encryptHuffman()
 		t[s[i] - 'a']++;
 	}
 
+	int counter = 0;
+	for (int i = 0; i < 26; i++)//zerowanie tablicy
+	{
+		if (t[i] != 0)
+		{
+			counter++;
+		}
+	}
+
 
 	std::priority_queue<TreeNode*, std::vector<TreeNode*>, QueueComparator> q;//tworzenie kolejki priorytertowej
 
@@ -45,7 +54,7 @@ void Melody::encryptHuffman()
 			q.push(newTreeNode);
 		}
 	}
-	if (s.size() == 1)
+	if (counter == 1)
 	{
 		TreeNode* leftTN;
 		leftTN = q.top();
