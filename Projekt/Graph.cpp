@@ -170,7 +170,7 @@ void Graph::inputGraph()
 	v.resize(n);
 	for (int i = 0; i < v.size(); i++)//wpisanie wszystkich wierzcholkow
 	{
-		int x, y;
+		float x, y;
 		std::cout << "Podaj koordynaty wierzcholka o id: " << i << '\n';
 		while (!(std::cin >> x >> y))
 		{
