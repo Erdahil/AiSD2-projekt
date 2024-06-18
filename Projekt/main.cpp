@@ -313,9 +313,12 @@ int main()
 
 						for (int i = 0; i < result.size(); i++)
 						{
-							for (int j = 0; j < pattern.size(); j++)
+							if (pattern[0] == newMelody[result[i]])
 							{
-								newMelody[result[i] + j] = newPattern[j];
+								for (int j = 0; j < pattern.size(); j++)
+								{
+									newMelody[result[i] + j] = newPattern[j];
+								}
 							}
 						}
 						m1.setMelody(newMelody);
