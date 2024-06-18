@@ -674,12 +674,8 @@ void Graph::guardShedule(std::vector<Vertex> convexHull)
 			{
 				currentlyConsidered.push(std::make_pair(currentV + j, convexHull[currentV + j].getBrightness()));
 			}
-			std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, queueComparator> consideredIfBrighter = currentlyConsidered;
-
 
 			bool empty = true;
-
-
 			int oldBrightness = currentBrightness;
 			bool emptyTemp = false;
 
